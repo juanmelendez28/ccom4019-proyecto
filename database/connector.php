@@ -1,7 +1,6 @@
 <?php
 
-require_once('util/exceptions.php');
-define('CONFIG', require_once('../util/config.php'));
+
 
 /**
  * This class is used to connect to the database using PDO.
