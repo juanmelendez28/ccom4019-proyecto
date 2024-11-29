@@ -12,7 +12,7 @@ return [
         'service' => 'mysql',
         'host' => '127.0.0.1',
         'port' => 3306,
-        'dbname' => 'Electivas UPRA',
+        'dbname' => 'ccom4019',
         'user' => 'root',
         'pass' => '', // change the password to your own (default is empty)
     ]

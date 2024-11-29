@@ -1,6 +1,5 @@
 <?php
 
-require_once '../database/connector.php';
 
 /**
  * Model Class
