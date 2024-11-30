@@ -7,7 +7,10 @@
     require_once('util/exceptions.php');
     require_once('util/helpers.php');
     define('CONFIG', require_once('util/config.php'));
-    
+
+    include("./courses.html");
 
     echo '<h1>Printing All Users</h1>';
     dd(User::all());
+    
+?>
