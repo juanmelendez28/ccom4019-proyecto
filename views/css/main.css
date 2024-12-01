@@ -1,0 +1,27 @@
+/* Default Styles that main components and elements should inherit for styling
+    Separate any custom class names, animations, media queries, on separate specific files.
+*/
+
+:root{
+    --text-font: "Geist", sans-serif;;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: var(--text-font);
+}
+
+a{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+footer{
+    background-color: yellow;
+    color: black;
+    padding: 15px;
+}

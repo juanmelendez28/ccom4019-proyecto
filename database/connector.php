@@ -90,9 +90,7 @@ final class DB
     public static function whereAll(string $table, string $where, string $equal, string $column = '*'): array
     {
 
-        $sql = 'SELECT ' . $column . ' FROM ' . self::$database_name . '.' . $table . ' WHERE ' . $where . ' = ' . $equal;
-
-
+        $sql = 'SELECT ' . $column . ' FROM ' . self::$database_name . '.' . $table . ' WHERE ' . $where . ' = ' . quote($equal);
         $statement = self::$database->prepare($sql);
         $statement->execute();
         return $statement->fetchAll();
@@ -122,7 +120,7 @@ final class DB
 
         $operator = in_array($operator, ['=', '>', '<', '>=', '<=', '!=']) ? $operator : '=';
         $sql = 'SELECT ' . $column . ' FROM ' . self::$database_name . '.' . $table . ' WHERE ' . $where . ' ' . $operator . ' :equal';
-
+        
 
         // Preparar la consulta SQL
         $statement = self::$database->prepare($sql);
@@ -314,7 +312,6 @@ final class DB
     public static function get_columns(string $table): array
     {
         $sql = 'SHOW COLUMNS FROM ' . $table;
-        // dd($sql);
         $statement = self::$database->prepare($sql);
 
         $statement->execute();
