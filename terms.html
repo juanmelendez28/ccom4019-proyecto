@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="courses.css">
+    <title>UPRA Free Electives</title>
+</head>
+<body>
+    <!-- Only users that are logged in should have access to this page,
+         but only admins can perform most CRUD operations. -->
+    <header>
+        <h1>Free Electives - Terms</h1>
+    </header>
+    <main>
+        <table id="tblTerms">
+            <caption>Terms</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Term ID</th>
+                    <th scope="col">Term Description</th>
+                </tr>
+            </thead>
+            <!-- Reverse chronological (alphabetical?) order -->
+            <tbody>
+                <tr id="termActive">
+                    <td>C42</td>
+                    <td>2024-2025 Second Semester</td>
+                </tr>
+                <tr>
+                    <td>C41</td>
+                    <td>2024-2025 First Semester</td>
+                </tr>
+                <tr>
+                    <td>C33</td>
+                    <td>2023-2024 Summer</td>
+                </tr>
+                <tr>
+                    <td>C32</td>
+                    <td>2023-2024 Second Semester</td>
+                </tr>
+                <tr>
+                    <td>C31</td>
+                    <td>2023-2024 First Semester</td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2024 - University of Puerto Rico at Arecibo</p>
+    </footer>
+</body>
+</html>

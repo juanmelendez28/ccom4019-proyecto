@@ -7,8 +7,12 @@
     <title>UPRA Free Electives</title>
 </head>
 <body>
+    <!-- This page is very similar to courses.html, except it only shows courses
+         that are in the term_offering table.  Furthermore, logged in users can only
+         perform CRUD operations on the offering for their department, unless admin. -->
     <header>
-        <h1>Free Electives - Courses</h1>
+        <h1>Free Electives - Offering</h1>
+        <h2>2024-2025 Second Semester (C42)</h2> <!-- Corresponds to active term -->
     </header>
     <main>
         <table id="tblCourses">
@@ -21,7 +25,8 @@
                     <th scope="col">Description</th>
                 </tr>
             </thead>
-            <!-- User should only see courses in their department, unless admin. -->
+            <!-- Visitors should see everything.  Logged in users can only
+                 perform CRUD for courses in their department, unless admin. -->
             <!-- Biology -->
             <tbody>
                 <tr><th colspan="4" scope="rowgroup">Biology</th></tr>
@@ -52,12 +57,6 @@
                     <td><span id="ESPA3007_desc" class="course_desc" title="Description of ESPA3007">ⓘ</span></td>
                 </tr>
                 <tr>
-                    <td>Literatura Sacra y Religión</td>
-                    <td><span aria-describedby="ESPA3136_desc">ESPA3136</span></td>
-                    <td>3</td>
-                    <td><span id="ESPA3136_desc" class="course_desc" title="Description of ESPA3136">ⓘ</span></td>
-                </tr>
-                <tr>
                     <td>Introducción a la Literatura Española I</td>
                     <td><span aria-describedby="ESPA3211_desc">ESPA3211</span><br><small>Pre-req.: ESPA3102, ESPA3004, ESPA3112</small></td>
                     <td>3</td>
@@ -68,18 +67,6 @@
                     <td><span aria-describedby="ESPA3212_desc">ESPA3212</span><br><small>Pre-req.: ESPA3102, ESPA3004, ESPA3112</small></td>
                     <td>3</td>
                     <td><span id="ESPA3212_desc" class="course_desc" title="Description of ESPA3212">ⓘ</span></td>
-                </tr>
-                <tr>
-                    <td>Cine y Literatura</td>
-                    <td><span aria-describedby="ESPA3305_desc">ESPA3305</span><br><small>Pre-req.: ESPA3102, ESPA3004, ESPA3112</small></td>
-                    <td>3</td>
-                    <td><span id="ESPA3305_desc" class="course_desc" title="Description of ESPA3305">ⓘ</span></td>
-                </tr>
-                <tr>
-                    <td>Literatura Puertorriqueña Compendio</td>
-                    <td><span aria-describedby="ESPA4267_desc">ESPA4267</span><br><small>Pre-req.: ESPA3102, ESPA3004, ESPA3112</small></td>
-                    <td>3</td>
-                    <td><span id="ESPA4267_desc" class="course_desc" title="Description of ESPA4267 here">ⓘ</span></td>
                 </tr>
             </tbody>
         </table>
