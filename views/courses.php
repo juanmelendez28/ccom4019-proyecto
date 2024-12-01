@@ -25,6 +25,7 @@
                 <tbody>
                     <?php
                     $courses = $department->courses();
+                    // rendering each course
                     foreach ($courses as $course) { ?>
                         <tr>
                             <td><?= $course->course_name ?></td>
