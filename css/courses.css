@@ -1,0 +1,25 @@
+main table { border: 1px gray }
+main table caption {
+    font-size: 150%;
+    font-weight: bold;
+    
+}
+main table th {
+    padding: 5px;
+    background-color: lightgray;
+    border-collapse: collapse;
+}
+
+td{
+    padding: 5px;
+    border-collapse: collapse;
+}
+
+/* Center credits and info columns */
+.tblCourses td:nth-child(3), .tblCourses td:nth-child(4) { text-align: center }
+
+span.course_desc {
+    color: orange;
+    cursor: help;
+ }
+
