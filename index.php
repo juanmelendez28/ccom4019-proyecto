@@ -7,6 +7,6 @@
     require_once('util/helpers.php');
     
 
-    include("router.php");
+    include("router.php"); // fixme
     
 ?>
