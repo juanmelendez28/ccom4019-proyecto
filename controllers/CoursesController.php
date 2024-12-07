@@ -7,7 +7,7 @@ class CoursesController extends Controller
 
     public static function index()
     {   
-        $user = User::findBy(['username' => 'jose.arbelo']); // development data
+        $user = User::findBy(['username' => 'rebeca.franqui']); // development data
         // after login works
         // $user = User::findBy(['username' => $_SESSION['username']]);
         $departments = Department::all();

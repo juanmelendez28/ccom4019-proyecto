@@ -8,7 +8,7 @@
     require_once('controllers/CoursesController.php');
     require_once('controllers/DepartmentsController.php');
     require_once('controllers/TermsController.php');
-    // require_once('controllers/UsersController.php');
+    require_once('controllers/UsersController.php');
     
     // this will be the page the user lands in, and by default will show the available courses
     // without any ability to modify anything
@@ -17,6 +17,8 @@
         DepartmentsController::index();
     } elseif (isset($_GET['terms'])) {
         TermsController::index(); 
+    } elseif (isset($_GET['users'])) {
+        UsersController::index(); 
     } else {
         CoursesController::index(); 
     }
