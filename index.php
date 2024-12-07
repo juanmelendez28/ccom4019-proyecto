@@ -5,8 +5,29 @@
     define('CONFIG', require_once('util/config.php'));
     require_once('util/exceptions.php');
     require_once('util/helpers.php');
+    require_once('controllers/CoursesController.php');
+    require_once('controllers/DepartmentsController.php');
+    // require_once('controllers/TermsController.php');
+    // require_once('controllers/UsersController.php');
     
+    // this will be the page the user lands in, and by default will show the available courses
+    // without any ability to modify anything
 
-    include("router.php"); // fixme
+    if (isset($_GET['departments'])) {
+        DepartmentsController::index();
+    } else {
+        CoursesController::index(); 
+    }
+    // there will be a login button in the header that will allow users with accounts to log in
+    // and they will have certain permissions depending on their role
+
+    // admins can CRUD on any table
+
+    // other users can only CRUD on tables of their department
+
+
+
+    // include("router.php"); // we might not need the router at all 
+    // if we just use the index as a router/controller
     
 ?>

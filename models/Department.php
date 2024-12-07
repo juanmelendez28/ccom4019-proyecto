@@ -5,7 +5,7 @@ require_once 'models/Course.php';
 class Department extends Model
 {
     protected static $primary_key = 'dept_id';
-
+    protected static $table = 'departments';
 
 
     /**

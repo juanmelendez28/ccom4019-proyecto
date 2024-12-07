@@ -12,3 +12,21 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
 </head>
+<body>
+    <nav>
+        <ul>
+            <a href="index.php">
+                <li>Courses</li>
+            </a>
+            <a href="index.php?departments">
+                <li>Departments</li>
+            </a>
+            <a href="index.php">
+                <li>Terms</li>
+            </a>
+            <a href="index.php">
+                <li>Users</li>
+            </a>
+        </ul>
+    </nav>
+</body>
