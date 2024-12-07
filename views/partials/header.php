@@ -21,10 +21,10 @@
             <a href="index.php?departments">
                 <li>Departments</li>
             </a>
-            <a href="index.php">
+            <a href="index.php?terms">
                 <li>Terms</li>
             </a>
-            <a href="index.php">
+            <a href="index.php?users">
                 <li>Users</li>
             </a>
         </ul>
