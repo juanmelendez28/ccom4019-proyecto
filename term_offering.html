@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="courses.css">
+    <title>UPRA Free Electives</title>
+</head>
+<body>
+    <!-- This page is very similar to courses.html, except it only shows courses
+         that are in the term_offering table.  Furthermore, logged in users can only
+         perform CRUD operations on the offering for their department, unless admin. -->
+    <header>
+        <h1>Free Electives - Offering</h1>
+        <h2>2024-2025 Second Semester (C42)</h2> <!-- Corresponds to active term -->
+    </header>
+    <main>
+        <table id="tblCourses">
+            <caption>Courses</caption>
+            <thead>
+                <tr>
+                    <th scope="col">Course name</th>
+                    <th scope="col">Course code</th>
+                    <th scope="col">Credits</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <!-- Visitors should see everything.  Logged in users can only
+                 perform CRUD for courses in their department, unless admin. -->
+            <!-- Biology -->
+            <tbody>
+                <tr><th colspan="4" scope="rowgroup">Biology</th></tr>
+                <tr>
+                    <td>Ciencia Ambiental</td>
+                    <td><span aria-describedby="BIOL4055_desc">BIOL4055</span></td>
+                    <td>3</td>
+                    <td><span id="BIOL4055_desc" class="course_desc" title="Description of BIOL4055">ⓘ</span></td>
+                </tr>
+            </tbody>
+            <!-- Computer Science -->
+            <tbody>
+                <tr><th colspan="4" scope="rowgroup">Computer Science</th></tr>
+                <tr>
+                    <td>Programación Aplicada</td>
+                    <td><span aria-describedby="SICI3028_desc">SICI3028</span></td>
+                    <td>3</td>
+                    <td><span id="SICI3028_desc" class="course_desc" title="Este curso provee los conocimientos teóricos y destrezas prácticas para hacer uso eficiente de tres tipos principales de aplicaciones usadas frecuentemente en los negocios: Procesadores de texto, hojas de cálculo y preparación de presentaciones y otros tipos de programas.">ⓘ</span></td>
+                </tr>
+            </tbody>
+            <!-- Spanish -->
+            <tbody>
+                <tr><th colspan="4" scope="rowgroup">Spanish</th></tr>
+                <tr>
+                    <td>Comunicación Oral</td>
+                    <td><span aria-describedby="ESPA3007_desc">ESPA3007</span><br><small>Pre-req.: ESPA3102, ESPA3004, ESPA3112</small></td>
+                    <td>3</td>
+                    <td><span id="ESPA3007_desc" class="course_desc" title="Description of ESPA3007">ⓘ</span></td>
+                </tr>
+                <tr>
+                    <td>Introducción a la Literatura Española I</td>
+                    <td><span aria-describedby="ESPA3211_desc">ESPA3211</span><br><small>Pre-req.: ESPA3102, ESPA3004, ESPA3112</small></td>
+                    <td>3</td>
+                    <td><span id="ESPA3211_desc" class="course_desc" title="Description of ESPA3211">ⓘ</span></td>
+                </tr>
+                <tr>
+                    <td>Introducción a la Literatura Española II</td>
+                    <td><span aria-describedby="ESPA3212_desc">ESPA3212</span><br><small>Pre-req.: ESPA3102, ESPA3004, ESPA3112</small></td>
+                    <td>3</td>
+                    <td><span id="ESPA3212_desc" class="course_desc" title="Description of ESPA3212">ⓘ</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2024 - University of Puerto Rico at Arecibo</p>
+    </footer>
+</body>
+</html>
