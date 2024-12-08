@@ -38,6 +38,17 @@ class DatabaseConnectionException extends Exception
     }
 }
 
+class MissingKeysException extends Exception
+{
+    public $missing_keys;
+    
+    public function __construct($message = "", $code = 0, Throwable $previous = null , $missing_keys = [])
+    {
+        $this->missing_keys = $missing_keys;
+        parent::__construct($message, $code, $previous);
+    }
+}
+
 
 /**
  * Custom exception handler to catch and display errors in a user-friendly way.
