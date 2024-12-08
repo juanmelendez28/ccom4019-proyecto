@@ -114,10 +114,3 @@ function parseBBCode($text, $required)
     return $result;
 }
 
-// require all unkeyed values and a value called 'Prerrequisitos'
-$parsed = parseBBCode($value, ['unkeyed', 'Prerrequisitos']);
-
-if (isset($parsed) && $parsed !== false) {
-    echo '<pre>' . json_encode($parsed, JSON_PRETTY_PRINT) . '</pre>';
-    $_SESSION['success'] = 'Se ha actualizado la descripción del curso con éxito';
-}
