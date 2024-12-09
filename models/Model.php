@@ -168,6 +168,7 @@ class Model
      */
     public static function findBy(array $data): Model
     {
+        //TODO: Ask Ricardo how the exception works and how to modify it
         self::init();
         $data = DB::whereColumns(static::$table, $data);
 
