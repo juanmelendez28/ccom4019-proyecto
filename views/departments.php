@@ -3,9 +3,6 @@
 <?php require_once 'partials/header.php'; ?>
 
 <body>
-    <header>
-        <h1>Free Electives</h1>
-    </header>
     <main>
         <!-- Dynamic table of departments -->
         <table class="tblCourses">

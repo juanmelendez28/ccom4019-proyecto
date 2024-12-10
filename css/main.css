@@ -18,10 +18,44 @@ body{
 a{
     cursor: pointer;
     text-decoration: none;
+    color: black;
 }
 
 footer{
     background-color: yellow;
     color: black;
-    padding: 15px;
+    border-radius: 15px;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+header {
+    background-color: yellow;
+    border-radius: 15px;
+    border: 1px solid black;
+    padding: 10px;
+    margin: 10px;
+}
+
+header li {
+    display: inline;
+    background-color: lightgray;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+header li:hover {
+    background-color: gray;
+}
+
+.activeTerm {
+    font-weight: bolder;
+    color: green;
+    background-color: aquamarine;
+}
+
+table {
+    margin: 10px;
 }
