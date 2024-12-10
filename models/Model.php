@@ -235,7 +235,6 @@ class Model
      */
     public function update(array $data): bool
     {
-
         foreach ($data as $key => $value) {
             if (!array_key_exists($key, $this->attributes)) {
                 continue;
