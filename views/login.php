@@ -20,6 +20,8 @@
             <input type="password" id="password" name="pass" required><br><br>
             <input type="submit" value="Submit">
         </form> 
+        <br>
+        <a href="index.php/courses"><button>Back to courses</button></a>
     </main>
     <footer>
         <p>&copy; 2024 - University of Puerto Rico at Arecibo</p>

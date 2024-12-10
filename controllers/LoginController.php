@@ -19,8 +19,8 @@ class LoginController extends Controller
 
         // $users = User::all();
         // foreach($users as $user){
-        //     $hashed = password_hash($user->__get('password'), PASSWORD_DEFAULT);
-        //     // print($hashed);
+        //     $hashed = password_hash("password", PASSWORD_DEFAULT);
+        //     print($hashed);
         //     $user->update(['password' => $hashed]);
         // }
 
@@ -44,8 +44,8 @@ class LoginController extends Controller
         }
         else
         {
-            CoursesController::index();
-            // LoginController::index();
+            // CoursesController::index();
+            LoginController::index();
         }
         
     }
@@ -53,7 +53,6 @@ class LoginController extends Controller
     // method validate user
     public static function validate_password($username, $password)
     {
-        $pass_hashed = password_hash($password, PASSWORD_DEFAULT);
 
         $user = User::findBy(['username' => $username]);
         $stored_pass = $user->__get('password');
