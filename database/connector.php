@@ -249,9 +249,8 @@ final class DB
         }
 
         $sql = substr($sql, 0, -2);
-        $where = " WHERE $where = $equal";
+        $where = " WHERE $where = ". quote($equal);
         $sql .= $where;
-
 
         try {
             $stmt = self::$database->prepare($sql);
@@ -264,6 +263,7 @@ final class DB
                 $stmt->bindValue(":$key", $value, $pdo_param);
             }
 
+            // dd($stmt, $data);
             // Execute the statement
             return $stmt->execute();
         } catch (PDOException $e) {

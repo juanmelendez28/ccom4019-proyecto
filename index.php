@@ -9,19 +9,27 @@
     require_once('controllers/DepartmentsController.php');
     require_once('controllers/TermsController.php');
     require_once('controllers/UsersController.php');
+    require_once('controllers/LoginController.php');
     
     // this will be the page the user lands in, and by default will show the available courses
     // without any ability to modify anything
 
-    if (isset($_GET['departments'])) {
-        DepartmentsController::index();
-    } elseif (isset($_GET['terms'])) {
-        TermsController::index(); 
-    } elseif (isset($_GET['users'])) {
-        UsersController::index(); 
-    } else {
-        CoursesController::index(); 
+    if (isset($_POST['debug']) or isset($_GET))
+    {
+        if (isset($_GET['departments'])) {
+            DepartmentsController::index();
+        } elseif (isset($_GET['terms'])) {
+            TermsController::index(); 
+        } elseif (isset($_GET['users'])) {
+            UsersController::index(); 
+        } elseif($_POST['debug'] === "login") {
+            LoginController::user_login();
+        } else {
+            CoursesController::index(); 
+        }
     }
+    else
+        LoginController::index();
     // there will be a login button in the header that will allow users with accounts to log in
     // and they will have certain permissions depending on their role
 
