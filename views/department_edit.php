@@ -6,20 +6,16 @@
     <?php
 
         if ($_GET['edit'] && $_SERVER['REQUEST_METHOD'] != 'POST') {
-            require_once 'models/Course.php';
-            $course_id = $_GET['edit'];
-            $course = Course::find($course_id); ?>
+            require_once 'models/Department.php';
+            $department_id = $_GET['edit'];
+            $department = Department::find($department_id); ?>
 
             <form class="form" action="#" method="post">
-                <input type="hidden" name="id" value="<?= $course->course_id ?>">
-                <label for="name">Course name</label>
-                <input type="text" name="name" value="<?= $course->course_name ?>">
-                <label for="code">Course code</label>
-                <input disabled type="text" name="code" value="<?= $course->course_id ?>">
-                <label for="credits">Credits</label>
-                <input type="number" name="credits" value="<?= $course->course_credits ?>">
-                <label for="desc">Description</label>
-                <input type="text" name="desc" value="<?= $course->course_desc ?>">
+                <input type="hidden" name="id" value="<?= $department->dept_id ?>">
+                <label for="name">Department name</label>
+                <input type="text" name="name" value="<?= $department->dept_name ?>">
+                <label for="code">Department code</label>
+                <input disabled type="text" name="code" value="<?= $department->dept_id ?>">
                 <input type="submit" value="Update">
             </form>
 
@@ -27,27 +23,22 @@
 
         } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $course_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+            $department_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
             $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
-            $credits = filter_input(INPUT_POST, 'credits', FILTER_VALIDATE_INT);
-            $desc = filter_input(INPUT_POST, 'desc', FILTER_DEFAULT);
 
-            $course = Course::find($course_id);
+            $department = Department::find($department_id);
 
-            if (empty($name) || empty($credits) || empty($desc)) {
+            if (empty($name)) {
                 $_SESSION['error'] = 'All fields are required';
             } else {
-            // this will update and save the course new information
-            $success = $course->update([
-                'course_name' => $name,
-                'course_credits' => $credits,
-                'course_desc' => $desc,
-                'updated_by' => 'admin', // replace this with the logged user
-                'updated_at' => date('Y-m-d H:i:s')
+            // this will update and save the department new information
+            $success = $department->update([
+                'dept_name' => $name,
             ]);
 
-            $success ? $_SESSION['success'] = 'Changed course information successfully' : $_SESSION['error'] = 'Failed to change course information';
-            require_once 'views/courses.php';
+            $success ? $_SESSION['success'] = 'Changed department information successfully' : $_SESSION['error'] = 'Failed to change department information';
+            $departments = Department::all();
+            require_once 'views/departments.php';
             }
         }
     ?>

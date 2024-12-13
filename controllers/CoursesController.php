@@ -12,11 +12,11 @@ class CoursesController extends Controller
         } elseif(isset($_GET['delete'])) {
 
         } else {
-        $user = User::findBy(['username' => 'admin']); // development data
-        // after login works
-        // $user = User::findBy(['username' => $_SESSION['username']]);
-        $departments = Department::all();
-        require_once 'views/courses.php';
+            $user = User::findBy(['username' => 'admin']); // development data
+            // after login works
+            // $user = User::findBy(['username' => $_SESSION['username']]);
+            $departments = Department::all();
+            require_once 'views/courses.php';
         }
     }
 
