@@ -5,21 +5,42 @@
 <body>
     <?php
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if ($_GET['edit']) {
+            require_once 'models/Course.php';
+            $course_id = $_GET['edit'];
+            $course = Course::find($course_id); ?>
 
+            <form class="form" action="#" method="post">
+                <input type="hidden" name="id" value="<?= $course->course_id ?>">
+                <label for="name">Course name</label>
+                <input type="text" name="name" value="<?= $course->course_name ?>">
+                <label for="code">Course code</label>
+                <input disabled type="text" name="code" value="<?= $course->course_id ?>">
+                <label for="credits">Credits</label>
+                <input type="number" name="credits" value="<?= $course->course_credits ?>">
+                <label for="desc">Description</label>
+                <input type="text" name="desc" value="<?= $course->course_desc ?>">
+                <input type="submit" value="Update">
+            </form>
 
-        require_once 'models/Course.php';
+        <?php
 
-        $course_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
-        $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
-        $credits = filter_input(INPUT_POST, 'credits', FILTER_VALIDATE_INT);
-        $desc = filter_input(INPUT_POST, 'desc', FILTER_DEFAULT);
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        if (empty($name) || empty($credits) || empty($desc)) {
-            $_SESSION['error'] = 'All fields are required';
-        } else {
+            
 
-            $course = Course::find($course_id);
+            
+
+            // $course_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+            // $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
+            // $credits = filter_input(INPUT_POST, 'credits', FILTER_VALIDATE_INT);
+            // $desc = filter_input(INPUT_POST, 'desc', FILTER_DEFAULT);
+
+            // if (empty($name) || empty($credits) || empty($desc)) {
+            //     $_SESSION['error'] = 'All fields are required';
+            // } else {
+
+            
 
             // this will update and save the course new information
             $success = $course->update([
@@ -34,7 +55,6 @@
 
             $success ? $_SESSION['success'] = 'Changed course information successfully' : $_SESSION['error'] = 'Failed to change course information';
         }
-    }
     ?>
 
     <!-- this has a temporary css (move to a css file) -->
@@ -178,18 +198,7 @@
     <?php endif; ?>
 
 
-    <form class="form" action="#" method="post">
-        <input type="hidden" name="id" value="<?= $course->course_id ?>">
-        <label for="name">Course name</label>
-        <input type="text" name="name" value="<?= $course->course_name ?>">
-        <label for="code">Course code</label>
-        <input disabled type="text" name="code" value="<?= $course->course_id ?>">
-        <label for="credits">Credits</label>
-        <input type="number" name="credits" value="<?= $course->course_credits ?>">
-        <label for="desc">Description</label>
-        <input type="text" name="desc" value="<?= $course->course_desc ?>">
-        <input type="submit" value="Update">
-    </form>
+
 
 </body>
 

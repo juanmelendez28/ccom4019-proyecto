@@ -13,7 +13,7 @@
     </header>
     <main>
         <form action="./login" method="POST">
-            <input type="hidden" name="debug" value="login">
+            <input type="hidden" name="path" value="login">
             <label for="username">Username:</label><br>
             <input type="username" id="username" name="username" required><br>
             <label for="password">Password:</label><br>
@@ -21,7 +21,7 @@
             <input type="submit" value="Submit">
         </form> 
         <br>
-        <a href="index.php/courses"><button>Back to courses</button></a>
+        <a href="index.php?courses"><button>Back to courses</button></a>
     </main>
     <footer>
         <p>&copy; 2024 - University of Puerto Rico at Arecibo</p>

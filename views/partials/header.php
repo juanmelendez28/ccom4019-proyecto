@@ -15,9 +15,10 @@
 <body>
     <header>
         <h1>Free Electives</h1>
+        <a href="login.php"><button class="loginButton">Login</button></a>
         <nav>
             <ul>
-                <a href="index.php">
+                <a href="index.php?courses">
                     <li>Courses</li>
                 </a>
                 <a href="index.php?departments">

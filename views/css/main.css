@@ -25,3 +25,11 @@ footer{
     color: black;
     padding: 15px;
 }
+
+.loginButton {
+    float: right;
+}
+
+table {
+    width: 90%;
+}

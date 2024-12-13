@@ -29,8 +29,8 @@
                             <td><?= $course->course_credits ?></td>
                             <td><span id="<?= $course->course_code ?>_desc" class="course_desc" title="<?= $course->course_desc ?>"><?= $course->course_desc ?></span></td>
                             <?php if ($user->role == 'admin' || $user->dept_id == $department->dept_id) { ?>
-                                <td><a href="courses/edit/<?= $course->course_id ?>">Edit</a></td>
-                                <td><a href="courses/delete/<?= $course->course_id ?>">Delete</a></td>
+                                <td><a href="index.php?courses&edit=<?= $course->course_id ?>"><button>Edit</button></a></td>
+                                <td><a href="index.php?courses&delete=<?= $course->course_id ?>"><button>Delete</button></a></td>
                             <?php } ?>
                         </tr>
                     <?php } ?>
