@@ -28,7 +28,7 @@
         } elseif($_POST['debug'] === "login") {
             LoginController::user_login(); 
         }  else {
-            CoursesController::index();
+            TermOfferingController::index();
         }
     }
     else
