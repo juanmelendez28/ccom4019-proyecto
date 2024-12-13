@@ -5,3 +5,4 @@ class Term extends Model
 {
     protected static $table = 'terms';
 }
+?>

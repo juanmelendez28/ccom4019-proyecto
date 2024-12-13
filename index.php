@@ -8,6 +8,7 @@
     require_once('controllers/CoursesController.php');
     require_once('controllers/DepartmentsController.php');
     require_once('controllers/TermsController.php');
+    require_once('controllers/TermOfferingController.php');
     require_once('controllers/UsersController.php');
     require_once('controllers/LoginController.php');
     
@@ -22,10 +23,12 @@
             TermsController::index(); 
         } elseif (isset($_GET['users'])) {
             UsersController::index(); 
-        } elseif($_POST['debug'] === "login") {
-            LoginController::user_login();
-        } else {
+        } elseif (isset($_GET['courses'])) {
             CoursesController::index(); 
+        } elseif($_POST['debug'] === "login") {
+            LoginController::user_login(); 
+        }  else {
+            CoursesController::index();
         }
     }
     else

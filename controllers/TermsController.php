@@ -1,9 +1,10 @@
 <?php
 require_once 'Controller.php';
-require_once 'models/Course.php';
 require_once 'models/User.php';
 require_once 'models/Department.php';
 require_once 'models/Term.php';
+require_once 'models/Term_Offering.php';
+require_once 'controllers/CoursesController.php';
 
 class TermsController extends Controller
 {
@@ -18,3 +19,4 @@ class TermsController extends Controller
         
     }
 }
+?>

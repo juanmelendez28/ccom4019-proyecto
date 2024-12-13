@@ -21,4 +21,8 @@ class Department extends Model
             return [];
         }
     }
+    // public function term_courses()
+    // {
+
+    // }
 }

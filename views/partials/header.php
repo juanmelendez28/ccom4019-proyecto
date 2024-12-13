@@ -17,7 +17,7 @@
         <h1>Free Electives</h1>
         <nav>
             <ul>
-                <a href="index.php">
+                <a href="index.php?courses">
                     <li>Courses</li>
                 </a>
                 <a href="index.php?departments">
