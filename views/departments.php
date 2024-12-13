@@ -12,7 +12,6 @@
                     <th scope="col">Department code</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -21,9 +20,8 @@
                         <td><?= $department->dept_name ?></td>
                         <td><span aria-describedby="<?= $department->dept_id ?>_desc"><?= $department->dept_id ?></span></td>
                         <?php if ($user->role == 'admin') { ?>
-                            <td><a href="departments/<?= $department->dept_id ?>">Edit</a></td>
-                            <td><a href="departments/<?= $department->dept_id ?>">Update</a></td>
-                            <td><a href="departments/<?= $department->dept_id ?>">Delete</a></td>
+                            <td><a href="index.php?departments&edit=<?= $department->dept_id ?>">Edit</a></td>
+                            <td><a href="index.php?departments&delete=<?= $department->dept_id ?>">Delete</a></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>

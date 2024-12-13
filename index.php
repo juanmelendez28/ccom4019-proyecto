@@ -15,17 +15,21 @@
     // this will be the page the user lands in, and by default will show the available courses
     // without any ability to modify anything
 
-    if (isset($_POST['debug']) or isset($_GET))
+    //dd($_GET);
+
+    if (isset($_POST['path']) or isset($_GET['courses']) or 
+        isset($_GET['departments']) or isset($_GET['terms']) or isset($_GET['users']))
     {
-        if (isset($_GET['departments'])) {
+        if (isset($_GET['courses'])) {
+            CoursesController::index();
+        } elseif (isset($_GET['departments'])) {
             DepartmentsController::index();
         } elseif (isset($_GET['terms'])) {
             TermsController::index(); 
         } elseif (isset($_GET['users'])) {
             UsersController::index(); 
         } elseif (isset($_GET['courses'])) {
-            CoursesController::index(); 
-        } elseif($_POST['debug'] === "login") {
+        } elseif($_POST['path'] === "login") {
             LoginController::user_login(); 
         }  else {
             TermOfferingController::index();

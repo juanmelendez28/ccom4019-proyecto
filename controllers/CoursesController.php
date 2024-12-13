@@ -7,12 +7,17 @@ class CoursesController extends Controller
 
     public static function index()
     {   
-        $user = User::findBy(['username' => 'admin']); // development data
-        // after login works
-        // $user = User::findBy(['username' => $_SESSION['username']]);
-        $departments = Department::all();
-        require_once 'views/courses.php';
-        
+        if(isset($_GET['edit'])) {
+            CoursesController::viewEditCourse();
+        } elseif(isset($_GET['delete'])) {
+
+        } else {
+            $user = User::findBy(['username' => 'admin']); // development data
+            // after login works
+            // $user = User::findBy(['username' => $_SESSION['username']]);
+            $departments = Department::all();
+            require_once 'views/courses.php';
+        }
     }
 
     public static function viewEditCourse()
@@ -33,5 +38,6 @@ class CoursesController extends Controller
         $departments = Department::all();
         require_once 'views/courses.php';
         
-    }
+    } // cuando vaya a hacer la funcion de delete, y en la de edit tambien 
+    // hay que anadirlo, hacer lo de post redirect get para que no te pregunte el resubmission
 }

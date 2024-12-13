@@ -15,7 +15,6 @@
                     <th scope="col">Last Login</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +27,6 @@
                         <td><?= $user->last_login ?></td>
                         <?php if ($currentUser->role == 'admin') { ?>
                             <td><a href="users/<?= $user->user_id ?>">Edit</a></td>
-                            <td><a href="users/<?= $user->user_id ?>">Update</a></td>
                             <td><a href="users/<?= $user->user_id ?>">Delete</a></td>
                         <?php } ?>
                     </tr>

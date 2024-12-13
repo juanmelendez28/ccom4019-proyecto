@@ -21,9 +21,9 @@
                         <td><?= $term->term_id ?></td>
                         <td><span aria-describedby="<?= $term->term_id ?>_desc"><?= $term->term_desc ?></span></td>
                         <?php if ($user->role == 'admin') { ?>
-                            <td><a href="terms/<?= $term->term_id ?>">Edit</a></td>
-                            <td><a href="terms/<?= $term->term_id ?>">Update</a></td>
-                            <td><a href="terms/<?= $term->term_id ?>">Delete</a></td>
+                            <td><a href="index.php?terms&edit=<?= $term->term_id ?>">Edit</a></td>
+                            <td><a href="index.php?terms&delete=<?= $term->term_id ?>">Delete</a></td>
+                            <td><a href="index.php?terms&activate=<?= $term->term_id ?>">Activate</a></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>

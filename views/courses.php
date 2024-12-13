@@ -5,7 +5,10 @@
 <body>
     <main>
         <!-- Dynamic table of department and its courses -->
-        <?php foreach ($departments as $department) { ?>
+        <?php foreach ($departments as $department) { 
+                $courses = $department->courses();
+                if ($courses != []) {
+                    ?>
             <table class="tblCourses">
                 <caption><?= $department->dept_name ?></caption>
                 <thead>
@@ -20,20 +23,19 @@
                 </thead>
                 <tbody>
                     <?php
-                    $courses = $department->courses();
-                    // rendering each course
-                    foreach ($courses as $course) { ?>
-                        <tr>
-                            <td><?= $course->course_name ?></td>
-                            <td><span aria-describedby="<?= $course->course_id ?>_desc"><?= $course->course_id ?></span></td>
-                            <td><?= $course->course_credits ?></td>
-                            <td><span id="<?= $course->course_code ?>_desc" class="course_desc" title="<?= $course->course_desc ?>"><?= $course->course_desc ?></span></td>
-                            <?php if ($user->role == 'admin' || $user->dept_id == $department->dept_id) { ?>
-                                <td><a href="courses/edit/<?= $course->course_id ?>">Edit</a></td>
-                                <td><a href="courses/delete/<?= $course->course_id ?>">Delete</a></td>
-                            <?php } ?>
-                        </tr>
-                    <?php } ?>
+                        // rendering each course
+                        foreach ($courses as $course) { ?>
+                            <tr>
+                                <td><?= $course->course_name ?></td>
+                                <td><span aria-describedby="<?= $course->course_id ?>_desc"><?= $course->course_id ?></span></td>
+                                <td><?= $course->course_credits ?></td>
+                                <td><span id="<?= $course->course_code ?>_desc" class="course_desc" title="<?= $course->course_desc ?>"><?= $course->course_desc ?></span></td>
+                                <?php if ($user->role == 'admin' || $user->dept_id == $department->dept_id) { ?>
+                                    <td><a href="index.php?courses&edit=<?= $course->course_id ?>"><button>Edit</button></a></td>
+                                    <td><a href="index.php?courses&delete=<?= $course->course_id ?>"><button>Delete</button></a></td>
+                                <?php } ?>
+                            </tr>
+                        <?php }} ?>
                 </tbody>
             </table>
         <?php } ?>
