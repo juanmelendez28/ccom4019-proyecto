@@ -6,13 +6,12 @@ require_once 'models/Course.php';
 class CoursesController extends Controller
 {
 
-    public static function index($method)
-    {
-        if (isset($_GET['edit'])) {
-            CoursesController::update($method);
-        } elseif (isset($_GET['delete'])) {
-        } elseif (isset($_GET['create'])) {
-            CoursesController::create($method);
+    public static function index()
+    {   
+        if(isset($_GET['edit'])) {
+            CoursesController::viewEditCourse();
+        } elseif(isset($_GET['delete'])) {
+            CoursesController::viewDeleteCourse();
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
@@ -66,74 +65,36 @@ class CoursesController extends Controller
         }
     }
 
-    public static function create($method)
-    {
-        if ($method === "POST") {
-            $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
-            $code = filter_input(INPUT_POST, 'code', FILTER_DEFAULT);
-            $credits = filter_input(INPUT_POST, 'credits', FILTER_VALIDATE_INT);
-            $description = filter_input(INPUT_POST, 'description', FILTER_DEFAULT);
-            $department = filter_input(INPUT_POST, 'department', FILTER_DEFAULT);
+    public static function editCourse()
+    {   
+        $user = User::findBy(['username' => 'admin']); // development data
+        // after login works
+        // $user = User::findBy(['username' => $_SESSION['username']]);
+        $departments = Department::all();
+        require_once 'views/courses.php';
+        
+    } // cuando vaya a hacer la funcion de delete, y en la de edit tambien 
+    // hay que anadirlo, hacer lo de post redirect get para que no te pregunte el resubmission
 
-            // validate here the specific inputs
-
-            // validating for required fields
-            if (empty($name) || empty($code) || empty($credits) || empty($description) || empty($department)) {
-                $_SESSION['error'] = 'All fields are required';
-                redirect_back();
-            }
-
-            // validating for department code
-
-            // validating for department code
-            if (!is_valid_course_code($code)) {
-                dd($code, is_valid_course_code($code));
-                $_SESSION['error'] = 'The course code must be 4 uppercase letters followed by 4 digits';
-                redirect_back();
-            }
-
-            try {
-                $department = Department::find($department);
-            } catch (ModelNotFoundException $e) {
-                $_SESSION['error'] = 'The department does not exist';
-                redirect_back();
-            }
-
-            // reading the description as BBC
-            try {
-                $bbc_description = parseBBCode($description, ['unkeyed']);
-            } catch (MissingKeysException $e) {
-                $_SESSION['error'] = 'Missing keys: ' . implode(', ', $e->missing_keys);
-                redirect_back();
-            }
-
-
-
-            // Creating the course
-
-            $newCourse = Course::create([
-                'course_name' => $name,
-                'course_id' => $code,
-                'course_credits' => $credits,
-                'course_desc' => $bbc_description['unkeyed'],
-                'dept_id' => $department->dept_id,
-                'updated_by' => Auth::user()->username,
-            ]);
-
-            // Adding the prerequisite
-
-            if (in_array('Prerequisites', array_keys($bbc_description))) {
-                $prerequisites = $bbc_description['Prerequisites'];
-                foreach ($prerequisites as $prerequisite) {
-                    $newCourse->addPrerequisite($prerequisite);
-                }
-            }
-
-            $_SESSION['success'] = 'Course updated successfully';
-            redirect_back();
-        } else {
-            $departments = Department::all();
-            require_once 'views/course_create.php';
+    public static function viewDeleteCourse()
+    {   
+        $user = User::findBy(['username' => 'admin']); // development data
+        // after login works
+        // $user = User::findBy(['username' => $_SESSION['username']]);
+        $departments = Department::all();
+        if (isset($_GET['delete'])) {
+        $course = Course::findBy(['course_id' => $_GET['delete']]);
+        require_once 'views/course_delete.php';
         }
     }
+
+    public static function deleteCourse()
+    {   
+        $user = User::findBy(['username' => 'admin']); // development data
+        // after login works
+        // $user = User::findBy(['username' => $_SESSION['username']]);
+        $departments = Department::all();
+        require_once 'views/courses.php';
+        
+    } 
 }
