@@ -1,0 +1,18 @@
+<div class="nav">
+    <?php require_once 'logotype.php'; ?>
+
+    <div class="link-group">
+        <a class="<?php if (isset($_GET['courses'])) echo "selected"?>" href="index.php?courses">Courses</a>
+        <a class="<?php if (isset($_GET['departments'])) echo "selected"?>" href="index.php?departments">Departments</a>
+        <a class="<?php if (isset($_GET['users'])) echo "selected"?>" href="index.php?users">Users</a>
+        <a class="<?php if (isset($_GET['terms'])) echo "selected"?>" href="index.php?terms">Terms</a>
+    </div>
+
+    <div class="auth-profile">
+        <?php if (isset($_SESSION['user'])){ ?>
+            <a href="index.php?logout">Logout</a>
+        <?php } else { ?>
+            <a href="index.php?login">Login</a>
+        <?php } ?>
+    </div>
+</div>

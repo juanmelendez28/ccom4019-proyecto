@@ -3,7 +3,14 @@
 <?php require_once 'partials/header.php'; ?>
 
 <body>
-    <main>
+    <?php require_once 'partials/navbar.php'; ?>
+    <main class="courses-tables">
+        <div class="flex-title">
+            <h1>Terms</h1>
+            <?php if (Auth::check() && Auth::user()->role == 'admin') { ?>
+                <a class="action primary" href="index.php?terms&create">Create a term</a>
+            <?php } ?>
+        </div>
         <!-- Dynamic table of terms -->
         <table class="tblCourses">
             <thead>
@@ -29,7 +36,7 @@
                 <?php } ?>
             </tbody>
         </table>
-        
+
 
 
     </main>

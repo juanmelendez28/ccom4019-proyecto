@@ -282,6 +282,21 @@ class Model
     }
 
 
+    /**
+     * Deletes records from the associated table where the specified columns match the given values.
+     *
+     * This method uses the `removeWhere` method from the `DB` class to execute the deletion.
+     *
+     * @param array $conditions An associative array where keys are column names, and values are the values to match in the WHERE clause.
+     *
+     * @return bool Returns true if at least one record was successfully deleted, otherwise false.
+     */
+    public function deleteWhere(array $conditions): bool
+    {
+        return DB::removeWhere(static::$table, $conditions);
+    }
+
+
 
 
     /**

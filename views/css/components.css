@@ -1,9 +1,67 @@
 .form{
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    padding: 2em;
+    margin: 10px auto;
+    border: 1px solid var(--action-color);
+    max-width: 600px;
+}
+
+.form *{
+    margin: 10px 0;
+}
+
+.nav{
+    padding: 15px 30px;
+    background-color: var(--accent-300);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+}
+
+.nav .logo{
+    width: 150px;
+}
+
+.nav .link-group a{
     margin: 10px;
-    border-radius: 5px;
-    background-color: rgb(11, 9, 19);
-    color: rgb(198, 203, 228);
+    text-decoration: none;
+    color: var(--action-color);
+    font-size: 1.2em;
+    transition: all .25s ease;
+    padding: 5px 10px;
+    background-color: var(--accent-300);
+}
+
+.nav .link-group a.selected{
+    font-weight: bold;
+}
+
+.nav .link-group a:hover{
+    filter: brightness(.9);
+    color: var(--action-color-hover);
+}
+
+.auth-profile a{
+    text-decoration: none;
+    color: var(--action-color);
+    font-size: 1.2em;
+    transition: all .25s ease;
+    padding: 5px 10px;
+    background-color: var(--accent-300);
+}
+
+.auth-profile a:hover{
+    filter: brightness(.9);
+    color: var(--action-color-hover);
+}
+
+.flex-title{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 auto;
+    width: fit-content;
 }

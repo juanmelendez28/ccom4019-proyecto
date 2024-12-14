@@ -3,7 +3,14 @@
 <?php require_once 'partials/header.php'; ?>
 
 <body>
-    <main>
+<?php require_once 'partials/navbar.php'; ?>
+    <main class="courses-tables">
+    <div class="flex-title">
+            <h1>Available Departments</h1>
+            <?php if (Auth::check() && $user->role == 'admin') { ?>
+                <a class="action primary" href="index.php?departments&create">Create a department</a>
+            <?php } ?>
+        </div>
         <!-- Dynamic table of departments -->
         <table class="tblCourses">
             <thead>
