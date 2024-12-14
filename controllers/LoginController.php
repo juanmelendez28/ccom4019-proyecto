@@ -42,6 +42,11 @@ class LoginController extends Controller
         if(LoginController::validate_password($username, $password)) 
         {
             $loggedUser = User::findBy(['username' => $username]);
+            
+            $loggedUser->update([
+                'last_login' => date('Y-m-d H:i:s')
+            ]);
+
             Auth::login($loggedUser);
             
             CoursesController::index($_SERVER['REQUEST_METHOD']);
