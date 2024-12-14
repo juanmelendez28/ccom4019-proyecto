@@ -1,5 +1,7 @@
 <?php
 
+require_once 'models/User.php';
+
 final class Auth
 {
 
@@ -34,8 +36,24 @@ final class Auth
         if (!static::check()) {
             return false;
         }
-        
-        return static::user()->role == 'admin';   
+
+        return static::user()->role == 'admin';
+    }
+
+    public static function authenticate($username, $password, $autologin = false)
+    {
+        try {
+            $user = User::findBy(['username' => $username]);
+
+            if (password_verify($password, $user->__get('password')))
+                return true;
+
+            if ($autologin)
+                static::login($user);
+
+        } catch (ModelNotFoundException $e) {
+            return false;
+        }
     }
 
     /**
@@ -96,7 +114,7 @@ final class Auth
         if (!isset($_SESSION['user'])) {
             return;
         }
-        
+
         unset($_SESSION['user']);
     }
 }
