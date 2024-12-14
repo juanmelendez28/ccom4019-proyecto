@@ -7,11 +7,12 @@ class CoursesController extends Controller
 {
 
     public static function index($method)
-    {
-        if (isset($_GET['edit'])) {
+    {   
+        if(isset($_GET['edit'])) {
             CoursesController::update($method);
-        } elseif (isset($_GET['delete'])) {
-        } elseif (isset($_GET['create'])) {
+        } elseif(isset($_GET['delete'])) {
+            CoursesController::viewDeleteCourse();
+        } elseif(isset($_GET['create'])) {
             CoursesController::create($method);
         } else {
             $user = User::findBy(['username' => 'admin']); // development data

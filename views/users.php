@@ -30,7 +30,6 @@
                         <td><?= $user->username ?></td>
                         <td><?= Department::findBy(['dept_id' => $user->dept_id])->dept_name ?></td>
                         <td><?= $user->role ?></td>
-                        <td><?= $user->last_login ?></td>
                         <?php if ((Auth::checkAdmin())) { ?>
                             <td><a href="index.php?users&edit=<?= $user->username ?>">Edit</a></td>
                             <td><a href="index.php?users&delete=<?= $user->username ?>">Delete</a></td>
