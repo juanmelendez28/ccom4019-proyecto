@@ -19,7 +19,6 @@
                     <th scope="col">Username</th>
                     <th scope="col">Department</th>
                     <th scope="col">Role</th>
-                    <th scope="col">Last Login</th>
                     <th scope="col"></th>
                     <th scope="col"></th>
                 </tr>
@@ -33,8 +32,8 @@
                         <td><?= $user->role ?></td>
                         <td><?= $user->last_login ?></td>
                         <?php if ((Auth::checkAdmin())) { ?>
-                            <td><a href="users/<?= $user->user_id ?>"><i class="las la-pen"></i>Edit</a></td>
-                            <td><a href="users/<?= $user->user_id ?>"><i class="las la-trash"></i>Delete</a></td>
+                            <td><a href="index.php?users&edit=<?= $user->username ?>">Edit</a></td>
+                            <td><a href="index.php?users&delete=<?= $user->username ?>">Delete</a></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>
