@@ -26,6 +26,7 @@
                             <a class="action primary" href="index.php?courses&create=<?= $department->dept_id ?>"><i class="las la-plus-circle"></i>Create a course</a>
                         <?php } ?>
                     </div>
+                    </div>
 
                     <thead>
                         <tr>

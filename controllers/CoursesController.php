@@ -65,6 +65,85 @@ class CoursesController extends Controller
         }
     }
 
+    public static function create($method)
+    {
+        if(!Auth::check()){
+            $_SESSION['error'] = 'View not found';
+            redirect('index.php?courses');
+        }
+
+        if ($method === "POST") {
+            $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
+            $code = filter_input(INPUT_POST, 'code', FILTER_DEFAULT);
+            $credits = filter_input(INPUT_POST, 'credits', FILTER_VALIDATE_INT);
+            $description = filter_input(INPUT_POST, 'description', FILTER_DEFAULT);
+            $department = filter_input(INPUT_POST, 'department', FILTER_DEFAULT);
+
+            // validate here the specific inputs
+
+            // validating for required fields
+            if (empty($name) || empty($code) || empty($credits) || empty($description) || empty($department)) {
+                $_SESSION['error'] = 'All fields are required';
+                redirect_back();
+            }
+
+            // validating for department code
+            if (!is_valid_course_code($code)) {
+                dd($code, is_valid_course_code($code));
+                $_SESSION['error'] = 'The course code must be 4 uppercase letters followed by 4 digits';
+                redirect_back();
+            }
+
+            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $department){
+                $_SESSION['error'] = 'You are not allowed to create a course in this department';
+                redirect_back();
+            }
+
+            try {
+                $department = Department::find($department);
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'The department does not exist';
+                redirect_back();
+            }
+
+            // reading the description as BBC
+            try {
+                $bbc_description = parseBBCode($description, ['unkeyed']);
+            } catch (MissingKeysException $e) {
+                $_SESSION['error'] = 'Missing keys: ' . implode(', ', $e->missing_keys);
+                redirect_back();
+            }
+
+
+
+            // Creating the course
+
+            $newCourse = Course::create([
+                'course_name' => $name,
+                'course_id' => $code,
+                'course_credits' => $credits,
+                'course_desc' => $bbc_description['unkeyed'],
+                'dept_id' => $department->dept_id,
+                'updated_by' => Auth::user()->username,
+            ]);
+
+            // Adding the prerequisite
+
+            if (in_array('Prerequisites', array_keys($bbc_description))) {
+                $prerequisites = $bbc_description['Prerequisites'];
+                foreach ($prerequisites as $prerequisite) {
+                    $newCourse->addPrerequisite($prerequisite);
+                }
+            }
+
+            $_SESSION['success'] = 'Course created successfully';
+            redirect_back();
+        } else {
+            $departments = Department::all();
+            require_once 'views/course_create.php';
+        }
+    }
+
     public static function editCourse()
     {   
         $user = User::findBy(['username' => 'admin']); // development data
