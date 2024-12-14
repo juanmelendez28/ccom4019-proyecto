@@ -68,6 +68,11 @@ class CoursesController extends Controller
 
     public static function create($method)
     {
+        if(!Auth::check()){
+            $_SESSION['error'] = 'View not found';
+            redirect('index.php?courses');
+        }
+
         if ($method === "POST") {
             $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
             $code = filter_input(INPUT_POST, 'code', FILTER_DEFAULT);
@@ -84,11 +89,14 @@ class CoursesController extends Controller
             }
 
             // validating for department code
-
-            // validating for department code
             if (!is_valid_course_code($code)) {
                 dd($code, is_valid_course_code($code));
                 $_SESSION['error'] = 'The course code must be 4 uppercase letters followed by 4 digits';
+                redirect_back();
+            }
+
+            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $department){
+                $_SESSION['error'] = 'You are not allowed to create a course in this department';
                 redirect_back();
             }
 
@@ -129,7 +137,7 @@ class CoursesController extends Controller
                 }
             }
 
-            $_SESSION['success'] = 'Course updated successfully';
+            $_SESSION['success'] = 'Course created successfully';
             redirect_back();
         } else {
             $departments = Department::all();
