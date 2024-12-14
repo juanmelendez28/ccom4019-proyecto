@@ -13,9 +13,9 @@
 
     <div class="auth-profile">
         <?php if (isset($_SESSION['user'])) { ?>
-            <a href="index.php?logout">Logout</a>
+            <a href="index.php?logout"> <i class="las la-sign-out-alt"></i>Logout</a>
         <?php } else { ?>
-            <a href="index.php?login">Login</a>
+            <a href="index.php?login"><i class="las la-key"></i>Login</a>
         <?php } ?>
     </div>
 </div>

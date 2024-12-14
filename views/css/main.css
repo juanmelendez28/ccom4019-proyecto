@@ -80,6 +80,10 @@ button {
   max-width: 500px;
 }
 
+a{
+  text-wrap: nowrap;
+}
+
 input[type="text"],
 input[type="password"],
 input[type="email"],
