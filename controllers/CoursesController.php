@@ -6,12 +6,13 @@ require_once 'models/Course.php';
 class CoursesController extends Controller
 {
 
-    public static function index()
-    {   
-        if(isset($_GET['edit'])) {
-            CoursesController::viewEditCourse();
-        } elseif(isset($_GET['delete'])) {
-            CoursesController::viewDeleteCourse();
+    public static function index($method)
+    {
+        if (isset($_GET['edit'])) {
+            CoursesController::update($method);
+        } elseif (isset($_GET['delete'])) {
+        } elseif (isset($_GET['create'])) {
+            CoursesController::create($method);
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
@@ -143,37 +144,4 @@ class CoursesController extends Controller
             require_once 'views/course_create.php';
         }
     }
-
-    public static function editCourse()
-    {   
-        $user = User::findBy(['username' => 'admin']); // development data
-        // after login works
-        // $user = User::findBy(['username' => $_SESSION['username']]);
-        $departments = Department::all();
-        require_once 'views/courses.php';
-        
-    } // cuando vaya a hacer la funcion de delete, y en la de edit tambien 
-    // hay que anadirlo, hacer lo de post redirect get para que no te pregunte el resubmission
-
-    public static function viewDeleteCourse()
-    {   
-        $user = User::findBy(['username' => 'admin']); // development data
-        // after login works
-        // $user = User::findBy(['username' => $_SESSION['username']]);
-        $departments = Department::all();
-        if (isset($_GET['delete'])) {
-        $course = Course::findBy(['course_id' => $_GET['delete']]);
-        require_once 'views/course_delete.php';
-        }
-    }
-
-    public static function deleteCourse()
-    {   
-        $user = User::findBy(['username' => 'admin']); // development data
-        // after login works
-        // $user = User::findBy(['username' => $_SESSION['username']]);
-        $departments = Department::all();
-        require_once 'views/courses.php';
-        
-    } 
 }
