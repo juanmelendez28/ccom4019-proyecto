@@ -2,34 +2,204 @@
     Separate any custom class names, animations, media queries, on separate specific files.
 */
 
-:root{
-    --text-font: "Geist", sans-serif;;
+:root {
+  --text-font: "Jost", sans-serif;
+  --selection-color: rgb(79, 60, 255);
+
+  /* colors */
+  --white-300: #f7f7f7;
+  --white-400: #f2f2f2;
+  --white-500: #e6e6e6;
+  --white-600: #d9d9d9;
+  --white-700: #cccccc;
+  --white-800: #bfbfbf;
+  --white-900: #b3b3b3;
+
+  --accent-300: rgb(255, 251, 35);
+
+  --action-color: rgb(20, 18, 14);
+  --action-color-hover: rgb(46, 45, 43);
 }
 
-*{
-    margin: 0;
-    padding: 0;
+::selection {
+  background-color: var(--selection-color);
+  color: white;
+}
+* {
+  margin: 0;
+  padding: 0;
 }
 
-body{
-    font-family: var(--text-font);
+body {
+  font-family: var(--text-font);
+  background-color: var(--white-300);
 }
 
-a{
-    cursor: pointer;
-    text-decoration: none;
+a {
+  cursor: pointer;
+  text-decoration: none;
 }
 
-footer{
-    background-color: yellow;
-    color: black;
-    padding: 15px;
+footer {
+  background-color: yellow;
+  color: black;
+  padding: 15px;
+  bottom: 0;
 }
 
 .loginButton {
-    float: right;
+  float: right;
 }
 
-table {
-    width: 90%;
+a,
+button {
+  font-family: var(--text-font);
+  font-size: 1em;
+  background-color: none;
+}
+
+/* Forms */
+
+.auth-form {
+  padding: 50px 80px;
+  border: 1px solid black;
+
+  margin: 30px;
+  margin-top: 5em;
+}
+
+.auth-form .logo {
+  width: 200px;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.auth-form form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+a{
+  text-wrap: nowrap;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="number"] {
+  padding: 10px 0;
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid black;
+  outline: none;
+  font-family: var(--text-font);
+  font-size: 1em;
+}
+
+textarea {
+  border: 1px solid black;
+  background-color: transparent;
+  font-family: var(--text-font);
+  font-size: 1em;
+  min-height:130px;
+  padding: 15px;
+  outline: none;
+  display: block;
+  resize: vertical;
+}
+
+select{
+    border: 1px solid black;
+    background-color: transparent;
+    font-family: var(--text-font);
+    font-size: 1em;
+    padding: 15px;
+    outline: none;
+    display: block;
+}
+
+input[type="submit"],
+.action {
+  padding: 5px 10px;
+
+  font-family: var(--text-font);
+  font-size: 1em;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+code {
+  background-color: var(--white-500);
+  padding: 5px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+code:hover {
+  background-color: var(--white-600);
+}
+
+.action {
+  width: fit-content;
+}
+
+.action.primary {
+  background-color: var(--action-color);
+  color: var(--white-300);
+}
+
+.action.secondary {
+  border: 1px solid black;
+  color: black;
+}
+
+input[type="submit"]:hover,
+.action.primary:hover {
+  filter: brightness(0.8);
+}
+
+.action.secondary:hover {
+  background-color: var(--white-500);
+}
+
+main .auth {
+  background-color: black;
+}
+
+.alert {
+  padding: 10px 5px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  width: fit-content;
+  animation: fadeIn 0.5s ease;
+  margin: 0 auto;
+  position: fixed;
+  top: 7em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.alert.msg {
+  background-color: var(--action-color);
+  color: var(--white-300);
+}
+
+.alert.error {
+  background-color: rgb(255, 80, 80);
+  color: rgb(10, 6, 6);
+}
+
+.alert .closebtn {
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: inherit;
+  transition: all 0.25s ease;
+}
+
+.alert .closebtn:hover {
+  filter: brightness(0.8);
 }

@@ -5,6 +5,7 @@
     define('CONFIG', require_once('util/config.php'));
     require_once('util/exceptions.php');
     require_once('util/helpers.php');
+    require_once('util/auth.php');
     require_once('controllers/CoursesController.php');
     require_once('controllers/DepartmentsController.php');
     require_once('controllers/TermsController.php');
@@ -17,11 +18,14 @@
 
     //dd($_GET);
 
+    session_start();
+    $method = $_SERVER['REQUEST_METHOD'];
+
     if (isset($_POST['path']) or isset($_GET['courses']) or 
         isset($_GET['departments']) or isset($_GET['terms']) or isset($_GET['users']))
     {
         if (isset($_GET['courses'])) {
-            CoursesController::index();
+            CoursesController::index($method);
         } elseif (isset($_GET['departments'])) {
             DepartmentsController::index();
         } elseif (isset($_GET['terms'])) {

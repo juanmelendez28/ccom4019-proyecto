@@ -1,25 +1,55 @@
-main table { border: 1px gray }
-main table caption {
-    font-size: 150%;
+.courses-tables{
+    padding: 30px 30px;
+    margin: 2em auto;
+}
+
+.courses-tables {
+    text-align: center;
+}
+
+.tblCourses{
+    border-collapse: collapse;
+    width: fit-content;
+    margin: 1em auto;
+    font-size: 1.2em;
+    width: 60%;
+    text-align: left;
+
+}
+
+.tblCourses caption{
+    font-size: 1.5em;
     font-weight: bold;
-    
-}
-main table th {
-    padding: 5px;
-    background-color: lightgray;
-    border-collapse: collapse;
 }
 
-td{
-    padding: 5px;
-    border-collapse: collapse;
+.tblCourses th, .tblCourses td{
+    border: 1px solid black;
+    padding: 1em;
 }
 
-/* Center credits and info columns */
-.tblCourses td:nth-child(3), .tblCourses td:nth-child(4) { text-align: center }
+td a{
+    cursor: pointer;
+    background-color: none;
+    border: none;
+    text-decoration: underline;
+    color: var(--action-color);
+    transition: all .25s ease;
+}
 
-span.course_desc {
-    color: orange;
-    cursor: help;
- }
+td a:hover{
+    filter: brightness(1.8);
+}
 
+.course_desc{
+    cursor: pointer;
+
+}
+
+.course_desc:hover{
+    text-decoration: underline;
+}
+
+.activeTerm{
+    font-weight: bold;
+    background-color: var(--white-400);
+}

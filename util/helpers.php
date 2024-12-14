@@ -114,3 +114,78 @@ function parseBBCode($text, $required)
     return $result;
 }
 
+
+/**
+ * Converts an associative array to a BBCode-like string.
+ *
+ * The input array is expected to have the following structure:
+ * - The key 'unkeyed' is allowed and will be treated as a single string.
+ * - Each other key represents a title, and its value is an array of strings,
+ *   which will be treated as list items under that title.
+ *
+ * The function will return a string in the following format:
+ * Title
+ * - item 1
+ * - item 2
+ * Unkeyed value
+ *
+ * @param array $content The associative array to convert.
+ * @return string The BBCode-like string representation of the input array.
+ */
+function toBBCode(array $content) {
+
+    $output = '';
+
+
+    foreach ($content as $key => $value) {
+        if ($key === 'unkeyed') {
+            $output .= $value . "\n";
+        } else {
+            $output .= '#' . $key . "\n";
+            foreach ($value as $item) {
+                $output .= '- ' . $item . "\n";
+            }
+        }
+        $output .= "\n";
+    }
+
+    return $output;
+}
+
+/**
+ * Redirect to a given path.
+ *
+ * @param string $path The path to redirect to.
+ * @return void
+ */
+function redirect($path)
+{
+    header('Location: ' . $path);
+    exit;
+}
+
+
+/**
+ * Redirect to the referring URL.
+ *
+ * @return void
+ */
+function redirect_back()
+{
+    redirect($_SERVER['HTTP_REFERER']);
+}
+
+
+/**
+ * Validates a course code format.
+ *
+ * The course code is expected to consist of exactly four uppercase letters
+ * followed by four digits.
+ *
+ * @param string $code The course code to validate.
+ * @return bool Returns true if the course code matches the expected format, false otherwise.
+ */
+function is_valid_course_code($code)
+{
+    return preg_match('/^[A-Z]{4}\d{4}$/', $code);
+}

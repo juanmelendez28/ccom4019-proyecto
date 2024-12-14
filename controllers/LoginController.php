@@ -23,6 +23,8 @@ class LoginController extends Controller
         //     print($hashed);
         //     $user->update(['password' => $hashed]);
         // }
+        // dd('HASHED');
+        
 
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -32,19 +34,32 @@ class LoginController extends Controller
 
             // Validate the data
             if (empty($username) || empty($password)) {
-                die("All fields are required.");
+            $_SESSION['error'] = 'Please fill in all fields';
                 LoginController::index();
             }
         }
 
         if(LoginController::validate_password($username, $password)) 
         {
-            $_SESSION['user'] = User::findBy(['username' => $username]);
-            CoursesController::index();
+
+                $loggedUser = User::findBy(['username' => $username]);
+                $_SESSION['error'] = 'Invalid username or password';
+                LoginController::index();
+  
+            
+
+            $loggedUser->update([
+                'last_login' => date('Y-m-d H:i:s')
+            ]);
+
+            Auth::login($loggedUser);
+            
+            CoursesController::index($_SERVER['REQUEST_METHOD']);
         }
         else
         {
             // CoursesController::index();
+            $_SESSION['error'] = 'Invalid username or password';
             LoginController::index();
         }
         
@@ -54,8 +69,14 @@ class LoginController extends Controller
     public static function validate_password($username, $password)
     {
 
+        try{
         $user = User::findBy(['username' => $username]);
+        } catch (ModelNotFoundException $e) {
+            $_SESSION['error'] = 'Invalid username or password';
+            redirect_back();
+        }
         $stored_pass = $user->__get('password');
+
 
         return password_verify($password, $stored_pass);
 

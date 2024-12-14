@@ -290,11 +290,46 @@ final class DB
     public static function remove(string $table, string $where, string $equal): bool
     {
 
-        $sql = 'DELETE FROM ' . $table . ' WHERE ' . $where . ' = ' . $equal;
+        $sql = 'DELETE FROM ' . $table . ' WHERE ' . $where . ' = ' . quote($equal);
         $statement = self::$database->prepare($sql);
         $statement->execute();
         return $statement->rowCount() > 0;
     }
+
+    /**
+     * Delete records from the specified table where the specified columns match the given values.
+     *
+     * This method constructs and executes an SQL DELETE statement using the 
+     * provided table name and associative array of conditions.
+     *
+     * @param string $table The name of the table to delete the records from.
+     * @param array $conditions An associative array where keys are column names, 
+     *                          and values are the values to match in the WHERE clause.
+     *
+     * @return bool Returns true if at least one record was successfully deleted, otherwise false.
+     */
+    public static function removeWhere(string $table, array $conditions): bool
+    {
+
+        $sql = 'DELETE FROM ' . $table . ' WHERE ';
+        foreach ($conditions as $key => $value) {
+
+            $sql .= $key . ' = ' . ":$key";
+
+            if (next($conditions) !== false) {
+                $sql .= ' AND ';
+            }
+        }
+
+        $statement = self::$database->prepare($sql);
+        foreach ($conditions as $key => $value) {
+            $statement->bindValue(":$key", $value);
+        }
+        $statement->execute();
+        return $statement->rowCount() > 0;
+        
+    }
+
 
 
     /**

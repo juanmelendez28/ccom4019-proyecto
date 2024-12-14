@@ -3,7 +3,14 @@
 <?php require_once 'partials/header.php'; ?>
 
 <body>
-    <main>
+    <?php require_once 'partials/navbar.php'; ?>
+    <main class="courses-tables">
+        <div class="flex-title">
+            <h1>Users</h1>
+            <?php if (Auth::checkAdmin())  { ?>
+                <a class="action primary" href="index.php?users&create"><i class="las la-plus-circle"></i>Create a user</a>
+            <?php } ?>
+        </div>
         <!-- Dynamic table of users -->
         <table class="tblCourses">
             <thead>
@@ -25,9 +32,9 @@
                         <td><?= Department::findBy(['dept_id' => $user->dept_id])->dept_name ?></td>
                         <td><?= $user->role ?></td>
                         <td><?= $user->last_login ?></td>
-                        <?php if ($currentUser->role == 'admin') { ?>
-                            <td><a href="users/<?= $user->user_id ?>">Edit</a></td>
-                            <td><a href="users/<?= $user->user_id ?>">Delete</a></td>
+                        <?php if ((Auth::checkAdmin())) { ?>
+                            <td><a href="users/<?= $user->user_id ?>"><i class="las la-pen"></i>Edit</a></td>
+                            <td><a href="users/<?= $user->user_id ?>"><i class="las la-trash"></i>Delete</a></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>
