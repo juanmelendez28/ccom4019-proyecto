@@ -6,12 +6,14 @@ require_once 'models/Course.php';
 class CoursesController extends Controller
 {
 
-    public static function index()
+    public static function index($method)
     {   
         if(isset($_GET['edit'])) {
-            CoursesController::viewEditCourse();
+            CoursesController::update($method);
         } elseif(isset($_GET['delete'])) {
             CoursesController::viewDeleteCourse();
+        } elseif(isset($_GET['create'])) {
+            CoursesController::create($method);
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
