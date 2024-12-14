@@ -7,7 +7,7 @@
     <main class="courses-tables">
     <div class="flex-title">
             <h1>Available Departments</h1>
-            <?php if (Auth::check() && $user->role == 'admin') { ?>
+            <?php if (Auth::checkAdmin()){ ?>
                 <a class="action primary" href="index.php?departments&create">Create a department</a>
             <?php } ?>
         </div>
@@ -26,7 +26,7 @@
                     <tr>
                         <td><?= $department->dept_name ?></td>
                         <td><span aria-describedby="<?= $department->dept_id ?>_desc"><?= $department->dept_id ?></span></td>
-                        <?php if ($user->role == 'admin') { ?>
+                        <?php if (Auth::checkAdmin()) { ?>
                             <td><a href="index.php?departments&edit=<?= $department->dept_id ?>">Edit</a></td>
                             <td><a href="index.php?departments&delete=<?= $department->dept_id ?>">Delete</a></td>
                         <?php } ?>

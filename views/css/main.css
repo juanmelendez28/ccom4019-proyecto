@@ -70,6 +70,8 @@ button {
 
 .auth-form .logo {
   width: 200px;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .auth-form form {

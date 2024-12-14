@@ -9,9 +9,7 @@
 
 
         <div class="auth-form">
-            <div class="logo">
-                <img src="resources/img/logo_b.svg" alt="logotype">
-            </div>
+            <?php require_once 'partials/logotype.php'; ?>
             <br>
             <header>
                 <h1>Log in</h1>

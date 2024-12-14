@@ -7,7 +7,7 @@
     <main class="courses-tables">
         <div class="flex-title">
             <h1>Users</h1>
-            <?php if (Auth::check() && Auth::user()->role == 'admin')  { ?>
+            <?php if (Auth::checkAdmin())  { ?>
                 <a class="action primary" href="index.php?users&create">Create a user</a>
             <?php } ?>
         </div>
@@ -32,7 +32,7 @@
                         <td><?= Department::findBy(['dept_id' => $user->dept_id])->dept_name ?></td>
                         <td><?= $user->role ?></td>
                         <td><?= $user->last_login ?></td>
-                        <?php if ($currentUser->role == 'admin') { ?>
+                        <?php if ((Auth::checkAdmin())) { ?>
                             <td><a href="users/<?= $user->user_id ?>">Edit</a></td>
                             <td><a href="users/<?= $user->user_id ?>">Delete</a></td>
                         <?php } ?>

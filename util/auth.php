@@ -16,10 +16,26 @@ final class Auth
      */
     public static function check()
     {
-        if (!isset($_SESSION['user_id'])) {
-            return true;
+        return isset($_SESSION['user']);
+    }
+
+
+    /**
+     * Check if the user is logged in and has the role of admin.
+     *
+     * This method verifies if the user is logged in by calling the check method, and
+     * then checks if the user has the role of admin by calling the user method and
+     * accessing the role property of the user.
+     *
+     * @return bool True if the user is logged in and has the role of admin, false otherwise.
+     */
+    public static function checkAdmin()
+    {
+        if (!static::check()) {
+            return false;
         }
-        return false;
+        
+        return static::user()->role == 'admin';   
     }
 
     /**

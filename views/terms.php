@@ -7,7 +7,7 @@
     <main class="courses-tables">
         <div class="flex-title">
             <h1>Terms</h1>
-            <?php if (Auth::check() && Auth::user()->role == 'admin') { ?>
+            <?php if (Auth::checkAdmin()) { ?>
                 <a class="action primary" href="index.php?terms&create">Create a term</a>
             <?php } ?>
         </div>
@@ -27,7 +27,7 @@
                     <tr <?php if ($term->term_is_active == 1) echo 'class="activeTerm"' ?>>
                         <td><?= $term->term_id ?></td>
                         <td><span aria-describedby="<?= $term->term_id ?>_desc"><?= $term->term_desc ?></span></td>
-                        <?php if ($user->role == 'admin') { ?>
+                        <?php if ((Auth::checkAdmin())) { ?>
                             <td><a href="index.php?terms&edit=<?= $term->term_id ?>">Edit</a></td>
                             <td><a href="index.php?terms&delete=<?= $term->term_id ?>">Delete</a></td>
                             <td><a href="index.php?terms&activate=<?= $term->term_id ?>">Activate</a></td>

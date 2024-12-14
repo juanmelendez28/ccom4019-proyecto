@@ -10,7 +10,7 @@
 
         <div class="flex-title">
             <h1>Available Courses</h1>
-            <?php if (Auth::check() && $user->role == 'admin')  { ?>
+            <?php if (Auth::checkAdmin()) { ?>
                 <a class="action primary" href="index.php?courses&create">Create a course</a>
             <?php } ?>
         </div>
@@ -22,7 +22,7 @@
                 <table class="tblCourses">
                     <div class="flex-title">
                         <caption><?= $department->dept_name ?> Department</caption>
-                        <?php if ($user->dept_id == $department->dept_id) { ?>
+                        <?php if (Auth::check() && Auth::user()->dept_id == $department->dept_id) { ?>
                             <a class="action primary" href="index.php?courses&create=<?= $department->dept_id ?>">Create a course</a>
                         <?php } ?>
                     </div>
@@ -33,8 +33,10 @@
                             <th scope="col">Course code</th>
                             <th scope="col">Credits</th>
                             <th scope="col">Description</th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <?php if (Auth::check() && (Auth::checkAdmin() || Auth::user()->dept_id == $department->dept_id)) { ?>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            <?php } ?>
                         </tr>
                     </thead>
                     <tbody>
@@ -52,7 +54,7 @@
                                 }
                                 ?>
                                 <td><span id="<?= $course->course_code ?>_desc" class="course_desc" title="<?= $course->course_desc ?>"><?= $course_summary ?></span></td>
-                                <?php if ($user->role == 'admin' || $user->dept_id == $department->dept_id) { ?>
+                                <?php if (Auth::check() && (Auth::checkAdmin() || Auth::user()->dept_id == $department->dept_id)) { ?>
                                     <td><a href="index.php?courses&edit=<?= $course->course_id ?>">Edit</a></td>
                                     <td><a href="index.php?courses&delete=<?= $course->course_id ?>">Delete</a></td>
                                 <?php } ?>
