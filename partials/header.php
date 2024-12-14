@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="views/css/main.css">
-    <link rel="stylesheet" href="views/css/courses.css">
-    <link rel="stylesheet" href="views/css/crash.css">
-    <link rel="stylesheet" href="views/css/components.css">
-    <link rel="stylesheet" href="views/css/animations.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/courses.css">
+    <link rel="stylesheet" href="css/crash.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animations.css">
 
     <link rel="shortcut icon" href="resources/img/favicon.svg" type="image/x-icon">
 

@@ -8,11 +8,17 @@ class LoginController extends Controller
 {
 
     public static function index()
-    {   
+    {
+        if (Auth::check()) {
+            // user is already logged in:
+            CoursesController::index($_SERVER['REQUEST_METHOD']);
+            return;
+        }
+
         require_once 'views/login.php';
     }
     public static function user_login()
-    {   
+    {
         // get method post
 
         // CHANGING PASSWORD WITH HASHING //
@@ -24,69 +30,49 @@ class LoginController extends Controller
         //     $user->update(['password' => $hashed]);
         // }
         // dd('HASHED');
-        
 
-        
+
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Collect data from the form
-            $username = $_POST['username'];
-            $password = $_POST['pass'];
+            $username = filter_input(INPUT_POST, 'username', FILTER_DEFAULT);
+            $password = filter_input(INPUT_POST, 'pass', FILTER_DEFAULT);
 
             // Validate the data
             if (empty($username) || empty($password)) {
-            $_SESSION['error'] = 'Please fill in all fields';
-                LoginController::index();
+                $_SESSION['error'] = 'Please fill in all fields';
+                redirect_back();
             }
         }
 
-        if(LoginController::validate_password($username, $password)) 
-        {
+        if (LoginController::validate_password($username, $password)) {
 
-                $loggedUser = User::findBy(['username' => $username]);
-                $_SESSION['error'] = 'Invalid username or password';
-                LoginController::index();
-  
-            
-
+            $loggedUser = User::findBy(['username' => $username]);
             $loggedUser->update([
                 'last_login' => date('Y-m-d H:i:s')
             ]);
 
             Auth::login($loggedUser);
-            
+
             CoursesController::index($_SERVER['REQUEST_METHOD']);
-        }
-        else
-        {
+        } else {
             // CoursesController::index();
             $_SESSION['error'] = 'Invalid username or password';
-            LoginController::index();
+            redirect_back();
         }
-        
     }
 
     // method validate user
     public static function validate_password($username, $password)
     {
 
-        try{
-        $user = User::findBy(['username' => $username]);
+        try {
+            $user = User::findBy(['username' => $username]);
         } catch (ModelNotFoundException $e) {
             $_SESSION['error'] = 'Invalid username or password';
             redirect_back();
         }
         $stored_pass = $user->__get('password');
-
-
         return password_verify($password, $stored_pass);
-
-        // Validating if got the user and password correct
-        //TODO: Check what $user returns if empty
-        if (isset($user))
-            return true;
-        else
-            return false;
     }
-
-
 }
