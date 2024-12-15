@@ -91,7 +91,7 @@ class CoursesController extends Controller
 
             // validating for department code
             if (!is_valid_course_code($code)) {
-                // dd($code, is_valid_course_code($code));
+                dd($code, is_valid_course_code($code));
                 $_SESSION['error'] = 'The course code must be 4 uppercase letters followed by 4 digits';
                 redirect_back();
             }
