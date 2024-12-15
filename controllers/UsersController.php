@@ -62,7 +62,6 @@ class UsersController extends Controller
 
             
 
-
             if (empty($name) || empty($username) || empty($password) || empty($role) || empty($department)) {
                 $_SESSION['error'] = "Please fill all the fields";
                 redirect_back();

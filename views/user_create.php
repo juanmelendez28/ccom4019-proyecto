@@ -9,7 +9,7 @@
         <label for="username">Username</label>
         <input required type="text" name="username" value="">
         <label for="password">Password</label>
-        <input pattern="^.{8}$" required id="password" type="password" name="password" value="">
+        <input pattern="^.{8,}$" required id="password" type="password" name="password" value="">
         <span>* The password must consist of 8 characters minimum</span>
         <a href="#" class="action secondary" onclick="showPassword(this)">Show Password</a>
         <label for="role">Role</label>
@@ -21,7 +21,7 @@
             <?php } ?>
         </select>
         <label for="dept_id">Department</label>
-        <select required ="dept_id" id="deparment">
+        <select required name="dept_id" id="deparment">
             <option value="">Select a department</option>
             <?php foreach ($departments as $department) { ?>
                 <option value="<?= $department->dept_id ?>"><?= $department->dept_name ?></option>
