@@ -7,6 +7,7 @@
             <a class="<?php if (isset($_GET['departments'])) echo "selected" ?>" href="index.php?departments">Departments</a>
             <a class="<?php if (isset($_GET['users'])) echo "selected" ?>" href="index.php?users">Users</a>
             <a class="<?php if (isset($_GET['terms'])) echo "selected" ?>" href="index.php?terms">Terms</a>
+            
         <?php } ?>
 
     </div>

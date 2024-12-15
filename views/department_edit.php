@@ -16,7 +16,7 @@
                 <h1>Edit department</h1>
                 <input type="hidden" name="id" value="<?= $department->dept_id ?>">
                 <label for="name">Department name</label>
-                <input type="text" name="name" value="<?= $department->dept_name ?>">
+                <input  type="text" name="name" value="<?= $department->dept_name ?>">
                 <label for="code">Department code</label>
                 <input disabled type="text" name="code" value="<?= $department->dept_id ?>">
                 <input type="submit" class="action primary" value="Update">
@@ -29,10 +29,20 @@
             $department_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
             $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
 
-            $department = Department::find($department_id);
+            try{
+                $department = Department::find($department_id);
+            } catch (ModelNotFoundException $e)
+            {
+                // this means the input for department code was forcefully changed
+                $department = null;
+                $_SESSION['error'] = 'Department code does not match any record';
+            }
 
-            if (empty($name)) {
+            
+
+            if (empty($name) || !$department) {
                 $_SESSION['error'] = 'All fields are required';
+                redirect('?departments&edit=' . $department_id);
             } else {
             // this will update and save the department new information
             $success = $department->update([
@@ -40,8 +50,7 @@
             ]);
 
             $success ? $_SESSION['success'] = 'Changed department information successfully' : $_SESSION['error'] = 'Failed to change department information';
-            $departments = Department::all();
-            require_once 'views/departments.php';
+            redirect('?departments');
             }
         }
     ?>

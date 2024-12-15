@@ -10,9 +10,9 @@
         <label for="name">Course name</label>
         <input type="text" name="name" value="<?= $course->course_name ?>">
         <label for="code">Course code</label>
-        <input disabled type="text" name="code" value="<?= $course->course_id ?>">
+        <input pattern="^[A-Z]{4}[0-9]{4}$" disabled type="text" name="code" value="<?= $course->course_id ?>">
         <label for="credits">Credits</label>
-        <input type="number" name="credits" value="<?= $course->course_credits ?>">
+        <input min="1" step="1" type="number" name="credits" value="<?= $course->course_credits ?>">
         <label for="desc">Description</label>
         <p class="tooltip">
             Use this field to specify information about the course. The description <strong>must</strong> be first on this text box. Then enlist

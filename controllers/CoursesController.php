@@ -38,12 +38,19 @@ class CoursesController extends Controller
                 redirect_back();
             }
 
+            if($credits < 1) {
+                $_SESSION['error'] = 'Credits must be higher or equal than 1';
+                redirect_back();
+            }
+
             try {
                 $description_bbcode = parseBBCode($desc, ['unkeyed', 'Prerequisites']);
             } catch (MissingKeysException $e) {
                 $_SESSION['error'] = 'Missing: ' . implode(', ', $e->missing_keys);
                 redirect_back();
             }
+
+
 
             $course->updatePrerequisites($description_bbcode['Prerequisites']);
 
@@ -59,7 +66,7 @@ class CoursesController extends Controller
                 $_SESSION['success'] = 'Changed course information successfully' :
                 $_SESSION['error'] = 'Failed to change course information';
 
-            redirect_back();
+            redirect('?courses');
         } else {
             $course_id = $_GET['edit'];
             $course = Course::find($course_id);
@@ -89,9 +96,13 @@ class CoursesController extends Controller
                 redirect_back();
             }
 
+            if($credits < 1) {
+                $_SESSION['error'] = 'Credits must be higher or equal than 1';
+                redirect_back();
+            }
+
             // validating for department code
             if (!is_valid_course_code($code)) {
-                dd($code, is_valid_course_code($code));
                 $_SESSION['error'] = 'The course code must be 4 uppercase letters followed by 4 digits';
                 redirect_back();
             }
@@ -139,7 +150,7 @@ class CoursesController extends Controller
             }
 
             $_SESSION['success'] = 'Course created successfully';
-            redirect_back();
+            redirect('?courses');
         } else {
             $departments = Department::all();
             require_once 'views/course_create.php';
