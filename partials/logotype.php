@@ -1,3 +1,3 @@
 <div class="logo" draggable="false" aria-selected="false">
-    <img src="resources/img/logo-p.svg" alt="Logo">
+    <img src="resources/img/logo-b.svg" alt="Logo">
 </div>
