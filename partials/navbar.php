@@ -2,11 +2,11 @@
     <?php require_once 'logotype.php'; ?>
 
     <div class="link-group">
-        <a class="<?php if (isset($_GET['courses'])) echo "selected" ?>" href="index.php?courses">Courses</a>
+        <a class="<?php if (isset($_GET['courses'])) echo "selected" ?>" href="?courses">Courses</a>
         <?php if (Auth::checkAdmin()) { ?>
-            <a class="<?php if (isset($_GET['departments'])) echo "selected" ?>" href="index.php?departments">Departments</a>
-            <a class="<?php if (isset($_GET['users'])) echo "selected" ?>" href="index.php?users">Users</a>
-            <a class="<?php if (isset($_GET['terms'])) echo "selected" ?>" href="index.php?terms">Terms</a>
+            <a class="<?php if (isset($_GET['departments'])) echo "selected" ?>" href="?departments">Departments</a>
+            <a class="<?php if (isset($_GET['users'])) echo "selected" ?>" href="?users">Users</a>
+            <a class="<?php if (isset($_GET['terms'])) echo "selected" ?>" href="?terms">Terms</a>
             
         <?php } ?>
 

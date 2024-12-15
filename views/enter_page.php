@@ -30,10 +30,6 @@
                         }
                         ?>
                         <td><span id="<?= $course->course_code ?>_desc" class="course_desc" title="<?= $course->course_desc ?>"><?= $course_summary ?></span></td>
-                        <?php if (Auth::check() && (Auth::user()->role == 'admin' || Auth::user()->dept_id == $department->dept_id)) { ?>
-                            <td><a href="courses/edit/<?= $course->course_id ?>">Edit</a></td>
-                            <td><a href="courses/delete/<?= $course->course_id ?>">Delete</a></td>
-                        <?php } ?>
                     </tr>
                 <?php } ?>
             </tbody>
