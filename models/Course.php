@@ -105,7 +105,14 @@ class Course extends Model
         $to_add = array_diff($new_prerequisites, $current_prerequisites);
         $to_remove = array_diff($current_prerequisites, $new_prerequisites);
 
+
+        $failed = [];
+
         foreach ($to_add as $add) {
+            if (!is_valid_course_code($add)){
+                $failed[] = $add;
+                continue;
+            }
             $this->addPrerequisite($add);
         }
 
@@ -119,5 +126,7 @@ class Course extends Model
                 continue;
             }
         }
+
+        return $failed;
     }
 }
