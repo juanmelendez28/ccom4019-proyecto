@@ -6,9 +6,9 @@
     <?php require_once 'partials/navbar.php'; ?>
     <form class="form" action="#" method="post">
         <h1>Edit user</h1>
-        <input type="hidden" name="id" value="<?= $userToEdit->username ?>">
+        <input required type="hidden" name="id" value="<?= $userToEdit->username ?>">
         <label for="name">Name</label>
-        <input type="text" name="name" value="<?= $userToEdit->name ?>">
+        <input required type="text" name="name" value="<?= $userToEdit->name ?>">
         <label for="username">Username</label>
         <input disabled type="text" name="username" value="<?= $userToEdit->username ?>">
         <label for="role">Role</label>
@@ -19,7 +19,7 @@
             <?php } ?>
         </select>
         <label for="dept_id">Department</label>
-        <select name="dept_id" id="deparment">
+        <select required name="dept_id" id="deparment">
             <option value="">Select a department</option>
             <?php foreach ($departments as $department) { ?>
                 <option <?php if($department->dept_id === $userToEdit->dept_id) echo 'selected'; ?> value="<?= $department->dept_id ?>"><?= $department->dept_name ?></option>
@@ -41,6 +41,7 @@
 
         if (empty($name) || empty($role) || empty($dept_id)) {
             $_SESSION['error'] = 'All fields are required';
+            redirect_back();
         } else {
             // this will update and save the user new information
             $success = $userToEdit->update([

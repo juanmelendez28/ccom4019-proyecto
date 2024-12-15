@@ -21,7 +21,7 @@
             <?php } ?>
         </select>
         <label for="dept_id">Department</label>
-        <select name="dept_id" id="deparment">
+        <select required ="dept_id" id="deparment">
             <option value="">Select a department</option>
             <?php foreach ($departments as $department) { ?>
                 <option value="<?= $department->dept_id ?>"><?= $department->dept_name ?></option>

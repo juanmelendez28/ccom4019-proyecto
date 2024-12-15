@@ -8,9 +8,9 @@
     <h1>Create a department</h1>
     <input type="hidden" name="id" value="">
     <label for="dept_name">Department name</label>
-    <input type="text" name="dept_name" value="">
+    <input required type="text" name="dept_name" value="">
     <label for="dept_code">Department code (E.g. ESPA)</label>
-    <input pattern="^[A-Z]{4}$" type="text" name="dept_code" value="">
+    <input required pattern="^[A-Z]{4}$" type="text" name="dept_code" value="">
     <input type="submit" class="action primary" value="Create">
 </form>
 
