@@ -21,10 +21,13 @@
     session_start();
     $method = $_SERVER['REQUEST_METHOD'];
 
-    if (isset($_POST['path']) or isset($_GET['courses']) or 
+
+    if (isset($_POST['path']) or isset($_GET['courses']) or isset($_GET['login']) or
         isset($_GET['departments']) or isset($_GET['terms']) or isset($_GET['users']))
     {
-        if (isset($_GET['courses'])) {
+        if (isset($_POST['path']) && $_POST['path'] == 'login') {
+            LoginController::user_login();
+        } elseif (isset($_GET['courses'])) {
             CoursesController::index($method);
         } elseif (isset($_GET['departments'])) {
             DepartmentsController::index();
@@ -32,15 +35,15 @@
             TermsController::index(); 
         } elseif (isset($_GET['users'])) {
             UsersController::index(); 
-        } elseif (isset($_GET['courses'])) {
-        } elseif($_POST['path'] === "login") {
-            LoginController::user_login(); 
+        } elseif(isset($_GET['login'])) {
+            LoginController::index(); 
         }  else {
             TermOfferingController::index();
         }
     }
-    else
-        LoginController::index();
+    else {
+        TermOfferingController::index();
+    }
     // there will be a login button in the header that will allow users with accounts to log in
     // and they will have certain permissions depending on their role
 

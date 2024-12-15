@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once 'partials/header.php'; ?>
-
 <body>
     <main>
-        <!-- Dynamic table of department and its courses -->
+        <?php require_once 'partials/navbar.php'; ?>
             <table class="tblCourses">
                 <caption>Term Offering Courses</caption>
                 <thead>
