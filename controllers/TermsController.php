@@ -40,10 +40,11 @@ class TermsController extends Controller
                 redirect_back();
             }
 
-            // this will update and save the course new information
+            // this will update and save the term new information
             $term = Term::find($term_id);
+            // dd($term);
             $success = $term->update([
-                'description' => $description,
+                'term_desc' => $description,
             ]);
 
             $success ?
