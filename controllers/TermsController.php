@@ -182,7 +182,7 @@ class TermsController extends Controller
         else 
         {
         $courses = CoursesController::get_courses();
-        
+        $departments = Department::all();
         require_once('views/term_add_course.php');
         }
         

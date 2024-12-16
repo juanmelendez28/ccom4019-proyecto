@@ -22,12 +22,14 @@
                 <i class="las la-user"></i>
                 Users
             </a>
-            <a class="<?php if (isset($_GET['terms'])) echo "selected" ?>" href="?terms">
-                <i class="las la-calendar"></i>
-                Terms
-            </a>
 
         <?php } ?>
+        <?php if (Auth::check()) { ?>
+            <a class="<?php if (isset($_GET['terms'])) echo "selected" ?>" href="?terms">
+                    <i class="las la-calendar"></i>
+                    Terms
+                </a>
+                <?php } ?>
 
     </div>
 
