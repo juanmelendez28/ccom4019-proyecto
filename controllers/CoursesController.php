@@ -76,7 +76,18 @@ class CoursesController extends Controller
             redirect('?courses');
         } else {
             $course_id = $_GET['edit'];
-            $course = Course::find($course_id);
+            try{
+                $course = Course::find($course_id);
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'The course does not exist';
+                redirect('?courses');
+            }
+
+            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $course->dept_id){
+                $_SESSION['error'] = 'You don\'t have permissions to edit this course.';
+                redirect('?courses');
+            }
+            
             require_once 'views/course_edit.php';
         }
     }

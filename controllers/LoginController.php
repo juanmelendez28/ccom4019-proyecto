@@ -74,4 +74,15 @@ class LoginController extends Controller
         $stored_pass = $user->__get('password');
         return password_verify($password, $stored_pass);
     }
+
+    public static function logout($method)
+    {
+        if ($method === 'POST') {
+            Auth::logout();
+            $_SESSION['success'] = "Logged out succesfully";
+            redirect('?');
+        } else {
+            redirect('?courses');
+        }
+    }
 }

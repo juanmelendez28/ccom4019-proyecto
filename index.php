@@ -24,7 +24,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if (
     isset($_POST['path']) or isset($_GET['courses']) or isset($_GET['login']) or
-    isset($_GET['departments']) or isset($_GET['terms']) or isset($_GET['users'])
+    isset($_GET['departments']) or isset($_GET['terms']) or isset($_GET['users']) or isset($_POST['logout'])
 ) {
     if (isset($_POST['path']) && $_POST['path'] == 'login') {
 
@@ -48,7 +48,10 @@ if (
     } elseif (isset($_GET['login'])) {
 
         LoginController::index();
-    } else {
+    } elseif(isset($_POST['logout'])){
+        LoginController::logout($method);
+    }
+    else {
         TermOfferingController::index();
     }
 } else {
