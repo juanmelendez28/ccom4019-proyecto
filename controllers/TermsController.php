@@ -10,14 +10,14 @@ class TermsController extends Controller
 {
 
     public static function index($method)
-    {   
-        if(isset($_GET['edit'])) {
+    {
+        if (isset($_GET['edit'])) {
             TermsController::update($method);
-        } elseif(isset($_GET['delete'])) {
+        } elseif (isset($_GET['delete'])) {
             TermsController::delete($method);
-        } elseif(isset($_GET['activate'])) {
+        } elseif (isset($_GET['activate'])) {
             TermsController::activate($method);
-        } elseif(isset($_GET['create'])) {
+        } elseif (isset($_GET['create'])) {
             TermsController::create($method);
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
@@ -50,11 +50,17 @@ class TermsController extends Controller
                 $_SESSION['success'] = 'Changed term information successfully' :
                 $_SESSION['error'] = 'Failed to change term information';
 
-                $terms = Term::all();
-                require_once 'views/terms.php';
+            $terms = Term::all();
+            require_once 'views/terms.php';
         } else {
             $term_id = $_GET['edit'];
-            $term = Term::find($term_id);
+
+            try {
+                $term = Term::find($term_id);
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'Term code does not match any record';
+                redirect('?terms');
+            }
             require_once 'views/term_edit.php';
         }
     }
@@ -69,7 +75,12 @@ class TermsController extends Controller
     public static function activate($method)
     {
         $term = $_GET['activate'];
+        try{
         $term = Term::find($term);
+        } catch (ModelNotFoundException $e) {
+            $_SESSION['error'] = 'Term code does not match any record';
+            redirect('?terms');
+        }
         require_once 'views/term_activate.php';
     }
 
@@ -91,7 +102,7 @@ class TermsController extends Controller
                 redirect_back();
             }
 
-            if(!preg_match('/^[A-Z]{1}[0-9]{2}$/', $term)){
+            if (!preg_match('/^[A-Z]{1}[0-9]{2}$/', $term)) {
                 $_SESSION['error'] = 'Terms must consist of an uppercase letter and two numbers (E.g C41)';
                 redirect_back();
             }
@@ -102,32 +113,28 @@ class TermsController extends Controller
             }
 
             // all validation has passed, creating the term
-            try{
+            try {
                 $success = Term::create([
                     'term_id' => $term,
                     'term_desc' => $description,
                     'term_is_active' => false
                 ]);
-            } catch (PDOException $e){
+            } catch (PDOException $e) {
                 $_SESSION['error'] = 'Please use unique values';
                 redirect_back();
             }
-            
 
-            if ($success){
+
+            if ($success) {
                 $_SESSION['success'] = 'Created term successfully';
                 redirect('?terms');
             } else {
                 $_SESSION['error'] = 'There was an error while creating the term';
                 redirect_back();
             }
-
         } else {
             // show the create form here
             require_once 'views/term_create.php';
         }
     }
 }
-
-
-?>

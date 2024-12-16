@@ -54,7 +54,7 @@ class UsersController extends Controller
                 $success ? $_SESSION['success'] = 'Changed user information successfully' : $_SESSION['error'] = 'Failed to change user information';
                 redirect('?users'); // having problems redirecting here (post redirect get???)
             }
-            
+
         } else {
             // method is get
             if (isset($_GET['edit'])) {
@@ -62,7 +62,7 @@ class UsersController extends Controller
                     $userToEdit = User::findBy(['username' => $_GET['edit']]);
                 } catch (ModelNotFoundException $e) {
                     $_SESSION['error'] = 'User not found';
-                    redirect_back();
+                    redirect('?users');
                 }
 
                 $departments = Department::all();
