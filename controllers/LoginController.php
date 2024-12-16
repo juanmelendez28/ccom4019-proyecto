@@ -11,8 +11,7 @@ class LoginController extends Controller
     {
         if (Auth::check()) {
             // user is already logged in:
-            CoursesController::index($_SERVER['REQUEST_METHOD']);
-            return;
+            redirect('?courses');
         }
 
         require_once 'views/login.php';

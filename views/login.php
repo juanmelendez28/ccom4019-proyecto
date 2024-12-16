@@ -6,8 +6,6 @@
     <!-- User accessing page and being redirected to their corresponding page. -->
 
     <main class="auth">
-
-
         <div class="auth-form">
             <?php require_once 'partials/logotype.php'; ?>
             <br>

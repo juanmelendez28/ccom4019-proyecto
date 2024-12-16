@@ -19,7 +19,9 @@
             all the prerequisites by using the <code>#Prerequisites</code> as the title and the symbol <code>-</code> for each item.
         </p>
         <textarea required type="text" name="desc" value=""><?= $course->description_bbcode() ?></textarea>
-        <input type="submit" class="action primary" value="Update">
+        <div class="action-group">
+            <input class="action primary" type="submit" value="Update">
+        </div>
     </form>
 
 </body>

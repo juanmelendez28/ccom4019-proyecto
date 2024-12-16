@@ -57,6 +57,15 @@ footer {
   float: right;
 }
 
+.loader {
+  border: 5px solid var(--white-700); /* Light grey */
+  border-top: 5px solid var(--accent-300); /* Blue */
+  border-radius: 50%;
+  width: 12px;
+  height: 12px;
+  animation: spin .8s linear infinite;
+}
+
 a,
 button {
   font-family: var(--text-font);
@@ -159,6 +168,12 @@ code:hover {
 .action.secondary {
   border: 1px solid black;
   color: black;
+}
+
+.action-group{
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 input[type="submit"]:hover,

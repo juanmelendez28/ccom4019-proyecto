@@ -7,10 +7,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 button.value = "Updating";
             } else if (button.value.includes("Create")) {
                 button.value = "Creating";
+                
             } else {
                 button.value = "Loading";
             }
             button.disabled = true;
+            document.querySelector('.action-group').innerHTML += '<div class="loader"></div>';
         });
     });
 });
