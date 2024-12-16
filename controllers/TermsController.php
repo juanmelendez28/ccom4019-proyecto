@@ -21,8 +21,7 @@ class TermsController extends Controller
             TermsController::create($method);
         } elseif (isset($_GET['add_course'])) {
             TermsController::add_course($method);
-        } 
-        else {
+        } else {
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
             // $user = User::findBy(['username' => $_SESSION['username']]);
@@ -79,8 +78,8 @@ class TermsController extends Controller
     public static function activate($method)
     {
         $term = $_GET['activate'];
-        try{
-        $term = Term::find($term);
+        try {
+            $term = Term::find($term);
         } catch (ModelNotFoundException $e) {
             $_SESSION['error'] = 'Term code does not match any record';
             redirect('?terms');
@@ -146,27 +145,33 @@ class TermsController extends Controller
     {
         $term = $_GET['add_course'];
         $term = Term::find($term);
+        try{
+
+        
         $courses_on_term = TermOffering::findAll($term->term_id, 'term_id', 'term_offering');
+        } catch (ModelNotFoundException $e){
+            // this means there is no course offering on this term
+            $courses_on_term = [];
+        }
         
         $courses = [];
-        foreach($courses_on_term as $course_on_term)
-        {
+        foreach ($courses_on_term as $course_on_term) {
             $courses[] = $course_on_term->course_id;
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') 
-        {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (isset($_POST['selected_courses']) && !empty($_POST['selected_courses'])) {
-                $selected_courses = $_POST['selected_courses']; 
-                
+                $selected_courses = $_POST['selected_courses'];
+
                 foreach ($selected_courses as $course_code) {
-                    if (in_array($course_code, $courses) === false)
-                    {
+                    if (in_array($course_code, $courses) === false) {
                         $success = TermOffering::create(
-                            ['term_id' => $term->term_id,
-                            'course_id' => $course_code
-                        ]);
+                            [
+                                'term_id' => $term->term_id,
+                                'course_id' => $course_code
+                            ]
+                        );
                     }
                 }
                 if ($success) {
@@ -178,14 +183,10 @@ class TermsController extends Controller
                 }
             }
             redirect('?terms');
+        } else {
+            $courses_list = $courses;
+            $courses = CoursesController::get_courses();
+            require_once('views/term_add_course.php');
         }
-        else 
-        {
-        $courses = CoursesController::get_courses();
-        $departments = Department::all();
-        require_once('views/term_add_course.php');
-        }
-        
     }
-
 }

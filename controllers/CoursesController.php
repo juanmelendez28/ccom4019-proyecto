@@ -19,11 +19,10 @@ class CoursesController extends Controller
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
             // $user = User::findBy(['username' => $_SESSION['username']]);
-            
+
             $active_term_courses = TermOffering::courses();
             $active_courses = [];
-            foreach($active_term_courses as $course)
-            {
+            foreach ($active_term_courses as $course) {
                 $active_courses[] = $course->values['course_id'];
             }
             $departments = Department::all();
@@ -35,7 +34,6 @@ class CoursesController extends Controller
     {
         $courses = Course::all();
         return $courses;
-
     }
 
     public static function update($method)
@@ -91,18 +89,18 @@ class CoursesController extends Controller
             redirect('?courses');
         } else {
             $course_id = $_GET['edit'];
-            try{
+            try {
                 $course = Course::find($course_id);
             } catch (ModelNotFoundException $e) {
                 $_SESSION['error'] = 'The course does not exist';
                 redirect('?courses');
             }
 
-            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $course->dept_id){
+            if (!Auth::checkAdmin() && Auth::user()->dept_id !== $course->dept_id) {
                 $_SESSION['error'] = 'You don\'t have permissions to edit this course.';
                 redirect('?courses');
             }
-            
+
             require_once 'views/course_edit.php';
         }
     }
@@ -169,7 +167,7 @@ class CoursesController extends Controller
 
             // Creating the course
 
-            try{
+            try {
                 $newCourse = Course::create([
                     'course_name' => $name,
                     'course_id' => $code,
@@ -182,7 +180,7 @@ class CoursesController extends Controller
                 $_SESSION['error'] = "Please enter unique values";
                 redirect_back();
             }
-            
+
 
             // Adding the prerequisite
 
@@ -198,12 +196,12 @@ class CoursesController extends Controller
         } else {
 
             // check if the user can create the course of the department
-            if(empty($_GET['create']) && !Auth::checkAdmin()){
+            if (empty($_GET['create']) && !Auth::checkAdmin()) {
                 $_SESSION['error'] = 'Specify a department to create a course';
                 redirect('?courses');
             }
 
-            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $_GET['create']){
+            if (!Auth::checkAdmin() && Auth::user()->dept_id !== $_GET['create']) {
                 $_SESSION['error'] = 'You don\'t have permissions to create a course of this department';
                 redirect('?courses');
             }
@@ -215,7 +213,12 @@ class CoursesController extends Controller
     public static function delete($method)
     {
         $course = $_GET['delete'];
-        $course = Course::find($course);
+        try {
+            $course = Course::find($course);
+        } catch (ModelNotFoundException $e) {
+            $_SESSION['error'] = 'The course does not exist';
+            redirect('?courses');
+        }
         $result = TermOffering::delete_course($course->values['course_id']);
         require_once 'views/course_delete.php';
     }
