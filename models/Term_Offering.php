@@ -13,11 +13,18 @@ class TermOffering extends Model
         // echo $active_term_id;
         // dd($active_term); 
         // echo "After active term";
-        $courses_in_term = TermOffering::findAll($active_term_id, "term_id", "term_offering");
-        // dd($courses_in_term);  
-        // echo "After terms";
 
         $courses = [];
+
+        try {
+            $courses_in_term = TermOffering::findAll($active_term_id, "term_id", "term_offering");
+        } catch (Exception $e) {
+            return $courses;
+        }
+        
+        dd($courses_in_term);  
+        // echo "After terms";
+
         foreach($courses_in_term as $course)
         {
             $course_id = $course->attributes['course_id'];

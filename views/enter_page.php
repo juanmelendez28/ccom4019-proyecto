@@ -10,7 +10,8 @@
         <div class="courses-wrapper">
             
             <?php require 'partials/logotype.php'; ?>   
-            <h2>Current Available Courses (<?= $currentTerm->term_id ?>)</h2>
+            <h2><?= $message ?></h2>
+            <?php if (!$noCourses) { ?>
             <div class="course-grid">
 
                 <?php
@@ -23,7 +24,7 @@
                         <p class="course-credits">Credits: <?= $course->course_credits ?></p>
                         <p> <?= $course->course_desc ?></p>
                     </div>
-                <?php } ?>
+                <?php }} ?>
             </div>
         </div>
 
