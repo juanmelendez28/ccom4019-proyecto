@@ -162,5 +162,6 @@ class CoursesController extends Controller
             $departments = Department::all();
             require_once 'views/course_create.php';
         }
+
     }
 }
