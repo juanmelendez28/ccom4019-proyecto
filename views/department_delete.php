@@ -25,6 +25,11 @@
 
         $department_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
 
+        if(sizeof($department->courses()) > 0){
+            $_SESSION['error'] = 'Cannot delete department with courses';
+            redirect('?departments');
+        }
+
         $success = $department->delete();
 
         $success ? $_SESSION['success'] = 'Department deleted successfully' : $_SESSION['error'] = 'Failed to delete department';

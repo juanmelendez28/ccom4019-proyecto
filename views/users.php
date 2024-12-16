@@ -7,7 +7,7 @@
     <main class="courses-tables">
         <div class="flex-title">
             <h1><i class="las la-users"></i> Users </h1>
-            <?php if (Auth::checkAdmin())  { ?>
+            <?php if (Auth::checkAdmin()) { ?>
                 <a class="action primary" href="index.php?users&create"><i class="las la-plus-circle"></i>Create a user</a>
             <?php } ?>
         </div>
@@ -32,7 +32,12 @@
                         <td><?= $user->role ?></td>
                         <?php if ((Auth::checkAdmin())) { ?>
                             <td><a href="index.php?users&edit=<?= $user->username ?>"><i class="las la-pen"></i> Edit</a></td>
+
+                        <?php }
+                        if (Auth::user()->username !== $user->username) { ?>
                             <td><a href="index.php?users&delete=<?= $user->username ?>"> <i class="las la-trash"> </i> Delete</a></td>
+                        <?php } else { ?>
+                            <td>Can't delete yourself</td>
                         <?php } ?>
                     </tr>
                 <?php } ?>

@@ -62,7 +62,7 @@ class DepartmentsController extends Controller
                 $_SESSION['error'] = "Please create a department code with 4 uppercase letters";
                 redirect_back();
             }
-            
+
             if (Department::exists(['dept_id' => $department_code])) {
                 $_SESSION['error'] = 'The department already exists';
                 redirect_back();
@@ -96,7 +96,12 @@ class DepartmentsController extends Controller
     public static function delete($method)
     {
         $department = $_GET['delete'];
-        $department = Department::find($department);
+        try {
+            $department = Department::find($department);
+        } catch (ModelNotFoundException $e) {
+            $_SESSION['error'] = 'The department does not exist';
+            redirect('?departments');
+        }
         require_once 'views/department_delete.php';
     }
 }
