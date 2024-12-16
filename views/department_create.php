@@ -11,7 +11,9 @@
     <input required type="text" name="dept_name" value="">
     <label for="dept_code">Department code (E.g. ESPA)</label>
     <input required pattern="^[A-Z]{4}$" type="text" name="dept_code" value="">
+    <div class="action-group">
     <input type="submit" class="action primary" value="Create">
+    </div>
 </form>
 
 </body>

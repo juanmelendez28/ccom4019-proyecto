@@ -27,7 +27,9 @@
                 <option value="<?= $department->dept_id ?>"><?= $department->dept_name ?></option>
             <?php } ?>
         </select>
-        <input class="action primary" type="submit" value="Create">
+        <div class="action-group">
+    <input type="submit" class="action primary" value="Create">
+</div>
     </form>
     <script>
         function showPassword(actionTag) {
