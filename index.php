@@ -40,7 +40,7 @@ if (
     } elseif (isset($_GET['terms'])) {
 
         redirect_if_guest('?login');
-        TermsController::index();
+        TermsController::index($method);
     } elseif (isset($_GET['users'])) {
 
         redirect_if_guest('?login');
