@@ -183,7 +183,7 @@ class CoursesController extends Controller
         } else {
 
             // check if the user can create the course of the department
-            if(empty($_GET['create'])){
+            if(empty($_GET['create']) && !Auth::checkAdmin()){
                 $_SESSION['error'] = 'Specify a department to create a course';
                 redirect('?courses');
             }
