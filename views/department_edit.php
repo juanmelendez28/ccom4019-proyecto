@@ -21,6 +21,7 @@
             <input disabled type="text" name="code" value="<?= $department->dept_id ?>">
             <div class="action-group">
                 <input class="action primary" type="submit" value="Update">
+                <div class="loader"></div>
             </div>
         </form>
 

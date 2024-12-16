@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
     primaryButtons.forEach(button => {
         const form = button.closest("form");
         form.addEventListener("submit", function() {
+            document.querySelector('.loader').style.display = "block";
             if(button.value.includes("Update")) {
                 button.value = "Updating";
             } else if (button.value.includes("Create")) {
@@ -11,8 +12,9 @@ document.addEventListener("DOMContentLoaded", function() {
             } else {
                 button.value = "Loading";
             }
+            
             button.disabled = true;
-            document.querySelector('.action-group').innerHTML += '<div class="loader"></div>';
+            
         });
     });
 });

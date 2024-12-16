@@ -11,6 +11,7 @@
         <textarea required name="description" value=""></textarea>
         <div class="action-group">
             <input type="submit" class="action primary" value="Create">
+            <div class="loader"></div>
         </div>
     </form>
 </body>

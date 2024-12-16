@@ -43,7 +43,7 @@ body {
   background-color: var(--white-300);
 }
 
-main{
+main {
   min-height: 100vh;
 }
 
@@ -72,7 +72,8 @@ footer {
   border-radius: 50%;
   width: 12px;
   height: 12px;
-  animation: spin .8s linear infinite;
+  animation: spin 0.8s linear infinite;
+  display: none;
 }
 
 a,
@@ -199,7 +200,7 @@ code:hover {
   color: var(--white-300);
 }
 
-.action-group{
+.action-group {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -234,11 +235,12 @@ main .auth {
 }
 .alert .progress {
   height: 0.25em;
-  background-color: var(--white-500);
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+  width: 0;
+  animation: progressBar 3s ease-out;
 }
 
 .alert.msg {
@@ -246,9 +248,17 @@ main .auth {
   color: var(--white-300);
 }
 
+.alert.msg .progress {
+  background-color: var(--white-500);
+}
+
 .alert.error {
   background-color: var(--action-danger);
   color: rgb(10, 6, 6);
+}
+
+.alert.error .progress {
+  background-color: var(--action-color);
 }
 
 .alert .closebtn {
@@ -261,4 +271,3 @@ main .auth {
 .alert .closebtn:hover {
   filter: brightness(0.8);
 }
-

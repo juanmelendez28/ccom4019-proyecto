@@ -22,48 +22,15 @@
         <select required name="dept_id" id="deparment">
             <option value="">Select a department</option>
             <?php foreach ($departments as $department) { ?>
-                <option <?php if ($department->dept_id === $userToEdit->dept_id) echo 'selected'; ?> value="<?= $department->dept_id ?>"><?= $department->dept_name ?></option>
+                <option <?php if ($department->dept_id === $userToEdit->dept_id) echo 'selected' ?> value="<?= $department->dept_id ?>"><?= $department->dept_name ?></option>
             <?php } ?>
         </select>
         <div class="action-group">
             <input class="action primary" type="submit" value="Update">
+            <div class="loader"></div>
         </div>
 
     </form>
-
-    <?php
-
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-        $username = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
-        $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
-        $role = filter_input(INPUT_POST, 'role', FILTER_DEFAULT);
-        $dept_id = filter_input(INPUT_POST, 'dept_id', FILTER_DEFAULT);
-
-        $userToEdit = User::find($username);
-
-        if (empty($name) || empty($role) || empty($dept_id)) {
-            $_SESSION['error'] = 'All fields are required';
-            redirect_back();
-        
-        } elseif (Auth::user()->dept_id !== $department->dept_id){
-            $_SESSION['error'] = 'You do not have permission to edit this course';
-            redirect_back();
-        } else {
-            // this will update and save the user new information
-            $success = $userToEdit->update([
-                'name' => $name,
-                'role' => $role,
-                'dept_id' => $dept_id
-            ]);
-
-            $success ? $_SESSION['success'] = 'Changed user information successfully' : $_SESSION['error'] = 'Failed to change user information';
-            redirect('?users'); // having problems redirecting here (post redirect get???)
-        }
-    }
-    ?>
-
-
 
 </body>
 
