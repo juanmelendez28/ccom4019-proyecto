@@ -2,7 +2,7 @@
 <html lang="en">
 <?php require_once 'partials/header.php'; ?>
 
-<body>
+<body class="login-body">
     <!-- User accessing page and being redirected to their corresponding page. -->
 
     <main class="auth">

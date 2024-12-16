@@ -16,6 +16,10 @@
   --white-900: #b3b3b3;
 
   --accent-300: rgb(255, 251, 35);
+  --accent-400: rgb(255, 255, 111);
+  --accent-500: rgb(255, 255, 170);
+  --accent-600: rgb(255, 255, 212);
+  --accent-700: rgb(255, 255, 245);
 
   --action-color: rgb(20, 18, 14);
   --action-color-hover: rgb(46, 45, 43);
@@ -28,6 +32,8 @@
 * {
   margin: 0;
   padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -63,9 +69,9 @@ button {
 .auth-form {
   padding: 50px 80px;
   border: 1px solid black;
-
-  margin: 30px;
-  margin-top: 5em;
+  width: fit-content;
+  margin: 8em auto;
+  background-color: var(--white-300);
 }
 
 .auth-form .logo {
@@ -80,7 +86,7 @@ button {
   max-width: 500px;
 }
 
-a{
+a {
   text-wrap: nowrap;
 }
 
@@ -102,21 +108,21 @@ textarea {
   background-color: transparent;
   font-family: var(--text-font);
   font-size: 1em;
-  min-height:130px;
+  min-height: 130px;
   padding: 15px;
   outline: none;
   display: block;
   resize: vertical;
 }
 
-select{
-    border: 1px solid black;
-    background-color: transparent;
-    font-family: var(--text-font);
-    font-size: 1em;
-    padding: 15px;
-    outline: none;
-    display: block;
+select {
+  border: 1px solid black;
+  background-color: transparent;
+  font-family: var(--text-font);
+  font-size: 1em;
+  padding: 15px;
+  outline: none;
+  display: block;
 }
 
 input[type="submit"],
@@ -203,3 +209,4 @@ main .auth {
 .alert .closebtn:hover {
   filter: brightness(0.8);
 }
+

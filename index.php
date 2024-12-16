@@ -30,7 +30,8 @@ if (
 
         LoginController::user_login();
     } elseif (isset($_GET['courses'])) {
-
+        // manage courses
+        redirect_if_guest('?login');
         CoursesController::index($method);
     } elseif (isset($_GET['departments'])) {
 

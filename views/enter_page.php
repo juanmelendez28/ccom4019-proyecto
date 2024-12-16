@@ -5,35 +5,32 @@
 <body>
     <main>
         <?php require_once 'partials/navbar.php'; ?>
-        <table class="tblCourses">
-            <caption>Current Avaliable Courses (<?= $currentTerm->term_id ?>)</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Course name</th>
-                    <th scope="col">Course code</th>
-                    <th scope="col">Credits</th>
-                    <th scope="col">Description</th>
-                </tr>
-            </thead>
-            <tbody>
+
+
+        <div class="courses-wrapper">
+            
+            <?php require 'partials/logotype.php'; ?>   
+            <h2>Current Avaliable Courses (<?= $currentTerm->term_id ?>)</h2>
+            <div class="course-grid">
+
                 <?php
                 // rendering each course
                 foreach ($courses as $course) { ?>
-                    <tr>
-                        <td><?= $course->course_name ?></td>
-                        <td><span aria-describedby="<?= $course->course_id ?>_desc"><?= $course->course_id ?></span></td>
-                        <td><?= $course->course_credits ?></td>
-                        <?php
-                        $course_summary = substr($course->course_desc, 0, 100);
-                        if (strlen($course->course_desc) > 100) {
-                            $course_summary .= '...';
-                        }
-                        ?>
-                        <td><span id="<?= $course->course_code ?>_desc" class="course_desc" title="<?= $course->course_desc ?>"><?= $course_summary ?></span></td>
-                    </tr>
+                    <div class="course-card">
+                        <p class="course-code"><span aria-describedby="<?= $course->course_id ?>_desc"><?= $course->course_id ?></span></p>
+                        <p class="course-name"><?= $course->course_name ?></p>
+
+                        <p class="course-credits">Credits: <?= $course->course_credits ?></p>
+                        <p> <?= $course->course_desc ?></p>
+                    </div>
                 <?php } ?>
-            </tbody>
-        </table>
+            </div>
+        </div>
+
+
+
+
+
 
 
     </main>
