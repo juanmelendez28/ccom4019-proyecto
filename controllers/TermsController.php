@@ -57,8 +57,11 @@ class TermsController extends Controller
         }
     }
 
-    public static function delete($method) {
-        dd($method);
+    public static function delete($method)
+    {
+        $term = $_GET['delete'];
+        $term = Term::find($term);
+        require_once 'views/term_delete.php';
     }
 
     public static function create($method)
