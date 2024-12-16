@@ -177,6 +177,8 @@ class CoursesController extends Controller
 
     public static function delete($method)
     {
-        dd($method);
+        $course = $_GET['delete'];
+        $course = Course::find($course);
+        require_once 'views/course_delete.php';
     }
 }
