@@ -44,7 +44,7 @@ if (
     } elseif (isset($_GET['users'])) {
 
         redirect_if_guest('?login');
-        UsersController::index();
+        UsersController::index($method);
     } elseif (isset($_GET['login'])) {
 
         LoginController::index();
