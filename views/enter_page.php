@@ -11,7 +11,7 @@
             
             <?php require 'partials/logotype.php'; ?>   
             <h2><?= $message ?></h2>
-            <?php if (!$noCourses) { ?>
+            <?php if ($courses) { ?>
             <div class="course-grid">
 
                 <?php

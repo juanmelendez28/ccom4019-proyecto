@@ -16,9 +16,6 @@ class TermOfferingController extends Controller
         if (!$courses)
         {
             $message = "No courses found on term " . $currentTerm->term_id . ".";
-            if ($courses == []) {
-                $noCourses = true;
-            }
         }
         else{
             $message = "Available courses on term " . $currentTerm->term_id . ":";

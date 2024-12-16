@@ -21,8 +21,8 @@ class TermOffering extends Model
         } catch (Exception $e) {
             return $courses;
         }
-        
-        dd($courses_in_term);  
+
+        // dd($courses_in_term);  
         // echo "After terms";
 
         foreach($courses_in_term as $course)
