@@ -22,11 +22,12 @@
         <select required name="dept_id" id="deparment">
             <option value="">Select a department</option>
             <?php foreach ($departments as $department) { ?>
-                <option <?php if ($department->dept_id === $userToEdit->dept_id) echo 'selected'; ?> value="<?= $department->dept_id ?>"><?= $department->dept_name ?></option>
+                <option <?php if ($department->dept_id === $userToEdit->dept_id) echo 'selected' ?> value="<?= $department->dept_id ?>"><?= $department->dept_name ?></option>
             <?php } ?>
         </select>
         <div class="action-group">
             <input class="action primary" type="submit" value="Update">
+            <div class="loader"></div>
         </div>
 
     </form>
@@ -62,9 +63,6 @@
         }
     }
     ?>
-
-
-
 </body>
 
 </html>

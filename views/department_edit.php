@@ -9,8 +9,23 @@
 
     if ($_GET['edit'] && $_SERVER['REQUEST_METHOD'] != 'POST') {
         require_once 'models/Department.php';
+        if (empty($_GET['edit']) || !Department::exists(['dept_id' => $_GET['edit']])) {
+            $_SESSION['error'] = 'Please indicate a department to edit';
+            redirect('?departments');
+        }
+        
         $department_id = $_GET['edit'];
-        $department = Department::find($department_id); ?>
+
+
+        try {
+            $department = Department::find($department_id);
+        } catch (ModelNotFoundException $e) {
+            $_SESSION['error'] = 'Department code does not match any record';
+            redirect('?departments');
+        }
+
+
+    ?>
 
         <form class="form" action="#" method="post">
             <h1><i class="las la-edit"></i>Edit department</h1>
@@ -21,6 +36,7 @@
             <input disabled type="text" name="code" value="<?= $department->dept_id ?>">
             <div class="action-group">
                 <input class="action primary" type="submit" value="Update">
+                <div class="loader"></div>
             </div>
         </form>
 
@@ -37,6 +53,7 @@
             // this means the input for department code was forcefully changed
             $department = null;
             $_SESSION['error'] = 'Department code does not match any record';
+            redirect('?departments');
         }
 
 
