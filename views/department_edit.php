@@ -13,7 +13,7 @@
             $department = Department::find($department_id); ?>
 
             <form class="form" action="#" method="post">
-                <h1>Edit department</h1>
+                <h1><i class="las la-edit"></i>Edit department</h1>
                 <input type="hidden" name="id" value="<?= $department->dept_id ?>">
                 <label  for="name">Department name</label>
                 <input  required type="text" name="name" value="<?= $department->dept_name ?>">

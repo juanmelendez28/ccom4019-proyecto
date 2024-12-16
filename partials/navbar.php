@@ -2,13 +2,28 @@
     <?php require_once 'logotype.php'; ?>
 
     <div class="link-group">
-    <a class="<?php if (!isset($_GET['courses']) && !isset($_GET['departments']) && !isset($_GET['users']) && !isset($_GET['terms'])) echo "selected" ?>" href="?">Available Courses</a>
+        <a class="<?php if (!isset($_GET['courses']) && !isset($_GET['departments']) && !isset($_GET['users']) && !isset($_GET['terms'])) echo "selected" ?>" href="?">
+        <i class="las la-chalkboard"></i>
+        Available Courses
+        </a>
         <?php if (Auth::checkAdmin()) { ?>
-            <a class="<?php if (isset($_GET['courses'])) echo "selected" ?>" href="?courses">Manage Courses</a>
-            <a class="<?php if (isset($_GET['departments'])) echo "selected" ?>" href="?departments">Departments</a>
-            <a class="<?php if (isset($_GET['users'])) echo "selected" ?>" href="?users">Users</a>
-            <a class="<?php if (isset($_GET['terms'])) echo "selected" ?>" href="?terms">Terms</a>
-            
+            <a class="<?php if (isset($_GET['courses'])) echo "selected" ?>" href="?courses">
+                <i class="las la-chalkboard-teacher"></i>
+                Manage Courses
+            </a>
+            <a class="<?php if (isset($_GET['departments'])) echo "selected" ?>" href="?departments">
+                <i class="las la-clipboard"></i>
+                Departments
+            </a>
+            <a class="<?php if (isset($_GET['users'])) echo "selected" ?>" href="?users">
+                <i class="las la-user"></i>
+                Users
+            </a>
+            <a class="<?php if (isset($_GET['terms'])) echo "selected" ?>" href="?terms">
+                <i class="las la-calendar"></i>
+                Terms
+            </a>
+
         <?php } ?>
 
     </div>

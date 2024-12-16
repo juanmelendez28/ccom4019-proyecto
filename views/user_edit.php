@@ -5,7 +5,7 @@
 <body>
     <?php require_once 'partials/navbar.php'; ?>
     <form class="form" action="#" method="post">
-        <h1>Edit user</h1>
+        <h1><i class="las la-edit"></i> Edit user</h1>
         <input required type="hidden" name="id" value="<?= $userToEdit->username ?>">
         <label for="name">Name</label>
         <input required type="text" name="name" value="<?= $userToEdit->name ?>">

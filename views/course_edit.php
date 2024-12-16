@@ -5,7 +5,7 @@
 <body>
     <?php require_once 'partials/navbar.php'; ?>
     <form class="form" action="#" method="post">
-        <h1>Edit course</h1>
+        <h1><i class="las la-edit"></i>Edit course</h1>
         <input type="hidden" name="id" value="<?= $course->course_id ?>">
         <label for="name">Course name</label>
         <input required type="text" name="name" value="<?= $course->course_name ?>">
