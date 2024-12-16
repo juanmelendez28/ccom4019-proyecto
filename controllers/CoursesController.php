@@ -3,6 +3,7 @@ require_once 'Controller.php';
 require_once 'models/Department.php';
 require_once 'models/User.php';
 require_once 'models/Course.php';
+require_once 'models/Term_Offering.php';
 class CoursesController extends Controller
 {
 
@@ -190,6 +191,7 @@ class CoursesController extends Controller
     {
         $course = $_GET['delete'];
         $course = Course::find($course);
+        $result = TermOffering::delete_course($course->values['course_id']);
         require_once 'views/course_delete.php';
     }
 }

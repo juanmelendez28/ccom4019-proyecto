@@ -5,6 +5,7 @@ require_once 'models/Term.php';
 class TermOffering extends Model
 {
     protected static $table = 'term_offering';
+    protected static $primary_key = 'course_id';
 
     public static function courses()
     {
@@ -36,6 +37,19 @@ class TermOffering extends Model
         
         $departments = Department::all();
         return $courses;
+    }
+
+    public static function delete_course($course)
+    {
+        try
+        {
+            $course_to_delete = TermOffering::findBy(['course_id' => $course]);
+            $course_to_delete->deleteWhere(['course_id' => $course]);
+        }
+        catch(ModelNotFoundException $e)
+        {
+        }
+        // echo $result;
     }
 }
 ?>

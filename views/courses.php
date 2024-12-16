@@ -17,7 +17,7 @@
 
         <?php foreach ($departments as $department) {
             $courses = $department->courses();
-            if ($courses != []) {
+            // if ($courses != [] || $department->dep_id == Auth::user()->dept_id) {
         ?>
                 <table class="tblCourses">
                     <div class="flex-title">
@@ -30,6 +30,9 @@
 
                     <thead>
                         <tr>
+                            <?php if ($courses == []) { ?>
+                                <th scope="col">No courses available</th>
+                            <?php } else { ?>
                             <th scope="col">Course name</th>
                             <th scope="col">Course code</th>
                             <th scope="col">Credits</th>
@@ -37,6 +40,7 @@
                             <?php if (Auth::check() && (Auth::checkAdmin() || Auth::user()->dept_id == $department->dept_id)) { ?>
                                 <th scope="col"></th>
                                 <th scope="col"></th>
+                            <?php } ?>
                             <?php } ?>
                         </tr>
                     </thead>
@@ -64,7 +68,7 @@
                     } ?>
                     </tbody>
                 </table>
-            <?php } ?>
+            <!-- <?php  ?> -->
 
 
     </main>

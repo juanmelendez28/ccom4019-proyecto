@@ -9,6 +9,7 @@ require_once 'controllers/CoursesController.php';
 class TermOfferingController extends Controller
 {
 
+    
     public static function index()
     {   
         $courses = TermOffering::courses();
