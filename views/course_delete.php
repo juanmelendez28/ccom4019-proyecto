@@ -15,7 +15,10 @@
             <input disabled type="number" name="credits" value="<?= $course->course_credits ?>">
             <label for="desc">Description</label>
             <input disabled type="text" name="desc" value="<?= $course->course_desc ?>">
+            <div class="action-group">
             <input type="submit" class="action danger" value="Delete">
+            <div class="loader"></div>
+            </div>
         </form>
 
     <?php
