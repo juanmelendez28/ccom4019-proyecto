@@ -71,7 +71,12 @@ class TermsController extends Controller
     public static function delete($method)
     {
         $term = $_GET['delete'];
-        $term = Term::find($term);
+        try {
+            $term = Term::find($term);
+        } catch (ModelNotFoundException $e) {
+            $_SESSION['error'] = 'Term code does not match any record';
+            redirect('?terms');
+        }
         require_once 'views/term_delete.php';
     }
 
@@ -144,16 +149,22 @@ class TermsController extends Controller
     public static function add_course($method)
     {
         $term = $_GET['add_course'];
-        $term = Term::find($term);
-        try{
+        try {
+            $term = Term::find($term);
+        } catch (ModelNotFoundException $e) {
+            $_SESSION['error'] = 'Term code does not match any record';
+            redirect('?terms');
+        }
 
-        
-        $courses_on_term = TermOffering::findAll($term->term_id, 'term_id', 'term_offering');
-        } catch (ModelNotFoundException $e){
+        try {
+
+
+            $courses_on_term = TermOffering::findAll($term->term_id, 'term_id', 'term_offering');
+        } catch (ModelNotFoundException $e) {
             // this means there is no course offering on this term
             $courses_on_term = [];
         }
-        
+
         $courses = [];
         foreach ($courses_on_term as $course_on_term) {
             $courses[] = $course_on_term->course_id;

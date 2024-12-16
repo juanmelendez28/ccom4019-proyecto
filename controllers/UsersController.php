@@ -35,7 +35,12 @@ class UsersController extends Controller
             $role = filter_input(INPUT_POST, 'role', FILTER_DEFAULT);
             $dept_id = filter_input(INPUT_POST, 'dept_id', FILTER_DEFAULT);
 
-            $userToEdit = User::find($username);
+            try {
+                $userToEdit = User::find($username);
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'User not found';
+                redirect('?users');
+            }
 
             if (empty($name) || empty($role) || empty($dept_id)) {
                 $_SESSION['error'] = 'All fields are required';
@@ -54,7 +59,6 @@ class UsersController extends Controller
                 $success ? $_SESSION['success'] = 'Changed user information successfully' : $_SESSION['error'] = 'Failed to change user information';
                 redirect('?users'); // having problems redirecting here (post redirect get???)
             }
-
         } else {
             // method is get
             if (isset($_GET['edit'])) {
@@ -165,7 +169,12 @@ class UsersController extends Controller
     public static function delete($method)
     {
         $user = $_GET['delete'];
-        $user = User::find($user);
+        try {
+            $user = User::find($user);
+        } catch (ModelNotFoundException $e) {
+            $_SESSION['error'] = 'User not found';
+            redirect('?users');
+        }
         require_once 'views/user_delete.php';
     }
 }
