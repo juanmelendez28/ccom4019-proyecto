@@ -23,6 +23,8 @@
 
   --action-color: rgb(20, 18, 14);
   --action-color-hover: rgb(46, 45, 43);
+
+  --action-danger: rgb(255, 80, 80);
 }
 
 ::selection {
@@ -41,6 +43,10 @@ body {
   background-color: var(--white-300);
 }
 
+main{
+  min-height: 100vh;
+}
+
 a {
   cursor: pointer;
   text-decoration: none;
@@ -51,6 +57,9 @@ footer {
   color: black;
   padding: 15px;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .loginButton {
@@ -169,6 +178,26 @@ code:hover {
   border: 1px solid black;
   color: black;
 }
+.action.danger {
+  border: 1px solid var();
+  background-color: var(--action-danger);
+  color: var(--white-300);
+}
+
+.action.primary-negative {
+  color: var(--action-color);
+  background-color: var(--white-300);
+}
+
+.action.secondary-negative {
+  border: 1px solid var(--white-300);
+  color: var(--white-300);
+}
+.action.danger-negative {
+  border: 1px solid var();
+  background-color: var(--action-danger);
+  color: var(--white-300);
+}
 
 .action-group{
   display: flex;
@@ -210,7 +239,7 @@ main .auth {
 }
 
 .alert.error {
-  background-color: rgb(255, 80, 80);
+  background-color: var(--action-danger);
   color: rgb(10, 6, 6);
 }
 

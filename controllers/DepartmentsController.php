@@ -62,15 +62,28 @@ class DepartmentsController extends Controller
                 $_SESSION['error'] = "Please create a department code with 4 uppercase letters";
                 redirect_back();
             }
+            
+            if (Department::exists(['dept_id' => $department_code])) {
+                $_SESSION['error'] = 'The department already exists';
+                redirect_back();
+            }
 
-            $success = Department::create([
-                'dept_id' => $department_code,
-                'dept_name' => $department_name
-            ]);
+            try {
+                // try to create the department
+                $success = Department::create([
+                    'dept_id' => $department_code,
+                    'dept_name' => $department_name
+                ]);
+            } catch (PDOException $e) {
+                // this means the user tried to include an already existing department
+                $_SESSION['error'] = "Please use unique values";
+                redirect_back();
+            }
 
-            $success ? 
-            $_SESSION['success'] = "Department created successfully" 
-            : $_SESSION['error'] = 'There was an error while creating the department';
+
+            $success ?
+                $_SESSION['success'] = "Department created successfully"
+                : $_SESSION['error'] = 'There was an error while creating the department';
 
             redirect('?departments');
         } else {

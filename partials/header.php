@@ -13,6 +13,8 @@
 
 
     <script src="js/submitButton.js" defer></script>
+    <script src="js/messages.js" defer></script>
+    <script src="js/modals.js" defer></script>
 
     <link rel="shortcut icon" href="resources/img/favicon.svg" type="image/x-icon">
 

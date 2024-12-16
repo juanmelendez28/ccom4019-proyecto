@@ -70,6 +70,7 @@ class UsersController extends Controller
 
             /*
              * validation rules:
+             * username: unique
              * password: required, 8 characters minimum
              * role: either chair or coordinator
              * department: must exist on the database
@@ -90,17 +91,30 @@ class UsersController extends Controller
             }
 
 
+            if (User::exists(['username' => $username])) {
+                $_SESSION['error'] = 'The user already exists';
+                redirect_back();
+            }
+
+
             // all tests passed! creating the user
 
-            $success = User::create([
-                'username' => $username,
-                'password' => password_hash($password, PASSWORD_DEFAULT),
-                'name' => $name,
-                'role'  => $role,
-                'dept_id' => $department,
-                'last_login' => date('Y:m:d H:m:s')
-            ]);
-
+            try{
+                $success = User::create([
+                    'username' => $username,
+                    'password' => password_hash($password, PASSWORD_DEFAULT),
+                    'name' => $name,
+                    'role'  => $role,
+                    'dept_id' => $department,
+                    'last_login' => date('Y:m:d H:m:s')
+                ]);
+    
+            } catch (PDOException $e)
+            {
+                $_SESSION['error'] = 'Please enter unique values';
+                redirect_back();
+            }
+            
             if($success){
                 $_SESSION['success'] = 'User created successfully';
                 redirect('?users');

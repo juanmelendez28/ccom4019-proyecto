@@ -76,7 +76,18 @@ class CoursesController extends Controller
             redirect('?courses');
         } else {
             $course_id = $_GET['edit'];
-            $course = Course::find($course_id);
+            try{
+                $course = Course::find($course_id);
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'The course does not exist';
+                redirect('?courses');
+            }
+
+            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $course->dept_id){
+                $_SESSION['error'] = 'You don\'t have permissions to edit this course.';
+                redirect('?courses');
+            }
+            
             require_once 'views/course_edit.php';
         }
     }
@@ -90,7 +101,7 @@ class CoursesController extends Controller
 
         if ($method === "POST") {
             $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
-            $code = filter_input(INPUT_POST, 'code', FILTER_DEFAULT);
+            $code = filter_input(INPUT_POST, 'code', FILTER_DEFAULT); // this must be unique
             $credits = filter_input(INPUT_POST, 'credits', FILTER_VALIDATE_INT);
             $description = filter_input(INPUT_POST, 'description', FILTER_DEFAULT);
             $department = filter_input(INPUT_POST, 'department', FILTER_DEFAULT);
@@ -100,6 +111,11 @@ class CoursesController extends Controller
             // validating for required fields
             if (empty($name) || empty($code) || empty($credits) || empty($description) || empty($department)) {
                 $_SESSION['error'] = 'All fields are required';
+                redirect_back();
+            }
+
+            if (Course::exists(['course_id' => $code])) {
+                $_SESSION['error'] = 'The course already exists';
                 redirect_back();
             }
 
@@ -138,14 +154,20 @@ class CoursesController extends Controller
 
             // Creating the course
 
-            $newCourse = Course::create([
-                'course_name' => $name,
-                'course_id' => $code,
-                'course_credits' => $credits,
-                'course_desc' => $bbc_description['unkeyed'],
-                'dept_id' => $department->dept_id,
-                'updated_by' => Auth::user()->username,
-            ]);
+            try{
+                $newCourse = Course::create([
+                    'course_name' => $name,
+                    'course_id' => $code,
+                    'course_credits' => $credits,
+                    'course_desc' => $bbc_description['unkeyed'],
+                    'dept_id' => $department->dept_id,
+                    'updated_by' => Auth::user()->username,
+                ]);
+            } catch (PDOException $e) {
+                $_SESSION['error'] = "Please enter unique values";
+                redirect_back();
+            }
+            
 
             // Adding the prerequisite
 

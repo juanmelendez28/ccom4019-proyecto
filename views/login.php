@@ -22,7 +22,7 @@
                 <br>
                 <div class="actions-split">
                     <input class="action primary" type="submit" value="Log In">
-                    <a class="action secondary" href="index.php?courses">
+                    <a class="action secondary" href="?">
                     <i class="las la-arrow-circle-left"></i>
                          Return to courses
                         </a>

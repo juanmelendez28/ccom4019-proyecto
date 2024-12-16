@@ -32,8 +32,10 @@
                 all the prerequisites by using the <code>#Prerequisites</code> as the title and the symbol <code>-</code> for each item.
             </p>
             <textarea required type="text" name="description" value=""></textarea>
+            <div class="action-group">
             <input type="submit" class="action primary" value="Save">
+            </div>
     </form>
 </body>
-
+\
 </html>

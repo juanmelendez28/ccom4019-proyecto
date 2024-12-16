@@ -23,6 +23,7 @@
 
                         <p class="course-credits">Credits: <?= $course->course_credits ?></p>
                         <p> <?= $course->course_desc ?></p>
+                        <p>Prerequisites: <?= empty($course->prerequisites_as_list()) ? 'None' : implode(', ', $course->prerequisites_as_list()) ?></p>
                     </div>
                 <?php }} ?>
             </div>

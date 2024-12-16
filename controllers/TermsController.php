@@ -96,12 +96,23 @@ class TermsController extends Controller
                 redirect_back();
             }
 
+            if (Term::exists(['term_id' => $term])) {
+                $_SESSION['error'] = 'The term already exists';
+                redirect_back();
+            }
+
             // all validation has passed, creating the term
-            $success = Term::create([
-                'term_id' => $term,
-                'term_desc' => $description,
-                'term_is_active' => false
-            ]);
+            try{
+                $success = Term::create([
+                    'term_id' => $term,
+                    'term_desc' => $description,
+                    'term_is_active' => false
+                ]);
+            } catch (PDOException $e){
+                $_SESSION['error'] = 'Please use unique values';
+                redirect_back();
+            }
+            
 
             if ($success){
                 $_SESSION['success'] = 'Created term successfully';
