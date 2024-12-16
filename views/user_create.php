@@ -16,7 +16,7 @@
         <select required name="role" id="role">
             <option value="">Select a role</option>
             <?php foreach ($valid_roles as $role) { ?>
-                <?php if($role === 'admin') continue; ?>
+                <?php if ($role === 'admin') continue; ?>
                 <option value="<?= $role ?>"><?= ucfirst($role) ?></option>
             <?php } ?>
         </select>
@@ -28,8 +28,9 @@
             <?php } ?>
         </select>
         <div class="action-group">
-    <input type="submit" class="action primary" value="Create">
-</div>
+            <input type="submit" class="action primary" value="Create">
+            <div class="loader"></div>
+        </div>
     </form>
     <script>
         function showPassword(actionTag) {

@@ -181,6 +181,17 @@ class CoursesController extends Controller
             $_SESSION['success'] = 'Course created successfully';
             redirect('?courses');
         } else {
+
+            // check if the user can create the course of the department
+            if(empty($_GET['create'])){
+                $_SESSION['error'] = 'Specify a department to create a course';
+                redirect('?courses');
+            }
+
+            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $_GET['create']){
+                $_SESSION['error'] = 'You don\'t have permissions to create a course of this department';
+                redirect('?courses');
+            }
             $departments = Department::all();
             require_once 'views/course_create.php';
         }

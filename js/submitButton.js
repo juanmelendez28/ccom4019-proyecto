@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const primaryButtons = document.querySelectorAll("input[type=submit].action.primary");
+    const primaryButtons = document.querySelectorAll("input[type=submit].action");
     primaryButtons.forEach(button => {
         const form = button.closest("form");
         form.addEventListener("submit", function() {

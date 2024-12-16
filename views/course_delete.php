@@ -28,7 +28,7 @@
 
             $success ? $_SESSION['success'] = 'Course deleted successfully' : $_SESSION['error'] = 'Failed to delete course';
             $departments = Department::all();
-            require_once 'views/courses.php';
+            redirect('?courses');
             }
     ?>
 
