@@ -11,7 +11,7 @@ class CoursesController extends Controller
         if (isset($_GET['edit'])) {
             CoursesController::update($method);
         } elseif (isset($_GET['delete'])) {
-            CoursesController::viewDeleteCourse();
+            CoursesController::delete($method);
         } elseif (isset($_GET['create'])) {
             CoursesController::create($method);
         } else {
@@ -162,6 +162,10 @@ class CoursesController extends Controller
             $departments = Department::all();
             require_once 'views/course_create.php';
         }
+    }
 
+    public static function delete($method)
+    {
+        dd($method);
     }
 }
