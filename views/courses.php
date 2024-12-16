@@ -20,6 +20,9 @@
         <?php foreach ($departments as $department) {
             $courses = $department->courses();
             // if ($courses != [] || $department->dep_id == Auth::user()->dept_id) {
+            if($department->dept_id === 'ADMI'){
+                continue;
+            }
         ?>
                 <table class="tblCourses">
                     <div class="flex-title">
