@@ -15,6 +15,8 @@ class TermsController extends Controller
             TermsController::update($method);
         } elseif(isset($_GET['delete'])) {
             TermsController::delete($method);
+        } elseif(isset($_GET['activate'])) {
+            TermsController::activate($method);
         } elseif(isset($_GET['create'])) {
             TermsController::create($method);
         } else {
@@ -62,6 +64,13 @@ class TermsController extends Controller
         $term = $_GET['delete'];
         $term = Term::find($term);
         require_once 'views/term_delete.php';
+    }
+
+    public static function activate($method)
+    {
+        $term = $_GET['activate'];
+        $term = Term::find($term);
+        require_once 'views/term_activate.php';
     }
 
     public static function create($method)

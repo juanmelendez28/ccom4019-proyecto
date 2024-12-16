@@ -10,7 +10,7 @@
         <div class="courses-wrapper">
             
             <?php require 'partials/logotype.php'; ?>   
-            <h2>Current Avaliable Courses (<?= $currentTerm->term_id ?>)</h2>
+            <h2>Current Available Courses (<?= $currentTerm->term_id ?>)</h2>
             <div class="course-grid">
 
                 <?php
