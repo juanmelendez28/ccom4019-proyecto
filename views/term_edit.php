@@ -11,7 +11,9 @@
         <input type="text" name="description" value="<?= $term->term_desc ?>">
         <label for="code">Term code</label>
         <input disabled type="text" name="code" value="<?= $term->term_id ?>">
-        <input type="submit" class="action primary" value="Update">
+        <div class="action-group">
+            <input class="action primary" type="submit" value="Update">
+        </div>
     </form>
 
 </body>
