@@ -15,7 +15,7 @@
   --white-800: #bfbfbf;
   --white-900: #b3b3b3;
 
-  --accent-300: rgb(255, 251, 35);
+  --accent-300: #ffe900;
   --accent-400: rgb(255, 255, 111);
   --accent-500: rgb(255, 255, 170);
   --accent-600: rgb(255, 255, 212);
@@ -47,7 +47,7 @@ a {
 }
 
 footer {
-  background-color: yellow;
+  background-color: var(--accent-300);
   color: black;
   padding: 15px;
   bottom: 0;
