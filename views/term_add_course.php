@@ -4,7 +4,8 @@
     <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
         <?php require_once "partials/navbar.php" ?>
         <form class="form" action="#" method="post">
-            <h1>Add course to term</h1>
+
+            <h1><i class="las la-plus"></i> Add course to term</h1>
 
             <?php foreach ($courses as $course) { ?>
                 <label for="<?= $course->course_id ?>">
@@ -14,7 +15,10 @@
                 </label>
             <?php } ?>
             <input disabled type="hidden" name="id" value="<?= $term->term_id ?>">
-            <input type="submit" class="action primary" value="Add Courses">
+            <div class="action-group">
+                <input type="submit" class="action primary" value="Add Courses">
+                <div class="loader"></div>
+            </div>
             </div>
         </form>
     <?php } ?>

@@ -4,32 +4,32 @@
 
 <body>
     <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
-    <form class="form" action="#" method="post">
-        <h2>Are you sure you want to delete this course?</h2>
-        <input disabled type="hidden" name="id" value="<?= $course->course_id ?>">
-        <label for="name">Course name</label>
-        <input disabled type="text" name="name" value="<?= $course->course_name ?>">
-        <label for="code">Course code</label>
-        <input disabled type="text" name="code" value="<?= $course->course_id ?>">
-        <label for="credits">Credits</label>
-        <input disabled type="number" name="credits" value="<?= $course->course_credits ?>">
-        <label for="desc">Description</label>
-        <input disabled type="text" name="desc" value="<?= $course->course_desc ?>">
-        <input type="submit" class="action danger" value="Delete">
-    </form>
+        <form class="form" action="#" method="post">
+            <h2>Are you sure you want to delete this course?</h2>
+            <input disabled type="hidden" name="id" value="<?= $course->course_id ?>">
+            <label for="name">Course name</label>
+            <input disabled type="text" name="name" value="<?= $course->course_name ?>">
+            <label for="code">Course code</label>
+            <input disabled type="text" name="code" value="<?= $course->course_id ?>">
+            <label for="credits">Credits</label>
+            <input disabled type="number" name="credits" value="<?= $course->course_credits ?>">
+            <label for="desc">Description</label>
+            <input disabled type="text" name="desc" value="<?= $course->course_desc ?>">
+            <input type="submit" class="action danger" value="Delete">
+        </form>
 
-        <?php
+    <?php
 
-            } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            $course_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+        $course_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
 
-            $success = $course->delete();
+        $success = $course->delete();
 
-            $success ? $_SESSION['success'] = 'Course deleted successfully' : $_SESSION['error'] = 'Failed to delete course';
-            $departments = Department::all();
-            redirect('?courses');
-            }
+        $success ? $_SESSION['success'] = 'Course deleted successfully' : $_SESSION['error'] = 'Failed to delete course';
+        $departments = Department::all();
+        redirect('?courses');
+    }
     ?>
 
     <!-- this has a temporary css (move to a css file) -->
