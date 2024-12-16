@@ -46,8 +46,8 @@
             $_SESSION['error'] = 'All fields are required';
             redirect_back();
         
-        } elseif (Auth::user()->dept_id !== $department->dept_id){
-            $_SESSION['error'] = 'You do not have permission to edit this course';
+        } elseif (Auth::user()->role !== 'admin'){
+            $_SESSION['error'] = 'You do not have permission to edit this user';
             redirect_back();
         } else {
             // this will update and save the user new information
