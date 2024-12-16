@@ -9,18 +9,56 @@ require_once 'controllers/CoursesController.php';
 class TermsController extends Controller
 {
 
-    public static function index()
-    {
-        if (isset($_GET['create'])) {
-            TermsController::create($_SERVER['REQUEST_METHOD']);
+    public static function index($method)
+    {   
+        if(isset($_GET['edit'])) {
+            TermsController::update($method);
+        } elseif(isset($_GET['delete'])) {
+            TermsController::delete($method);
+        } elseif(isset($_GET['create'])) {
+            TermsController::create($method);
         } else {
-
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
             // $user = User::findBy(['username' => $_SESSION['username']]);
             $terms = Term::all();
             require_once 'views/terms.php';
         }
+    }
+
+    public static function update($method)
+    {
+
+        if ($method == "POST") {
+            $term_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+            $description = filter_input(INPUT_POST, 'description', FILTER_DEFAULT);
+
+            if (empty($description)) {
+                $_SESSION['error'] = 'All fields are required';
+                redirect_back();
+            }
+
+            // this will update and save the course new information
+            $term = Term::find($term_id);
+            $success = $term->update([
+                'description' => $description,
+            ]);
+
+            $success ?
+                $_SESSION['success'] = 'Changed term information successfully' :
+                $_SESSION['error'] = 'Failed to change term information';
+
+                $terms = Term::all();
+                require_once 'views/terms.php';
+        } else {
+            $term_id = $_GET['edit'];
+            $term = Term::find($term_id);
+            require_once 'views/term_edit.php';
+        }
+    }
+
+    public static function delete($method) {
+        dd($method);
     }
 
     public static function create($method)
@@ -78,3 +116,6 @@ class TermsController extends Controller
         }
     }
 }
+
+
+?>
