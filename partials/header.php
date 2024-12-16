@@ -31,6 +31,7 @@
     <div class="alert msg">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
         <strong>Success!</strong> <?php echo $_SESSION['success']; ?>
+        <div class="progress"></div>
     </div>
 <?php unset($_SESSION['success']); }  ?>
 
@@ -38,5 +39,6 @@
     <div class="alert error">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
         <strong>Error!</strong> <?php echo $_SESSION['error']; ?>
+        <div class="progress"></div>
     </div>
 <?php  unset($_SESSION['error']); } ?>

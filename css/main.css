@@ -232,6 +232,14 @@ main .auth {
   left: 50%;
   transform: translateX(-50%);
 }
+.alert .progress {
+  height: 0.25em;
+  background-color: var(--white-500);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
 
 .alert.msg {
   background-color: var(--action-color);
