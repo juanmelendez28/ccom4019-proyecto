@@ -61,7 +61,11 @@
                                 <td><span id="<?= $course->course_code ?>_desc" class="course_desc" title="<?= $course->course_desc ?>"><?= $course_summary ?></span></td>
                                 <?php if (Auth::check() && (Auth::checkAdmin() || Auth::user()->dept_id == $department->dept_id)) { ?>
                                     <td><a href="index.php?courses&edit=<?= $course->course_id ?>"><i class="las la-pen"></i>Edit</a></td>
-                                    <td><a href="index.php?courses&delete=<?= $course->course_id ?>"><i class="las la-trash"></i>Delete</a></td>
+                                    <?php if (!in_array($course->course_id, $active_term_courses)) { ?>
+                                        <td><a href="index.php?courses&delete=<?= $course->course_id ?>"><i class="las la-trash"></i>Delete</a></td>
+                                    <?php } else { ?>
+                                        <td>Can't delete course</td>
+                                    <?php } ?>
                                 <?php } ?>
                             </tr>
                     <?php }
