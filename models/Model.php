@@ -181,6 +181,21 @@ class Model
 
 
     /**
+     * Checks if a record with the given data exists in the associated table.
+     *
+     * @param array $data An associative array with the column(s) to search as
+     *                    the key(s) and the value(s) as the value(s) to match
+     *
+     * @return bool True if a record with the given data exists, otherwise false.
+     */
+    public static function exists(array $data): bool
+    {
+        self::init();
+        return !empty(DB::whereColumns(static::$table, $data));
+    }
+
+
+    /**
      * Creates a new model and stores it to the database.
      *
      * @param array $data The data to create the model with.
