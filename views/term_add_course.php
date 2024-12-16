@@ -10,7 +10,7 @@
             <label for="<?= $course->course_id ?>">
                 <input type="checkbox" id="<?= $course->course_id ?>" name="selected_courses[]" 
                 value="<?= $course->course_id ?>" > 
-                <?= $course->course_id ?>
+                <?= $course->course_id . ": " . $course->course_name?>
             </label>
             <?php } ?>
             <input disabled type="hidden" name="id" value="<?= $term->term_id ?>">

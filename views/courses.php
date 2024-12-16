@@ -24,7 +24,7 @@
                 <table class="tblCourses">
                     <div class="flex-title">
                         <caption><?= $department->dept_name ?> Department</caption>
-                        <?php if (Auth::check() && Auth::user()->dept_id == $department->dept_id) { ?>
+                        <?php if (Auth::check() && Auth::user()->dept_id == $department->dept_id && !Auth::checkAdmin()) { ?>
                             <a class="action primary" href="index.php?courses&create=<?= $department->dept_id ?>"><i class="las la-plus-circle"></i>Create a course</a>
                         <?php } ?>
                     </div>
