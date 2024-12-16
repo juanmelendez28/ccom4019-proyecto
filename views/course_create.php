@@ -33,9 +33,11 @@
             </p>
             <textarea required type="text" name="description" value=""></textarea>
             <div class="action-group">
-            <input type="submit" class="action primary" value="Save">
+                <input type="submit" class="action primary" value="Save">
+                <div class="loader"></div>
             </div>
     </form>
 </body>
-\
+
+
 </html>

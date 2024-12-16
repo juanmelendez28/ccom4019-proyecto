@@ -21,6 +21,7 @@
         <textarea required type="text" name="desc" value=""><?= $course->description_bbcode() ?></textarea>
         <div class="action-group">
             <input class="action primary" type="submit" value="Update">
+            <div class="loader"></div>
         </div>
     </form>
 

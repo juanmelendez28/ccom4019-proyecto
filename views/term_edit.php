@@ -13,6 +13,7 @@
         <input disabled type="text" name="code" value="<?= $term->term_id ?>">
         <div class="action-group">
             <input class="action primary" type="submit" value="Update">
+            <div class="loader"></div>
         </div>
     </form>
 
