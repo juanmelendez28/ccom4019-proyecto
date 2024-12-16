@@ -22,10 +22,10 @@
             </select>
             <label for="name">Course name</label>
             <input required type="text" name="name" value="">
-            <label for="code">Course code</label>
-            <input required type="text" name="code" value="">
+            <label for="code">Course code (E.g. ESPA3101)</label>
+            <input pattern="^[A-Z]{4}[0-9]{4}$" required type="text" name="code" value="">
             <label for="credits">Credits</label>
-            <input required type="number" name="credits" value="">
+            <input min="1" step="1" required type="number" name="credits" value="">
             <label for="desc">Description</label>
             <p class="tooltip">
                 Use this field to specify information about the course. The description <strong>must</strong> be first on this text box. Then enlist

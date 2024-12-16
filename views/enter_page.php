@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php require_once 'partials/header.php'; ?>
+
 <body>
     <main>
         <?php require_once 'partials/navbar.php'; ?>
-            <table class="tblCourses">
-                <caption>Term Offering Courses</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">Course name</th>
-                        <th scope="col">Course code</th>
-                        <th scope="col">Credits</th>
-                        <th scope="col">Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    // rendering each course
-                    foreach ($courses as $course) { ?>
-                        <tr>
-                            <td><?= $course->course_name ?></td>
-                            <td><span aria-describedby="<?= $course->course_id ?>_desc"><?= $course->course_id ?></span></td>
-                            <td><?= $course->course_credits ?></td>
-                            <!-- <td><span id="<?= $course->attributes['course_code'] ?>_desc" class="course_desc" title="<?= $course->course_desc ?>"><?= $course->course_desc ?></span></td>
-                            <?php if ($user->role == 'admin' || $user->dept_id == $department->dept_id) { ?>
-                                <td><a href="courses/edit/<?= $course->course_id ?>">Edit</a></td>
-                                <td><a href="courses/delete/<?= $course->course_id ?>">Delete</a></td> -->
-                            <?php } ?>
-                        </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
+
+
+        <div class="courses-wrapper">
+            
+            <?php require 'partials/logotype.php'; ?>   
+            <h2>Current Avaliable Courses (<?= $currentTerm->term_id ?>)</h2>
+            <div class="course-grid">
+
+                <?php
+                // rendering each course
+                foreach ($courses as $course) { ?>
+                    <div class="course-card">
+                        <p class="course-code"><span aria-describedby="<?= $course->course_id ?>_desc"><?= $course->course_id ?></span></p>
+                        <p class="course-name"><?= $course->course_name ?></p>
+
+                        <p class="course-credits">Credits: <?= $course->course_credits ?></p>
+                        <p> <?= $course->course_desc ?></p>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+
+
+
+
+
 
 
     </main>

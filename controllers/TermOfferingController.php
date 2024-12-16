@@ -16,8 +16,10 @@ class TermOfferingController extends Controller
         {
             echo "No courses found on active term.";
         }
-        else
+        else{
+            $currentTerm = Term::findBy(['term_is_active'=>true]);
             require_once 'views/enter_page.php';
+        }
     }
 
 }

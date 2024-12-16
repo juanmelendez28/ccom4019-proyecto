@@ -8,11 +8,12 @@ class DepartmentsController extends Controller
 {
 
     public static function index()
-    {   
-        if(isset($_GET['edit'])) {
+    {
+        if (isset($_GET['edit'])) {
             DepartmentsController::viewEditDepartment();
-        } elseif(isset($_GET['delete'])) {
-
+        } elseif (isset($_GET['create'])) {
+            DepartmentsController::create($_SERVER['REQUEST_METHOD']);
+        } elseif (isset($_GET['delete'])) {
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
@@ -23,20 +24,59 @@ class DepartmentsController extends Controller
     }
 
     public static function viewEditDepartment()
-    {   
+    {
         $user = User::findBy(['username' => 'admin']); // development data
         // after login works
         // $user = User::findBy(['username' => $_SESSION['username']]);
         require_once 'views/department_edit.php';
-        
     }
 
     public static function editDepartment()
-    {   
+    {
         $user = User::findBy(['username' => 'admin']); // development data
         // after login works
         // $user = User::findBy(['username' => $_SESSION['username']]);
         require_once 'views/departments.php';
-        
-    } 
+    }
+
+    public static function create($method)
+    {
+
+        if (!Auth::check()) redirect('?login');
+
+        if ($method === 'POST') {
+            // validation rules
+
+            // department_name -> required, string
+            // deparment_code -> required. string, 4 uppercase letters
+
+            $department_name = filter_input(INPUT_POST, 'dept_name', FILTER_DEFAULT);
+            $department_code = filter_input(INPUT_POST, 'dept_code', FILTER_DEFAULT);
+
+            if (empty($department_name) || empty($department_code)) {
+                $_SESSION['error'] = "Please fill all the fields";
+                redirect_back();
+            }
+
+            if (!preg_match('/^[A-Z]{4}$/', $department_code)) {
+                $_SESSION['error'] = "Please create a department code with 4 uppercase letters";
+                redirect_back();
+            }
+
+            $success = Department::create([
+                'dept_id' => $department_code,
+                'dept_name' => $department_name
+            ]);
+
+            $success ? 
+            $_SESSION['success'] = "Department created successfully" 
+            : $_SESSION['error'] = 'There was an error while creating the department';
+
+            redirect('?departments');
+        } else {
+            // method is GET
+
+            require_once 'views/department_create.php';
+        }
+    }
 }

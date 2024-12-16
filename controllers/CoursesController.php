@@ -7,12 +7,12 @@ class CoursesController extends Controller
 {
 
     public static function index($method)
-    {   
-        if(isset($_GET['edit'])) {
+    {
+        if (isset($_GET['edit'])) {
             CoursesController::update($method);
-        } elseif(isset($_GET['delete'])) {
+        } elseif (isset($_GET['delete'])) {
             CoursesController::viewDeleteCourse();
-        } elseif(isset($_GET['create'])) {
+        } elseif (isset($_GET['create'])) {
             CoursesController::create($method);
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
@@ -38,6 +38,11 @@ class CoursesController extends Controller
                 redirect_back();
             }
 
+            if ($credits < 1) {
+                $_SESSION['error'] = 'Credits must be higher or equal than 1';
+                redirect_back();
+            }
+
             try {
                 $description_bbcode = parseBBCode($desc, ['unkeyed', 'Prerequisites']);
             } catch (MissingKeysException $e) {
@@ -45,7 +50,16 @@ class CoursesController extends Controller
                 redirect_back();
             }
 
-            $course->updatePrerequisites($description_bbcode['Prerequisites']);
+
+
+            $failed = $course->updatePrerequisites($description_bbcode['Prerequisites']);
+
+            if (sizeof($failed) > 0) {
+                $_SESSION['error'] = 'Failed to add prerequisite(s) ' .
+                    implode(', ', $failed) .
+                    ' must be 4 uppercase letters followed by 4 numbers';
+                redirect_back();
+            }
 
             // this will update and save the course new information
             $success = $course->update([
@@ -59,7 +73,7 @@ class CoursesController extends Controller
                 $_SESSION['success'] = 'Changed course information successfully' :
                 $_SESSION['error'] = 'Failed to change course information';
 
-            redirect_back();
+            redirect('?courses');
         } else {
             $course_id = $_GET['edit'];
             $course = Course::find($course_id);
@@ -69,7 +83,7 @@ class CoursesController extends Controller
 
     public static function create($method)
     {
-        if(!Auth::check()){
+        if (!Auth::check()) {
             $_SESSION['error'] = 'View not found';
             redirect('index.php?courses');
         }
@@ -89,14 +103,18 @@ class CoursesController extends Controller
                 redirect_back();
             }
 
+            if ($credits < 1) {
+                $_SESSION['error'] = 'Credits must be higher or equal than 1';
+                redirect_back();
+            }
+
             // validating for department code
             if (!is_valid_course_code($code)) {
-                dd($code, is_valid_course_code($code));
                 $_SESSION['error'] = 'The course code must be 4 uppercase letters followed by 4 digits';
                 redirect_back();
             }
 
-            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $department){
+            if (!Auth::checkAdmin() && Auth::user()->dept_id !== $department) {
                 $_SESSION['error'] = 'You are not allowed to create a course in this department';
                 redirect_back();
             }
@@ -139,7 +157,7 @@ class CoursesController extends Controller
             }
 
             $_SESSION['success'] = 'Course created successfully';
-            redirect_back();
+            redirect('?courses');
         } else {
             $departments = Department::all();
             require_once 'views/course_create.php';

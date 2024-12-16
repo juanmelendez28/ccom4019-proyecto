@@ -1,55 +1,117 @@
-.courses-tables{
-    padding: 30px 30px;
-    margin: 2em auto;
+.courses-tables {
+  padding: 30px 30px;
+  margin: 2em auto;
 }
 
 .courses-tables {
-    text-align: center;
+  text-align: center;
 }
 
-.tblCourses{
-    border-collapse: collapse;
-    width: fit-content;
-    margin: 1em auto;
-    font-size: 1.2em;
-    width: 60%;
-    text-align: left;
-
+.tblCourses {
+  border-collapse: collapse;
+  width: fit-content;
+  margin: 1em auto;
+  font-size: 1.2em;
+  width: 60%;
+  text-align: left;
 }
 
-.tblCourses caption{
-    font-size: 1.5em;
-    font-weight: bold;
+.tblCourses caption {
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
-.tblCourses th, .tblCourses td{
-    border: 1px solid black;
-    padding: 1em;
+.tblCourses th,
+.tblCourses td {
+  border: 1px solid black;
+  padding: 1em;
 }
 
-td a{
-    cursor: pointer;
-    background-color: none;
-    border: none;
-    text-decoration: underline;
-    color: var(--action-color);
-    transition: all .25s ease;
+td a {
+  cursor: pointer;
+  background-color: none;
+  border: none;
+  text-decoration: underline;
+  color: var(--action-color);
+  transition: all 0.25s ease;
 }
 
-td a:hover{
-    filter: brightness(1.8);
+td a:hover {
+  filter: brightness(1.8);
 }
 
-.course_desc{
-    cursor: pointer;
-
+.course_desc {
+  cursor: pointer;
 }
 
-.course_desc:hover{
-    text-decoration: underline;
+.course_desc:hover {
+  text-decoration: underline;
 }
 
-.activeTerm{
-    font-weight: bold;
+.activeTerm {
+  font-weight: bold;
+  background-color: var(--white-400);
+}
+
+.courses-wrapper {
+  margin: 17dvh 15dvw;
+}
+
+.courses-wrapper .logo {
+  width: 250px;
+  margin: 1em auto;
+}
+
+.courses-wrapper h2 {
+  text-align: center;
+}
+
+.course-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  margin: 1em 0;
+}
+
+.course-card {
+   position: relative;
+   top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 1em;
+  border: 1px solid var(--action-color);
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  animation: zoomIn 1s ease;
+}
+
+.course-card:hover {
     background-color: var(--white-400);
+    transform: scale(105%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.course-card .course-code {
+  font-size: 1.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 600px) {
+  .course-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    gap: 15px;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .course-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
 }

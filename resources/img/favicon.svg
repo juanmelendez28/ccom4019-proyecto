@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg width="100%" height="100%" viewBox="0 0 29 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g transform="matrix(1,0,0,1,-468,-313)">
-        <g id="favicon">
-            <g transform="matrix(0.337357,0,0,0.337357,423.264,243.29)">
-                <path d="M189.63,230.532L162.67,230.532L162.67,244.866L187.128,244.866L187.128,263.75L162.67,263.75L162.67,297.422L140.373,297.422L140.373,211.649L189.63,211.649L189.63,230.532ZM211.499,316.544L184.994,316.544L184.994,330.877L210.134,330.877L210.134,349.761L184.994,349.761L184.994,364.549L211.499,364.549L211.499,383.433L162.697,383.433L162.697,297.66L211.499,297.66L211.499,316.544Z" style="fill:white;"/>
+<svg width="100%" height="100%" viewBox="0 0 165 366" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-180,-125)">
+        <g>
+            <g transform="matrix(1,0,0,1,-21.0676,21.0676)">
+                <g transform="matrix(227.515,0,0,227.515,310.39,297.422)">
+                </g>
+                <text x="187.077px" y="297.422px" style="font-family:'FuturaStd-Bold', 'Futura Std';font-weight:700;font-size:227.515px;">F</text>
             </g>
-            <g transform="matrix(0.337357,0,0,0.337357,424.95,241.604)">
-                <path d="M140.373,216.925L140.373,211.649L189.63,211.649L189.63,230.532L184.354,230.532L184.354,216.925L140.373,216.925ZM162.67,235.809L162.67,244.866L187.128,244.866L187.128,263.75L181.851,263.75L181.851,250.142L157.393,250.142L157.393,235.809L162.67,235.809ZM162.67,269.026L162.67,297.422L157.393,297.422L157.393,269.026L162.67,269.026ZM162.697,302.936L162.697,297.66L211.499,297.66L211.499,316.544L206.222,316.544L206.222,302.936L162.697,302.936ZM184.994,321.82L184.994,330.877L210.134,330.877L210.134,349.761L204.857,349.761L204.857,336.154L179.717,336.154L179.717,321.82L184.994,321.82ZM184.994,355.037L184.994,364.549L211.499,364.549L211.499,383.433L206.222,383.433L206.222,369.826L179.717,369.826L179.717,355.037L184.994,355.037Z"/>
+            <g transform="matrix(1,0,0,1,23.8147,192.614)">
+                <g transform="matrix(227.515,0,0,227.515,312.21,297.422)">
+                </g>
+                <text x="187.077px" y="297.422px" style="font-family:'FuturaStd-Bold', 'Futura Std';font-weight:700;font-size:227.515px;">E</text>
             </g>
-            <g transform="matrix(0.337357,0,0,0.337357,421.167,245.387)">
-                <path d="M189.63,230.532L162.67,230.532L162.67,244.866L187.128,244.866L187.128,263.75L162.67,263.75L162.67,297.422L140.373,297.422L140.373,211.649L189.63,211.649L189.63,230.532ZM211.499,316.544L184.994,316.544L184.994,330.877L210.134,330.877L210.134,349.761L184.994,349.761L184.994,364.549L211.499,364.549L211.499,383.433L162.697,383.433L162.697,297.66L211.499,297.66L211.499,316.544Z"/>
+            <g transform="matrix(1,0,0,1,-8.84475,8.84475)">
+                <g transform="matrix(227.515,0,0,227.515,310.39,297.422)">
+                </g>
+                <text x="187.077px" y="297.422px" style="font-family:'FuturaStd-Bold', 'Futura Std';font-weight:700;font-size:227.515px;fill:white;">F</text>
+            </g>
+            <g transform="matrix(1,0,0,1,36.0375,180.391)">
+                <g transform="matrix(227.515,0,0,227.515,312.21,297.422)">
+                </g>
+                <text x="187.077px" y="297.422px" style="font-family:'FuturaStd-Bold', 'Futura Std';font-weight:700;font-size:227.515px;fill:white;">E</text>
+            </g>
+            <g transform="matrix(227.515,0,0,227.515,310.39,297.422)">
+            </g>
+            <text x="187.077px" y="297.422px" style="font-family:'FuturaStd-Bold', 'Futura Std';font-weight:700;font-size:227.515px;fill:rgb(255,233,0);">F</text>
+            <g transform="matrix(1,0,0,1,44.8822,171.546)">
+                <g transform="matrix(227.515,0,0,227.515,312.21,297.422)">
+                </g>
+                <text x="187.077px" y="297.422px" style="font-family:'FuturaStd-Bold', 'Futura Std';font-weight:700;font-size:227.515px;fill:rgb(255,233,0);">E</text>
             </g>
         </g>
     </g>

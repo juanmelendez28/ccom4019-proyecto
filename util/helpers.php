@@ -35,6 +35,42 @@ function quote($string)
 }
 
 
+/**
+ * Redirect guest users to a specified path.
+ *
+ * This function checks if the user is not logged in using the Auth class.
+ * If the user is not authenticated, it redirects them to the specified path.
+ *
+ * @param string $path The path to redirect unauthenticated users to.
+ * @return void
+ */
+
+function redirect_if_guest($path)
+{
+    if(!Auth::check())
+        redirect($path);
+}
+
+/**
+ * Redirect users that are not an admin to a specified path.
+ *
+ * This function checks if the user is not logged in using the Auth class.
+ * If the user is not authenticated, it redirects them to the specified path.
+ *
+ * If the user is authenticated, it also checks if their role is not 'admin'.
+ * If the user does not have the role of admin, it redirects them to the specified path.
+ *
+ * @param string $path The path to redirect users to if they are not an admin.
+ * @return void
+ */
+function redirect_if_not_admin($path){
+    redirect_if_guest($path);
+
+    if(Auth::user()->role !== 'admin')
+        redirect($path);
+}
+
+
 
 /**
  * Parse a BBCode-like string and return an associative array of the values

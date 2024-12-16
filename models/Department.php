@@ -14,15 +14,32 @@ class Department extends Model
      * @return Course[] An array of Course objects that belong to the department.
      */
     public function courses()
-    {   
+    {
         try {
             return Course::findAll($this->attributes['dept_id'], 'dept_id', 'courses');
         } catch (ModelNotFoundException $e) {
             return [];
         }
     }
-    // public function term_courses()
-    // {
 
-    // }
+    /**
+     * Retrieves all department codes.
+     * 
+     * This method fetches all departments from the database and extracts
+     * their codes into an array.
+     * 
+     * @return array An array of department codes.
+     */
+
+    public static function allCodes()
+    {
+        $departments = Department::all();
+
+        $codes = [];
+        foreach ($departments as $department)
+            $codes[] = $department->dept_id;
+
+        return $codes;
+        
+    }
 }

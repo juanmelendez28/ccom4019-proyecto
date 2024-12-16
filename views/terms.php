@@ -6,7 +6,7 @@
     <?php require_once 'partials/navbar.php'; ?>
     <main class="courses-tables">
         <div class="flex-title">
-            <h1>Terms</h1>
+            <h1><i class="las la-calendar"></i> Terms</h1>
             <?php if (Auth::checkAdmin()) { ?>
                 <a class="action primary" href="index.php?terms&create"><i class="las la-plus-circle"></i>Create a term</a>
             <?php } ?>

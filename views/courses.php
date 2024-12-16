@@ -9,7 +9,7 @@
 
 
         <div class="flex-title">
-            <h1>Available Courses</h1>
+            <h1><i class="las la-chalkboard-teacher"></i> Available Courses</h1>
             <?php if (Auth::checkAdmin()) { ?>
                 <a class="action primary" href="index.php?courses&create"><i class="las la-plus-circle"></i>Create a course</a>
             <?php } ?>

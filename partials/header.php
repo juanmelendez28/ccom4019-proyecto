@@ -11,9 +11,12 @@
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/animations.css">
 
+
+    <script src="js/submitButton.js" defer></script>
+
     <link rel="shortcut icon" href="resources/img/favicon.svg" type="image/x-icon">
 
-    <title>Course Free Electives</title>
+    <title>Free Electives</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

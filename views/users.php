@@ -6,7 +6,7 @@
     <?php require_once 'partials/navbar.php'; ?>
     <main class="courses-tables">
         <div class="flex-title">
-            <h1>Users</h1>
+            <h1><i class="las la-users"></i> Users </h1>
             <?php if (Auth::checkAdmin())  { ?>
                 <a class="action primary" href="index.php?users&create"><i class="las la-plus-circle"></i>Create a user</a>
             <?php } ?>
@@ -31,8 +31,8 @@
                         <td><?= Department::findBy(['dept_id' => $user->dept_id])->dept_name ?></td>
                         <td><?= $user->role ?></td>
                         <?php if ((Auth::checkAdmin())) { ?>
-                            <td><a href="index.php?users&edit=<?= $user->username ?>">Edit</a></td>
-                            <td><a href="index.php?users&delete=<?= $user->username ?>">Delete</a></td>
+                            <td><a href="index.php?users&edit=<?= $user->username ?>"><i class="las la-pen"></i> Edit</a></td>
+                            <td><a href="index.php?users&delete=<?= $user->username ?>"> <i class="las la-trash"> </i> Delete</a></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>
