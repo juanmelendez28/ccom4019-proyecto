@@ -7,18 +7,18 @@
             <h1>Add course to term</h1>
 
             <?php foreach ($courses as $course) { ?>
-            <label for="<?= $course->course_id ?>">
-                <input type="checkbox" id="<?= $course->course_id ?>" name="selected_courses[]" 
-                value="<?= $course->course_id ?>" > 
-                <?= $course->course_id ?>
-            </label>
+                <label for="<?= $course->course_id ?>">
+                    <input <?php if (in_array($course->course_id, $courses_list)) echo 'checked' ?> type="checkbox" id="<?= $course->course_id ?>" name="selected_courses[]"
+                        value="<?= $course->course_id ?>">
+                    <?= $course->course_id ?>
+                </label>
             <?php } ?>
             <input disabled type="hidden" name="id" value="<?= $term->term_id ?>">
-                <input type="submit" class="action primary" value="Add Courses">
+            <input type="submit" class="action primary" value="Add Courses">
             </div>
         </form>
-        <?php } ?>
-        
+    <?php } ?>
+
 
 
 
