@@ -5,7 +5,7 @@ require_once 'models/Term.php';
 class TermOffering extends Model
 {
     protected static $table = 'term_offering';
-    protected static $primary_key = 'course_id';
+    protected static $primary_key = ['term_id', 'course_id'];
 
     public static function courses()
     {

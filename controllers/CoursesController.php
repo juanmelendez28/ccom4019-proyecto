@@ -19,10 +19,23 @@ class CoursesController extends Controller
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
             // $user = User::findBy(['username' => $_SESSION['username']]);
+            
             $active_term_courses = TermOffering::courses();
+            $active_courses = [];
+            foreach($active_term_courses as $course)
+            {
+                $active_courses[] = $course->values['course_id'];
+            }
             $departments = Department::all();
             require_once 'views/courses.php';
         }
+    }
+
+    public static function get_courses()
+    {
+        $courses = Course::all();
+        return $courses;
+
     }
 
     public static function update($method)

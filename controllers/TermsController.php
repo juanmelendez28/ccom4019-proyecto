@@ -19,7 +19,10 @@ class TermsController extends Controller
             TermsController::activate($method);
         } elseif (isset($_GET['create'])) {
             TermsController::create($method);
-        } else {
+        } elseif (isset($_GET['add_course'])) {
+            TermsController::add_course($method);
+        } 
+        else {
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
             // $user = User::findBy(['username' => $_SESSION['username']]);
@@ -138,4 +141,51 @@ class TermsController extends Controller
             require_once 'views/term_create.php';
         }
     }
+
+    public static function add_course($method)
+    {
+        $term = $_GET['add_course'];
+        $term = Term::find($term);
+        $courses_on_term = TermOffering::findAll($term->term_id, 'term_id', 'term_offering');
+        
+        $courses = [];
+        foreach($courses_on_term as $course_on_term)
+        {
+            $courses[] = $course_on_term->course_id;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') 
+        {
+
+            if (isset($_POST['selected_courses']) && !empty($_POST['selected_courses'])) {
+                $selected_courses = $_POST['selected_courses']; 
+                
+                foreach ($selected_courses as $course_code) {
+                    if (in_array($course_code, $courses) === false)
+                    {
+                        $success = TermOffering::create(
+                            ['term_id' => $term->term_id,
+                            'course_id' => $course_code
+                        ]);
+                    }
+                }
+                if ($success) {
+                    $_SESSION['success'] = 'Added courses successfully';
+                    redirect('?terms');
+                } else {
+                    $_SESSION['error'] = 'Course already on term';
+                    redirect_back();
+                }
+            }
+            redirect('?terms');
+        }
+        else 
+        {
+        $courses = CoursesController::get_courses();
+        
+        require_once('views/term_add_course.php');
+        }
+        
+    }
+
 }
