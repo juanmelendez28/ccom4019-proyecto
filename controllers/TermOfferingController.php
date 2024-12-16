@@ -12,14 +12,18 @@ class TermOfferingController extends Controller
     public static function index()
     {   
         $courses = TermOffering::courses();
+        $currentTerm = Term::findBy(['term_is_active'=>true]);
         if (!$courses)
         {
-            echo "No courses found on active term.";
+            $message = "No courses found on term " . $currentTerm->term_id . ".";
+            if ($courses == []) {
+                $noCourses = true;
+            }
         }
         else{
-            $currentTerm = Term::findBy(['term_is_active'=>true]);
-            require_once 'views/enter_page.php';
+            $message = "Available courses on term " . $currentTerm->term_id . ":";
         }
+        require_once 'views/enter_page.php';
     }
 
 }

@@ -8,13 +8,14 @@ require_once 'models/Term.php';
 class UsersController extends Controller
 {
 
-    public static function index()
+    public static function index($method)
     {
         if (isset($_GET['edit'])) {
             UsersController::viewEditUser();
         } elseif (isset($_GET['create'])) {
-            UsersController::create($_SERVER['REQUEST_METHOD']);
+            UsersController::create($method);
         } elseif (isset($_GET['delete'])) {
+            UsersController::delete($method);
         } else {
             $currentUser = User::findBy(['username' => 'admin']); // development data
             // after login works
@@ -128,5 +129,12 @@ class UsersController extends Controller
             $valid_roles = User::$validRoles;
             require_once('views/user_create.php');
         }
+    }
+
+    public static function delete($method)
+    {
+        $user = $_GET['delete'];
+        $user = User::find($user);
+        require_once 'views/user_delete.php';
     }
 }

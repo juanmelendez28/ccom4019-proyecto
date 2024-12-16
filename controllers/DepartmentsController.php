@@ -6,14 +6,14 @@ require_once 'models/Department.php';
 
 class DepartmentsController extends Controller
 {
-
-    public static function index()
+    public static function index($method)
     {
         if (isset($_GET['edit'])) {
             DepartmentsController::viewEditDepartment();
         } elseif (isset($_GET['create'])) {
-            DepartmentsController::create($_SERVER['REQUEST_METHOD']);
+            DepartmentsController::create($method);
         } elseif (isset($_GET['delete'])) {
+            DepartmentsController::delete($method);
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
             // after login works
@@ -91,5 +91,12 @@ class DepartmentsController extends Controller
 
             require_once 'views/department_create.php';
         }
+    }
+
+    public static function delete($method)
+    {
+        $department = $_GET['delete'];
+        $department = Department::find($department);
+        require_once 'views/department_delete.php';
     }
 }

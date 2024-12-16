@@ -8,9 +8,10 @@
 
 
         <div class="courses-wrapper">
-
-            <?php require 'partials/logotype.php'; ?>
-            <h2>Current Avaliable Courses (<?= $currentTerm->term_id ?>)</h2>
+            
+            <?php require 'partials/logotype.php'; ?>   
+            <h2><?= $message ?></h2>
+            <?php if (!$noCourses) { ?>
             <div class="course-grid">
 
                 <?php
@@ -24,7 +25,7 @@
                         <p> <?= $course->course_desc ?></p>
                         <p>Prerequisites: <?= empty($course->prerequisites_as_list()) ? 'None' : implode(', ', $course->prerequisites_as_list()) ?></p>
                     </div>
-                <?php } ?>
+                <?php }} ?>
             </div>
         </div>
 
