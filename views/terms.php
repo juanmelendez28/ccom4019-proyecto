@@ -20,6 +20,7 @@
                     <th scope="col"></th>
                     <th scope="col"></th>
                     <th scope="col"></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,6 +32,7 @@
                             <td><a href="index.php?terms&edit=<?= $term->term_id ?>"><i class="las la-pen"></i>Edit</a></td>
                             <td><a href="index.php?terms&delete=<?= $term->term_id ?>"><i class="las la-trash"></i>Delete</a></td>
                             <td><a href="index.php?terms&activate=<?= $term->term_id ?>"><i class="las la-check-circle"></i>Activate</a></td>
+                            <td><a href="index.php?terms&add_course=<?= $term->term_id ?>"><i class="las la-check-circle"></i>Add course to term</a></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>
