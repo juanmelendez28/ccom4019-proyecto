@@ -169,9 +169,9 @@ class UsersController extends Controller
     public static function delete($method)
     {
         if ($method == 'POST') {
-            $user = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
-            
-            try {
+            $user = filter_input(INPUT_POST, 'id', FILTER_DEFAULT); // get the user to be deleted
+
+            try { // find the user information
                 $user = User::find($user);
             } catch (ModelNotFoundException $e) {
                 $_SESSION['error'] = 'User not found';
