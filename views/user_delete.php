@@ -12,7 +12,7 @@
     ?>
         <form class="form" action="#" method="post">
             <h2>Are you sure you want to delete this user?</h2>
-            <input disabled type="hidden" name="id" value="<?= $user->username ?>">
+            <input type="hidden" name="id" value="<?= $user->username ?>">
             <label for="name">Name</label>
             <input disabled type="text" name="name" value="<?= $user->name ?>">
             <label for="username">Username</label>

@@ -170,8 +170,7 @@ class UsersController extends Controller
     {
         if ($method == 'POST') {
             $user = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
-
-            dd($user);
+            
             try {
                 $user = User::find($user);
             } catch (ModelNotFoundException $e) {
