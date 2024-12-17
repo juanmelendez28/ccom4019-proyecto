@@ -23,9 +23,9 @@ class TermsController extends Controller
             TermsController::add_course($method);
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
-            // after login works
-            // $user = User::findBy(['username' => $_SESSION['username']]);
+            
             $terms = Term::all();
+            $active_term = Term::findBy(['term_is_active' => true]);
             require_once 'views/terms.php';
         }
     }
@@ -175,18 +175,27 @@ class TermsController extends Controller
             if (isset($_POST['selected_courses']) && !empty($_POST['selected_courses'])) {
                 $selected_courses = $_POST['selected_courses'];
 
+                // $diff_courses = array_diff($selected_courses, $courses);
+                // $to_delete = array_diff($courses, $selected_courses);
+                // dd($selected_courses);
+                // dd($_POST);s
                 foreach ($selected_courses as $course_code) {
                     if (in_array($course_code, $courses) === false) {
                         $success = TermOffering::create(
                             [
                                 'term_id' => $term->term_id,
                                 'course_id' => $course_code
-                            ]
-                        );
+                            ]);
                     }
                 }
+                // foreach ($to_delete as $course_code)
+                // {
+                //     TermOffering::delete_course($course_code);
+                // }
+
+
                 if ($success) {
-                    $_SESSION['success'] = 'Added courses successfully';
+                    $_SESSION['success'] = 'Edited courses successfully';
                     redirect('?terms');
                 } else {
                     $_SESSION['error'] = 'Course already on term';
@@ -200,4 +209,6 @@ class TermsController extends Controller
             require_once('views/term_add_course.php');
         }
     }
+
+    
 }

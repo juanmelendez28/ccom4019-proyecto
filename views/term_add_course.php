@@ -5,7 +5,7 @@
         <?php require_once "partials/navbar.php" ?>
         <form class="form" action="#" method="post">
 
-            <h1><i class="las la-plus"></i> Add course to term</h1>
+            <h1><i class="las la-plus"></i> Edit courses on active term</h1>
 
             <?php foreach ($courses as $course) { ?>
                 <?php if (Auth::checkAdmin()) { ?>
@@ -21,15 +21,15 @@
                         <?= $course->course_id . ": " . $course->course_name ?>
                     </label>
                 <?php } ?>
+                <?php } ?>
             <?php } ?>
             <input disabled type="hidden" name="id" value="<?= $term->term_id ?>">
             <div class="action-group">
-                <input type="submit" class="action primary" value="Add Courses">
+                <input type="submit" class="action primary" value="Edit Courses">
                 <div class="loader"></div>
             </div>
             </div>
         </form>
-    <?php } ?>
 
 
 
