@@ -27,7 +27,11 @@
             </thead>
             <tbody>
                 <?php foreach ($terms as $term) { ?>
-                    <tr <?php if ($term->term_is_active == 1) echo 'class="activeTerm"' ?>>
+
+                    <?php 
+                    $active = $term->term_is_active == 1;
+                    if (!$active && !Auth::checkAdmin()) continue ; ?> 
+                    <tr <?php if ($active) echo 'class="activeTerm"' ?>>
                         <td><?= $term->term_id ?></td>
                         <td><span aria-describedby="<?= $term->term_id ?>_desc"><?= $term->term_desc ?></span></td>
                         <?php if ((Auth::checkAdmin())) { ?>
@@ -35,7 +39,7 @@
                             <td><a href="index.php?terms&delete=<?= $term->term_id ?>"><i class="las la-trash"></i>Delete</a></td>
                             <td><a href="index.php?terms&activate=<?= $term->term_id ?>"><i class="las la-check-circle"></i>Activate</a></td>
                             <?php } ?>
-                            <td><a href="index.php?terms&add_course=<?= $term->term_id ?>"><i class="las la-plus"></i>Add course to term</a></td>
+                            <td><a href="index.php?terms&add_course=<?= $term->term_id ?>"><i class="las la-edit"></i>Manage courses on term</a></td>
                     </tr>
                 <?php } ?>
             </tbody>

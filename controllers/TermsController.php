@@ -9,6 +9,18 @@ require_once 'controllers/CoursesController.php';
 class TermsController extends Controller
 {
 
+/**
+ * Handles the logic for displaying and managing terms based on the request.
+ *
+ * Depending on the query parameters, this method can update, delete, activate, 
+ * create, or add courses to terms. If no specific action is requested, it
+ * fetches all terms and displays them in the terms view.
+ *
+ * @param string $method The HTTP request method (GET or POST)
+ *
+ * @return void
+ */
+
     public static function index($method)
     {
         if (isset($_GET['edit'])) {
@@ -29,6 +41,19 @@ class TermsController extends Controller
             require_once 'views/terms.php';
         }
     }
+
+    /**
+     * Handles the updating of an existing term.
+     *
+     * If the request method is POST, it validates the provided data and updates
+     * the term's information in the database. If the validation fails, it redirects
+     * back to the previous page with an error message.
+     *
+     * If the request method is GET, it retrieves the term information and displays
+     * the form for editing the term.
+     *
+     * @param string $method The HTTP request method (GET or POST).
+     */
 
     public static function update($method)
     {
@@ -68,6 +93,13 @@ class TermsController extends Controller
         }
     }
 
+    /**
+     * Shows the delete term form and handles the deletion of a term
+     *
+     * @param string $method The HTTP request method (GET or POST)
+     *
+     * @return void
+     */
     public static function delete($method)
     {
         $term = $_GET['delete'];
@@ -92,6 +124,19 @@ class TermsController extends Controller
         require_once 'views/term_activate.php';
     }
 
+    /**
+     * Handles the creation of a new term
+     *
+     * Checks if the request method is POST, if so, it will validate the
+     * given data and create the term in the database. If the validation
+     * fails, it will redirect back to the previous page with an error
+     * message.
+     *
+     * If the request method is GET, it will show the form to create a
+     * new term.
+     *
+     * @param string $method The request method
+     */
     public static function create($method)
     {
         if ($method === 'POST') {
@@ -146,9 +191,20 @@ class TermsController extends Controller
         }
     }
 
+    /**
+     * Manages the addition and removal of courses for a specific term.
+     *
+     * This function retrieves the courses currently associated with a term and presents
+     * them in a form where the user can choose to add or remove courses. It handles both
+     * the display of this form and the processing of submitted form data.
+     *
+     * @param string $method The HTTP request method (GET or POST).
+     * 
+     */
     public static function add_course($method)
     {
         $term = $_GET['add_course'];
+        
         try {
             $term = Term::find($term);
         } catch (ModelNotFoundException $e) {
@@ -157,8 +213,6 @@ class TermsController extends Controller
         }
 
         try {
-
-
             $courses_on_term = TermOffering::findAll($term->term_id, 'term_id', 'term_offering');
         } catch (ModelNotFoundException $e) {
             // this means there is no course offering on this term
@@ -167,32 +221,49 @@ class TermsController extends Controller
 
         $courses = [];
         foreach ($courses_on_term as $course_on_term) {
+            // only adding the courses of the users department if not admin
+            $course_object = Course::find($course_on_term->course_id);
+            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $course_object->dept_id) continue;
+
             $courses[] = $course_on_term->course_id;
         }
 
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if (isset($_POST['selected_courses']) && !empty($_POST['selected_courses'])) {
-                $selected_courses = $_POST['selected_courses'];
-
-                foreach ($selected_courses as $course_code) {
-                    if (in_array($course_code, $courses) === false) {
-                        $success = TermOffering::create(
-                            [
-                                'term_id' => $term->term_id,
-                                'course_id' => $course_code
-                            ]
-                        );
-                    }
-                }
-                if ($success) {
-                    $_SESSION['success'] = 'Added courses successfully';
-                    redirect('?terms');
-                } else {
-                    $_SESSION['error'] = 'Course already on term';
-                    redirect_back();
-                }
+            if(empty($_POST['selected_courses'])) {
+                $_POST['selected_courses'] = [];
             }
+
+            $selected_courses = $_POST['selected_courses'];
+
+            $toDelete = array_diff($courses, $selected_courses);
+            $toAdd = array_diff($selected_courses, $courses);
+
+            $action = '';
+
+            foreach ($toDelete as $course_to_delete) {
+                TermOffering::delete_course($course_to_delete);
+                $success = true;
+                $action = 'Removed';
+            }
+
+            foreach ($toAdd as $course_to_add) {
+                if (in_array($toAdd, $courses)) continue; // already added
+                $success = TermOffering::create([
+                    'term_id' => $term->term_id,
+                    'course_id' => $course_to_add
+                ]);
+                $action = 'Created';
+            }
+            if ($success) {
+                $_SESSION['success'] = $action . ' courses successfully';
+                redirect('?terms');
+            } else {
+                $_SESSION['error'] = 'Course already on term';
+                redirect_back();
+            }
+
             redirect('?terms');
         } else {
             $courses_list = $courses;

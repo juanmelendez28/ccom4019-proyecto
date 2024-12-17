@@ -3,7 +3,10 @@
 <?php require_once 'partials/header.php'; ?>
 
 <body>
-    <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
+    <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
+        
+        
+        ?>
         <form class="form" action="#" method="post">
             <h2>Are you sure you want to delete this course?</h2>
             <input disabled type="hidden" name="id" value="<?= $course->course_id ?>">
@@ -25,9 +28,19 @@
 
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $course_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+
+        // deleting all prerequisites
+        try{
+        $prerequisites = Prerequisite::findAll($course->course_id, 'course_id', 'prerequisites');
+
+        foreach($prerequisites as $prerequisite) {
+            $prerequisite->delete();
+        }} catch (ModelNotFoundException $e){
+            // do nothing since there are no prerequisites 
+        }
 
         $success = $course->delete();
+
 
         $success ? $_SESSION['success'] = 'Course deleted successfully' : $_SESSION['error'] = 'Failed to delete course';
         $departments = Department::all();
