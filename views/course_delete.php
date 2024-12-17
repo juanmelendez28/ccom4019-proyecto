@@ -3,7 +3,13 @@
 <?php require_once 'partials/header.php'; ?>
 
 <body>
-    <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
+    <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
+        
+        if(!Auth::checkAdmin() && Auth::user()->dept_id !== $course->dept_id){
+            $_SESSION['error'] = 'You don\'t have permissions to delete this course';
+            redirect('?courses');
+        }
+        ?>
         <form class="form" action="#" method="post">
             <h2>Are you sure you want to delete this course?</h2>
             <input disabled type="hidden" name="id" value="<?= $course->course_id ?>">
