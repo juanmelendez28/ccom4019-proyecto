@@ -28,10 +28,16 @@
 
     } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-        $course_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+
+        // deleting all prerequisites
+        $prerequisites = Prerequisite::findAll($course->course_id, 'course_id', 'prerequisites');
+
+        foreach($prerequisites as $prerequisite) {
+            $prerequisite->delete();
+        }
 
         $success = $course->delete();
-        $result = TermOffering::delete_course($course->values['course_id']); // delete course
+
 
         $success ? $_SESSION['success'] = 'Course deleted successfully' : $_SESSION['error'] = 'Failed to delete course';
         $departments = Department::all();
