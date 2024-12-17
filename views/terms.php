@@ -27,7 +27,11 @@
             </thead>
             <tbody>
                 <?php foreach ($terms as $term) { ?>
-                    <tr <?php if ($term->term_is_active == 1) echo 'class="activeTerm"' ?>>
+
+                    <?php 
+                    $active = $term->term_is_active == 1;
+                    if (!$active && !Auth::checkAdmin()) continue ; ?> 
+                    <tr <?php if ($active) echo 'class="activeTerm"' ?>>
                         <td><?= $term->term_id ?></td>
                         <td><span aria-describedby="<?= $term->term_id ?>_desc"><?= $term->term_desc ?></span></td>
                         <?php if ((Auth::checkAdmin())) { ?>
