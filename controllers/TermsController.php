@@ -149,6 +149,7 @@ class TermsController extends Controller
     public static function add_course($method)
     {
         $term = $_GET['add_course'];
+        
         try {
             $term = Term::find($term);
         } catch (ModelNotFoundException $e) {
@@ -157,8 +158,6 @@ class TermsController extends Controller
         }
 
         try {
-
-
             $courses_on_term = TermOffering::findAll($term->term_id, 'term_id', 'term_offering');
         } catch (ModelNotFoundException $e) {
             // this means there is no course offering on this term
@@ -167,32 +166,49 @@ class TermsController extends Controller
 
         $courses = [];
         foreach ($courses_on_term as $course_on_term) {
+            
+            $course_object = Course::find($course_on_term->course_id);
+            if(!Auth::checkAdmin() && Auth::user()->dept_id !== $course_object->dept_id) continue;
+            
             $courses[] = $course_on_term->course_id;
         }
 
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if (isset($_POST['selected_courses']) && !empty($_POST['selected_courses'])) {
-                $selected_courses = $_POST['selected_courses'];
-
-                foreach ($selected_courses as $course_code) {
-                    if (in_array($course_code, $courses) === false) {
-                        $success = TermOffering::create(
-                            [
-                                'term_id' => $term->term_id,
-                                'course_id' => $course_code
-                            ]
-                        );
-                    }
-                }
-                if ($success) {
-                    $_SESSION['success'] = 'Added courses successfully';
-                    redirect('?terms');
-                } else {
-                    $_SESSION['error'] = 'Course already on term';
-                    redirect_back();
-                }
+            if(empty($_POST['selected_courses'])) {
+                $_POST['selected_courses'] = [];
             }
+
+            $selected_courses = $_POST['selected_courses'];
+
+            $toDelete = array_diff($courses, $selected_courses);
+            $toAdd = array_diff($selected_courses, $courses);
+
+            $action = '';
+
+            foreach ($toDelete as $course_to_delete) {
+                TermOffering::delete_course($course_to_delete);
+                $success = true;
+                $action = 'Removed';
+            }
+
+            foreach ($toAdd as $course_to_add) {
+                if (in_array($toAdd, $courses)) continue; // already added
+                $success = TermOffering::create([
+                    'term_id' => $term->term_id,
+                    'course_id' => $course_to_add
+                ]);
+                $action = 'Created';
+            }
+            if ($success) {
+                $_SESSION['success'] = $action . ' courses successfully';
+                redirect('?terms');
+            } else {
+                $_SESSION['error'] = 'Course already on term';
+                redirect_back();
+            }
+
             redirect('?terms');
         } else {
             $courses_list = $courses;
