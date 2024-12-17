@@ -111,12 +111,14 @@
   transition: all 0.25s ease;
 }
 
-.checkbox-label:hover{
-  background-color: var(--white-500);
-}
+
 
 .checkbox-label:nth-child(even) {
   background-color: var(--white-400);
+}
+
+.checkbox-label:hover{
+  background-color: var(--white-500);
 }
 
 input[type="checkbox"] {
@@ -125,7 +127,6 @@ input[type="checkbox"] {
   cursor: pointer;
   accent-color: var(--action-color);
   transition: transform 0.2s ease-in-out;
-  border: 1px solid var(--action-color);
 }
 
 input[type="checkbox"]:hover {
