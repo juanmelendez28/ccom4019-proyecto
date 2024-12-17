@@ -3,7 +3,14 @@
 <?php require_once 'partials/header.php'; ?>
 
 <body>
-    <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
+    <?php 
+    if($user->username === Auth::user()->username) 
+    {
+        $_SESSION['error'] = 'You cannot delete yourself';
+        redirect('?users');
+    }
+    
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') { ?>
         <form class="form" action="#" method="post">
             <h2>Are you sure you want to delete this user?</h2>
             <input disabled type="hidden" name="id" value="<?= $user->username ?>">

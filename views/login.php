@@ -12,7 +12,7 @@
             <header>
                 <h1>Log in</h1>
             </header>
-            <form action="./login" method="POST">
+            <form action="?login" method="POST">
                 <input type="hidden" name="path" value="login">
                 <label for="username">Username:</label><br>
                 <input type="text" id="username" name="username" required><br>

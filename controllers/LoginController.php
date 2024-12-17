@@ -47,11 +47,12 @@ class LoginController extends Controller
         if (LoginController::validate_password($username, $password)) {
 
             $loggedUser = User::findBy(['username' => $username]);
-            $loggedUser->update([
+            $loggedUser->update([ // find the user and update their last login date 
                 'last_login' => date('Y-m-d H:i:s')
             ]);
 
-            Auth::login($loggedUser);
+            Auth::login($loggedUser); // sets the user in the session to indicate it's logged in
+            $_SESSION['success'] = "Logged in successfully";
 
             redirect('?');
         } else {
@@ -66,19 +67,19 @@ class LoginController extends Controller
     {
 
         try {
-            $user = User::findBy(['username' => $username]);
+            $user = User::findBy(['username' => $username]); // find the user information
         } catch (ModelNotFoundException $e) {
             $_SESSION['error'] = 'Invalid username or password';
-            redirect_back();
+            redirect_back(); // redirect the user if the account is not found
         }
-        $stored_pass = $user->__get('password');
+        $stored_pass = $user->__get('password'); // checks the password is correct
         return password_verify($password, $stored_pass);
     }
 
     public static function logout($method)
     {
         if ($method === 'POST') {
-            Auth::logout();
+            Auth::logout(); // unsets the user from the session
             $_SESSION['success'] = "Logged out succesfully";
             redirect('?');
         } else {

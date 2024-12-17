@@ -7,28 +7,65 @@ require_once 'models/Department.php';
 class DepartmentsController extends Controller
 {
     public static function index($method)
-    {
+    { // take the appropiate path depending on the user selected action
         if (isset($_GET['edit'])) {
-            DepartmentsController::viewEditDepartment();
+            DepartmentsController::update();
         } elseif (isset($_GET['create'])) {
             DepartmentsController::create($method);
         } elseif (isset($_GET['delete'])) {
             DepartmentsController::delete($method);
-        } else {
-            $user = User::findBy(['username' => 'admin']); // development data
-            // after login works
-            // $user = User::findBy(['username' => $_SESSION['username']]);
+        } else { // when no action is chosen, display the general departments page
             $departments = Department::all();
             require_once 'views/departments.php';
         }
     }
 
-    public static function viewEditDepartment()
+    public static function update()
     {
-        $user = User::findBy(['username' => 'admin']); // development data
-        // after login works
-        // $user = User::findBy(['username' => $_SESSION['username']]);
+        if ($_GET['edit'] && $_SERVER['REQUEST_METHOD'] != 'POST') {
+            require_once 'models/Department.php';
+            if (empty($_GET['edit']) || !Department::exists(['dept_id' => $_GET['edit']])) {
+                $_SESSION['error'] = 'Please indicate a department to edit';
+                redirect('?departments');
+            }
+            
+            $department_id = $_GET['edit'];
+    
+    
+            try {
+                $department = Department::find($department_id);
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'Department code does not match any record';
+                redirect('?departments');
+            }
         require_once 'views/department_edit.php';
+        } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+            $department_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+            $name = filter_input(INPUT_POST, 'name', FILTER_DEFAULT);
+    
+            try {
+                $department = Department::find($department_id);
+            } catch (ModelNotFoundException $e) {
+                // this means the input for department code was forcefully changed
+                $department = null;
+                $_SESSION['error'] = 'Department code does not match any record';
+                redirect('?departments');
+            }
+    
+            if (empty($name) || !$department) {
+                $_SESSION['error'] = 'All fields are required';
+                redirect('?departments&edit=' . $department_id);
+            } else {
+                // this will update and save the department new information
+                $success = $department->update([
+                    'dept_name' => $name,
+                ]);
+    
+                $success ? $_SESSION['success'] = 'Changed department information successfully' : $_SESSION['error'] = 'Failed to change department information';
+                redirect('?departments');
+            }
+        }
     }
 
     public static function editDepartment()
@@ -53,14 +90,14 @@ class DepartmentsController extends Controller
             $department_name = filter_input(INPUT_POST, 'dept_name', FILTER_DEFAULT);
             $department_code = filter_input(INPUT_POST, 'dept_code', FILTER_DEFAULT);
 
-            if (empty($department_name) || empty($department_code)) {
+            if (empty($department_name) || empty($department_code)) { 
                 $_SESSION['error'] = "Please fill all the fields";
-                redirect_back();
+                redirect_back(); // the user will be redirected if any fields are empty
             }
 
-            if (!preg_match('/^[A-Z]{4}$/', $department_code)) {
+            if (!preg_match('/^[A-Z]{4}$/', $department_code)) { 
                 $_SESSION['error'] = "Please create a department code with 4 uppercase letters";
-                redirect_back();
+                redirect_back(); // the user will be redirected if the department code is not valid
             }
 
             if (Department::exists(['dept_id' => $department_code])) {
@@ -95,13 +132,36 @@ class DepartmentsController extends Controller
 
     public static function delete($method)
     {
-        $department = $_GET['delete'];
-        try {
-            $department = Department::find($department);
-        } catch (ModelNotFoundException $e) {
-            $_SESSION['error'] = 'The department does not exist';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $department_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+            $department = $_GET['delete'];
+
+            try {
+                $department = Department::find($department); // find the department to be deleted
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'The department does not exist';
+                redirect('?departments'); // redirect the user if the department is not found
+            }
+
+            if(sizeof($department->courses()) > 0){
+                $_SESSION['error'] = 'Cannot delete department with courses';
+                redirect('?departments');
+            }
+
+            $success = $department->delete();
+
+            $success ? $_SESSION['success'] = 'Department deleted successfully' : $_SESSION['error'] = 'Failed to delete department';
+            $departments = Department::all();
             redirect('?departments');
+        } else {
+            $department = $_GET['delete'];
+            try {
+                $department = Department::find($department); // find the department to be deleted
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'The department does not exist';
+                redirect('?departments'); // redirect the user if the department is not found
+            }
+            require_once 'views/department_delete.php';
         }
-        require_once 'views/department_delete.php';
     }
 }
