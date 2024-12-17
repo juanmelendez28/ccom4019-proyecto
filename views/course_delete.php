@@ -5,10 +5,7 @@
 <body>
     <?php if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
         
-        if(!Auth::checkAdmin() && Auth::user()->dept_id !== $course->dept_id){
-            $_SESSION['error'] = 'You don\'t have permissions to delete this course';
-            redirect('?courses');
-        }
+        
         ?>
         <form class="form" action="#" method="post">
             <h2>Are you sure you want to delete this course?</h2>
@@ -34,6 +31,7 @@
         $course_id = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
 
         $success = $course->delete();
+        $result = TermOffering::delete_course($course->values['course_id']); // delete course
 
         $success ? $_SESSION['success'] = 'Course deleted successfully' : $_SESSION['error'] = 'Failed to delete course';
         $departments = Department::all();

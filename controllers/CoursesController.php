@@ -63,7 +63,7 @@ class CoursesController extends Controller
 
             $failed = $course->updatePrerequisites($description_bbcode['Prerequisites']);
 
-            if (sizeof($failed) > 0) { 
+            if (sizeof($failed) > 0) {
                 $_SESSION['error'] = 'Failed to add prerequisite(s) ' .
                     implode(', ', $failed) .
                     ' must be 4 uppercase letters followed by 4 numbers';
@@ -216,7 +216,26 @@ class CoursesController extends Controller
             $_SESSION['error'] = 'The course does not exist';
             redirect('?courses'); // redirect the user if the course is not found
         }
-        $result = TermOffering::delete_course($course->values['course_id']); // delete course
+
+        if (!Auth::checkAdmin() && Auth::user()->dept_id !== $course->dept_id) {
+            $_SESSION['error'] = 'You don\'t have permissions to delete this course';
+            redirect('?courses');
+        }
+
+        $term_active = TermOffering::courses();
+
+        foreach($term_active as $active_course) {
+            if($active_course->values['course_id'] == $course->course_id) {
+                $_SESSION['error'] = 'Can\'t delete the course since its active on the current term';   
+                redirect('?courses');
+            }
+        }
+        if (in_array($course->course_id, $term_active)) {
+            $_SESSION['error'] = 'Can\'t delete the course since its active on the current term';
+            redirect('?courses');
+        }
+
+
         require_once 'views/course_delete.php';
     }
 }
