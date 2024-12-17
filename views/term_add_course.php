@@ -5,7 +5,7 @@
         <?php require_once "partials/navbar.php" ?>
         <form class="form" action="#" method="post">
 
-            <h1><i class="las la-plus"></i> Add course to term</h1>
+            <h1><i class="las la-edit"></i> Manage courses on term</h1>
 
             <?php foreach ($courses as $course) { ?>
                 <?php if (Auth::checkAdmin()) { ?>
