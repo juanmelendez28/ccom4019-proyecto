@@ -39,7 +39,11 @@
                             <td><a href="index.php?terms&delete=<?= $term->term_id ?>"><i class="las la-trash"></i>Delete</a></td>
                             <td><a href="index.php?terms&activate=<?= $term->term_id ?>"><i class="las la-check-circle"></i>Activate</a></td>
                             <?php } ?>
-                            <td><a href="index.php?terms&add_course=<?= $term->term_id ?>"><i class="las la-edit"></i>Manage courses on term</a></td>
+                            <?php if ($active_term->term_id === $term->term_id) { ?>
+                                	<td><a href="index.php?terms&add_course=<?= $term->term_id ?>"><i class="las la-edit"></i>Manage courses on term</a></td>
+                            <?php } else { ?>
+                                <td></td>
+                            <?php } ?>
                     </tr>
                 <?php } ?>
             </tbody>

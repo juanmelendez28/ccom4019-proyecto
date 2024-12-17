@@ -53,6 +53,7 @@ class LoginController extends Controller
 
             Auth::login($loggedUser); // sets the user in the session to indicate it's logged in
             $_SESSION['success'] = "Logged in successfully";
+
             redirect('?');
         } else {
             // CoursesController::index();

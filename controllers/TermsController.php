@@ -35,9 +35,9 @@ class TermsController extends Controller
             TermsController::add_course($method);
         } else {
             $user = User::findBy(['username' => 'admin']); // development data
-            // after login works
-            // $user = User::findBy(['username' => $_SESSION['username']]);
+            
             $terms = Term::all();
+            $active_term = Term::findBy(['term_is_active' => true]);
             require_once 'views/terms.php';
         }
     }
@@ -231,9 +231,9 @@ class TermsController extends Controller
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if(empty($_POST['selected_courses'])) {
-                $_POST['selected_courses'] = [];
-            }
+
+            if (isset($_POST['selected_courses']) && !empty($_POST['selected_courses'])) {
+                $selected_courses = $_POST['selected_courses'];
 
             $selected_courses = $_POST['selected_courses'];
 
@@ -271,4 +271,6 @@ class TermsController extends Controller
             require_once('views/term_add_course.php');
         }
     }
+
+    
 }

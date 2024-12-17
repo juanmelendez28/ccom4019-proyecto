@@ -21,15 +21,15 @@
                         <?= $course->course_id . ": " . $course->course_name ?>
                     </label>
                 <?php } ?>
+                <?php } ?>
             <?php } ?>
             <input disabled type="hidden" name="id" value="<?= $term->term_id ?>">
             <div class="action-group">
-                <input type="submit" class="action primary" value="Add Courses">
+                <input type="submit" class="action primary" value="Edit Courses">
                 <div class="loader"></div>
             </div>
             </div>
         </form>
-    <?php } ?>
 
 
 
