@@ -52,8 +52,8 @@ class LoginController extends Controller
             ]);
 
             Auth::login($loggedUser);
-
-            CoursesController::index($_SERVER['REQUEST_METHOD']);
+            $_SESSION['success'] = "Logged in successfully";
+            redirect('?');
         } else {
             // CoursesController::index();
             $_SESSION['error'] = 'Invalid username or password';
