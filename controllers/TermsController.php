@@ -234,6 +234,7 @@ class TermsController extends Controller
 
             if (isset($_POST['selected_courses']) && !empty($_POST['selected_courses'])) {
                 $selected_courses = $_POST['selected_courses'];
+            }
 
             $selected_courses = $_POST['selected_courses'];
 

@@ -11,7 +11,7 @@ class UsersController extends Controller
     public static function index($method)
     {
         if (isset($_GET['edit'])) {
-            UsersController::viewEditUser($method);
+            UsersController::update($method);
         } elseif (isset($_GET['create'])) {
             UsersController::create($method);
         } elseif (isset($_GET['delete'])) {
@@ -25,7 +25,7 @@ class UsersController extends Controller
         }
     }
 
-    public static function viewEditUser($method)
+    public static function update($method)
     {
 
         if ($method === 'POST') {
@@ -168,13 +168,31 @@ class UsersController extends Controller
 
     public static function delete($method)
     {
-        $user = $_GET['delete'];
-        try {
-            $user = User::find($user);
-        } catch (ModelNotFoundException $e) {
-            $_SESSION['error'] = 'User not found';
+        if ($method == 'POST') {
+            $user = filter_input(INPUT_POST, 'id', FILTER_DEFAULT);
+
+            dd($user);
+            try {
+                $user = User::find($user);
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'User not found';
+                redirect('?users');
+            }
+
+            $success = $user->delete();
+    
+            $success ? $_SESSION['success'] = 'User deleted successfully' : $_SESSION['error'] = 'Failed to delete user';
+            $users = User::all();
             redirect('?users');
+        } else {
+            $user = $_GET['delete'];
+            try {
+                $user = User::find($user);
+            } catch (ModelNotFoundException $e) {
+                $_SESSION['error'] = 'User not found';
+                redirect('?users');
+            }
+            require_once 'views/user_delete.php'; 
         }
-        require_once 'views/user_delete.php';
     }
 }
