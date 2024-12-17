@@ -30,10 +30,13 @@
 
 
         // deleting all prerequisites
+        try{
         $prerequisites = Prerequisite::findAll($course->course_id, 'course_id', 'prerequisites');
 
         foreach($prerequisites as $prerequisite) {
             $prerequisite->delete();
+        }} catch (ModelNotFoundException $e){
+            // do nothing since there are no prerequisites 
         }
 
         $success = $course->delete();
